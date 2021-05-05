@@ -1,11 +1,28 @@
 import "./App.css";
+import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Register from "./components/Register";
+import { connect } from "react-redux";
+import * as actions from "./store/actions/index";
 
-const App = () => {
+const App = (props) => {
+  // Check if user has a valid token in local storage
+  const isLoggedIn = () => {
+    const expiration = localStorage.getItem("expires");
+    return expiration && Number(expiration) > Date.now();
+  };
+
+  // Authorize user if they have a valid token
+  useEffect(() => {
+    if (isLoggedIn()) {
+      props.onAuthorize();
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className="App">
       <ScrollToTop />
@@ -22,4 +39,16 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuthorize: () => {
+      dispatch(actions.authorize());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

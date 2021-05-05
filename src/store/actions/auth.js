@@ -9,6 +9,8 @@ export const authorize = () => {
 
 // Deauthorize user
 export const deauthorize = () => {
+  localStorage.removeItem("token")
+  localStorage.removeItem("expires");
   return {
     type: actionTypes.DEAUTHORIZE,
   };
@@ -38,7 +40,7 @@ export const userRegister = (registerForm, history) => {
         // Set jwt token in local storage
         localStorage.setItem("token", data.token)
         const expires = Date.now() + Number(data.expiresIn);
-        localStorage.setItem("expiresIn", expires)
+        localStorage.setItem("expires", expires)
 
         // Login user with redux state auth
         dispatch(authorize());
