@@ -55,6 +55,39 @@ export const userRegister = (registerForm, history) => {
 };
 
 // Handle login submission to backend
-export const userLogin = () => {
-  return (dispatch) => {};
+export const userLogin = (loginForm, history) => {
+  return (dispatch) => {
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      body: JSON.stringify(loginForm),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("userRegister", data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error)
+        }
+
+        // Set jwt token in local storage
+        localStorage.setItem("token", data.token)
+        const expires = Date.now() + Number(data.expiresIn);
+        localStorage.setItem("expires", expires)
+
+        // Login user with redux state auth
+        dispatch(authorize());
+
+        // Redirect to home page on success
+        history.push("/")
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 };

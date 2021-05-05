@@ -5,6 +5,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Register from "./components/Register";
+import Login from "./components/Login"
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
 
@@ -33,6 +34,9 @@ const App = (props) => {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/login">
+          <Login/>
         </Route>
       </Switch>
     </div>
