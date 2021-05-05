@@ -1,1 +1,1 @@
-export { authorize, deauthorize } from "./auth";
+export { authorize, deauthorize, userRegister } from "./auth";
