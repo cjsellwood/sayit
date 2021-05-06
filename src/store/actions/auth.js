@@ -9,7 +9,7 @@ export const authorize = () => {
 
 // Deauthorize user
 export const deauthorize = () => {
-  localStorage.removeItem("token")
+  localStorage.removeItem("token");
   localStorage.removeItem("expires");
   return {
     type: actionTypes.DEAUTHORIZE,
@@ -34,19 +34,19 @@ export const userRegister = (registerForm, history) => {
 
         // If error on backend throw to catch block
         if (data.error) {
-          throw new Error(data.error)
+          throw new Error(data.error);
         }
 
         // Set jwt token in local storage
-        localStorage.setItem("token", data.token)
+        localStorage.setItem("token", data.token);
         const expires = Date.now() + Number(data.expiresIn);
-        localStorage.setItem("expires", expires)
+        localStorage.setItem("expires", expires);
 
         // Login user with redux state auth
         dispatch(authorize());
 
         // Redirect to home page on success
-        history.push("/")
+        history.push("/");
       })
       .catch((error) => {
         console.log(error.message);
@@ -64,27 +64,25 @@ export const userLogin = (loginForm, history) => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         console.log("userRegister", data);
 
         // If error on backend throw to catch block
         if (data.error) {
-          throw new Error(data.error)
+          throw new Error(data.error);
         }
 
         // Set jwt token in local storage
-        localStorage.setItem("token", data.token)
+        localStorage.setItem("token", data.token);
         const expires = Date.now() + Number(data.expiresIn);
-        localStorage.setItem("expires", expires)
+        localStorage.setItem("expires", expires);
 
         // Login user with redux state auth
         dispatch(authorize());
 
         // Redirect to home page on success
-        history.push("/")
+        history.push("/");
       })
       .catch((error) => {
         console.log(error.message);

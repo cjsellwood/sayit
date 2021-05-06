@@ -1,13 +1,14 @@
 import "./App.css";
 import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "./store/actions/index";
 import ScrollToTop from "./components/ScrollToTop";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login"
-import { connect } from "react-redux";
-import * as actions from "./store/actions/index";
+import NewPost from "./components/NewPost"
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -37,6 +38,9 @@ const App = (props) => {
         </Route>
         <Route path="/login">
           <Login/>
+        </Route>
+        <Route path="/new">
+          <NewPost/>
         </Route>
       </Switch>
     </div>
