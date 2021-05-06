@@ -5,13 +5,15 @@ import App from "./App";
 import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
-import auth from "./store/reducers/auth";
 import thunk from "redux-thunk";
+import auth from "./store/reducers/auth";
+import posts from "./store/reducers/posts"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: auth,
+  posts: posts,
 });
 
 const store = createStore(
