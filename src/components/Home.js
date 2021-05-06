@@ -5,7 +5,9 @@ const Home = (props) => {
   return (
     <div>
       <h1>Home</h1>
-      <Link to="/new">New Post</Link>
+      <Link to="/newpost">New Post</Link>
+      <br></br>
+      <Link to="/newtopic">New Topic</Link>
       <h2>
       All posts
 

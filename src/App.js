@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login"
 import NewPost from "./components/NewPost"
+import NewTopic from "./components/NewTopic"
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -39,8 +40,11 @@ const App = (props) => {
         <Route path="/login">
           <Login/>
         </Route>
-        <Route path="/new">
+        <Route path="/newpost">
           <NewPost/>
+        </Route>
+        <Route path="/newtopic">
+          <NewTopic/>
         </Route>
       </Switch>
     </div>

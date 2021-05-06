@@ -2,20 +2,18 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import * as actions from "../store/actions/index";
-
-const NewPost = (props) => {
+const NewTopic = (props) => {
   let history = useHistory();
 
-  const [postForm, setPostForm] = useState({
-    title: "",
-    text: "",
-    topic: "",
+  const [topicForm, setTopicForm] = useState({
+    name: "",
+    description: "",
   });
 
   // Handle text field changes
   const handleInput = (e) => {
-    setPostForm({
-      ...postForm,
+    setTopicForm({
+      ...topicForm,
       [e.target.name]: e.target.value,
     });
   };
@@ -23,39 +21,29 @@ const NewPost = (props) => {
   // Handle Submission of form
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onNewPost(postForm, history);
+    props.onNewTopic(topicForm, history);
   };
 
   return (
     <section>
-      <h1>New Post</h1>
+      <h1>New Topic</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Title*</label>
+          <label htmlFor="name">Name*</label>
           <input
             type="text"
-            name="title"
-            value={postForm.title}
+            name="name"
+            value={topicForm.name}
             onChange={handleInput}
             required
           />
         </div>
         <div>
-          <label htmlFor="text">Text</label>
+          <label htmlFor="text">Description*</label>
           <input
             type="text"
-            name="text"
-            value={postForm.text}
-            onChange={handleInput}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="topic">Topic*</label>
-          <input
-            type="text"
-            name="topic"
-            value={postForm.topic}
+            name="description"
+            value={topicForm.description}
             onChange={handleInput}
             required
           />
@@ -72,10 +60,10 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onNewPost: (postForm, history) => {
-      dispatch(actions.newPost(postForm, history));
+    onNewTopic: (topicForm, history) => {
+      dispatch(actions.newTopic(topicForm, history));
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
+export default connect(mapStateToProps, mapDispatchToProps)(NewTopic);
