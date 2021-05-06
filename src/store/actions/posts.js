@@ -1,4 +1,4 @@
-import * as actionTypes from "../actions/actionTypes"
+import * as actionTypes from "../actions/actionTypes";
 
 // Submit new post
 export const newPost = (postForm, history) => {
@@ -24,6 +24,7 @@ export const newPost = (postForm, history) => {
         // Add to state
 
         // Redirect
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);
@@ -55,6 +56,7 @@ export const newTopic = (topicForm, history) => {
         // Add to state
 
         // Redirect
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);
@@ -67,8 +69,8 @@ export const loadPosts = (posts) => {
   return {
     type: actionTypes.LOAD_POSTS,
     posts,
-  }
-}
+  };
+};
 
 // Get posts
 export const getPosts = () => {
@@ -84,12 +86,62 @@ export const getPosts = () => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts))
-
-        // Redirect
+        dispatch(loadPosts(data.posts));
       })
       .catch((error) => {
         console.log(error);
       });
   };
 };
+
+// Get posts for a single topic
+export const getTopicPosts = (topic) => {
+  return (dispatch) => {
+    fetch(`http://localhost:3000/posts/topic/${topic}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Add to state
+        dispatch(loadPosts(data.posts));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+// Set single post
+export const setSinglePost = (post) => {
+  return {
+    type: actionTypes.SET_SINGLE_POST,
+    post,
+  };
+};
+
+// Get single post
+export const getSinglePost = (post_id) => {
+  return (dispatch) => {
+    fetch(`http://localhost:3000/posts/${post_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Add to state
+        dispatch(setSinglePost(data.post))
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}

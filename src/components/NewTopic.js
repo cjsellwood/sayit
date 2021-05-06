@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory} from "react-router";
 import * as actions from "../store/actions/index";
 const NewTopic = (props) => {
   let history = useHistory();

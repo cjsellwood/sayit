@@ -13,20 +13,20 @@ const Home = (props) => {
   const postsDisplay = props.posts.map((post) => {
     return (
       <li key={post.post_id}>
-        <Link to="/">
-          <h3>{post.title}</h3>
+        <div to="/">
+          <Link to={`/topics/${post.topic}/${post.post_id}`}>{post.title}</Link>
           <p>
             User: {post.user_id} - {post.username}
           </p>
-          <p>
+          <Link to={`/topics/${post.topic}`}>
             Topic: {post.topic_id} - {post.topic}
-          </p>
+          </Link>
           <p>{post.text}</p>
           <p>
             Time: {new Date(post.time).toLocaleTimeString()}{" "}
             {new Date(post.time).toLocaleDateString()}
           </p>
-        </Link>
+        </div>
       </li>
     );
   });

@@ -1,2 +1,9 @@
 export { authorize, deauthorize, userRegister, userLogin } from "./auth";
-export {newPost, newTopic, getPosts} from "./posts"
+export {
+  newPost,
+  newTopic,
+  getPosts,
+  getTopicPosts,
+  setSinglePost,
+  getSinglePost,
+} from "./posts";

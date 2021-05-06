@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   posts: [],
+  post: {},
 };
 
 const loadPosts = (state, action) => {
@@ -11,10 +12,19 @@ const loadPosts = (state, action) => {
   };
 };
 
+const setSinglePost = (state, action) => {
+  return {
+    ...state,
+    post: action.post,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
       return loadPosts(state, action);
+    case actionTypes.SET_SINGLE_POST:
+      return setSinglePost(state, action);
     default:
       return state;
   }
