@@ -98,7 +98,7 @@ export const getPosts = () => {
 // Get posts for a single topic
 export const getTopicPosts = (topic) => {
   return (dispatch) => {
-    fetch(`${base}/posts/topic/${topic}`)
+    fetch(`${base}/posts/topics/${topic}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -148,6 +148,14 @@ export const getSinglePost = (post_id) => {
   };
 };
 
+// Add comment to post
+export const addComment = (comment) => {
+  return {
+    type: actionTypes.ADD_COMMENT,
+    comment,
+  }
+}
+
 // Submit new comment
 export const newComment = (commentForm, post_id) => {
   return (dispatch) => {
@@ -170,9 +178,40 @@ export const newComment = (commentForm, post_id) => {
         }
 
         // Add to state
+        dispatch(addComment(data.comment))
       })
       .catch((error) => {
         console.log(error);
       });
   };
 };
+
+// Set topics in state
+export const setTopics = (topics) => {
+  return {
+    type: actionTypes.SET_TOPICS,
+    topics,
+  }
+}
+
+// Get list of topics
+export const getTopics = () => {
+  return dispatch => {
+    fetch(`${base}/posts/topics`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Add to state
+        dispatch(setTopics(data.topics));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}

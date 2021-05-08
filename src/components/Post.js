@@ -9,16 +9,7 @@ const Post = (props) => {
   let history = useHistory();
 
   useEffect(() => {
-    // const filtered = props.posts.filter((post) => {
-    //   return post.post_id === Number(post_id);
-    // });
-
-    // // Load from state if in it else fetch from backend
-    // if (filtered.length) {
-    //   props.onSetSinglePost(filtered[0], topic, history);
-    // } else {
     props.onGetSinglePost(post_id, topic, history);
-    // }
 
     // If topic in url wrong redirect to correct page
     if (props.post.post_id && props.post.topic !== topic) {
@@ -51,7 +42,7 @@ const Post = (props) => {
     text: "",
   });
 
-  // Display comments
+  // Display comments by newest for now
   const commentsDisplay = props.comments.map(comment => {
     return (<div key={comment.comment_id}>
       <p>{comment.text}</p>

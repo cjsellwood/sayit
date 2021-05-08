@@ -36,7 +36,10 @@ const Home = (props) => {
       <h1>Home</h1>
       <Link to="/newpost">New Post</Link>
       <br></br>
+      <Link to="/topics">Topics</Link>
+      <br></br>
       <Link to="/newtopic">New Topic</Link>
+      <br />
       <h2>All posts</h2>
       <ul>{postsDisplay}</ul>
     </div>

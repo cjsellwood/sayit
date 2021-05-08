@@ -4,6 +4,7 @@ const initialState = {
   posts: [],
   post: {},
   comments: [],
+  topics: [],
 };
 
 const loadPosts = (state, action) => {
@@ -21,12 +22,30 @@ const setSinglePost = (state, action) => {
   };
 };
 
+const addComment = (state, action) => {
+  return {
+    ...state,
+    comments: [...state.comments, action.comment]
+  }
+}
+
+const setTopics = (state, action) => {
+  return {
+    ...state,
+    topics: action.topics,
+  }
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
       return loadPosts(state, action);
     case actionTypes.SET_SINGLE_POST:
       return setSinglePost(state, action);
+    case actionTypes.ADD_COMMENT:
+      return addComment(state, action);
+    case actionTypes.SET_TOPICS:
+      return setTopics(state, action);
     default:
       return state;
   }

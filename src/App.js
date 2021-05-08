@@ -7,11 +7,12 @@ import ScrollToTop from "./components/ScrollToTop";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Register from "./components/Register";
-import Login from "./components/Login"
-import NewPost from "./components/NewPost"
-import NewTopic from "./components/NewTopic"
-import Topic from "./components/Topic"
-import Post from "./components/Post"
+import Login from "./components/Login";
+import NewPost from "./components/NewPost";
+import NewTopic from "./components/NewTopic";
+import Topic from "./components/Topic";
+import Post from "./components/Post";
+import Topics from "./components/Topics";
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -40,19 +41,22 @@ const App = (props) => {
           <Register />
         </Route>
         <Route path="/login">
-          <Login/>
+          <Login />
         </Route>
         <Route path="/newpost">
-          <NewPost/>
+          <NewPost />
         </Route>
         <Route path="/newtopic">
-          <NewTopic/>
+          <NewTopic />
+        </Route>
+        <Route path="/topics" exact>
+          <Topics />
         </Route>
         <Route path="/topics/:topic" exact>
-          <Topic/>
+          <Topic />
         </Route>
-        <Route path="/topics/:topic/:post_id">
-          <Post/>
+        <Route path="/topics/:topic/:post_id" exact>
+          <Post />
         </Route>
       </Switch>
     </div>
