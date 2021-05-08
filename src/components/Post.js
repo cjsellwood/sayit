@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import * as actions from "../store/actions/index";
@@ -8,17 +8,17 @@ const Post = (props) => {
 
   let history = useHistory();
 
-  // Load from state if in it else fetch from backend
   useEffect(() => {
-    const filtered = props.posts.filter((post) => {
-      return post.post_id === Number(post_id);
-    });
+    // const filtered = props.posts.filter((post) => {
+    //   return post.post_id === Number(post_id);
+    // });
 
-    if (filtered.length) {
-      props.onSetSinglePost(filtered[0], topic, history);
-    } else {
-      props.onGetSinglePost(post_id, topic, history);
-    }
+    // // Load from state if in it else fetch from backend
+    // if (filtered.length) {
+    //   props.onSetSinglePost(filtered[0], topic, history);
+    // } else {
+    props.onGetSinglePost(post_id, topic, history);
+    // }
 
     // If topic in url wrong redirect to correct page
     if (props.post.post_id && props.post.topic !== topic) {
@@ -29,7 +29,6 @@ const Post = (props) => {
   }, [post_id, props.post.post_id]);
 
   let postDisplay = [];
-
 
   // If post set and the post ids' match, display post
   if (props.post.post_id && Number(props.post.post_id) === Number(post_id)) {
@@ -48,12 +47,73 @@ const Post = (props) => {
     );
   }
 
-  return <section>{postDisplay}</section>;
+  const [commentForm, setCommentForm] = useState({
+    text: "",
+  });
+
+  // Display comments
+  const commentsDisplay = props.comments.map(comment => {
+    return (<div key={comment.comment_id}>
+      <p>{comment.text}</p>
+      <p>
+          User: {comment.user_id} - {comment.username}
+        </p>
+      <p>
+          Time: {new Date(comment.time).toLocaleTimeString()}{" "}
+          {new Date(comment.time).toLocaleDateString()}
+        </p>
+    </div>)
+  })
+
+  // Handle text field changes
+  const handleInput = (e) => {
+    setCommentForm({
+      ...commentForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Handle Submission of form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onNewComment(commentForm, post_id);
+
+    // Reset to blank
+    setCommentForm({
+      text: "",
+    });
+  };
+
+  return (
+    <section>
+      {postDisplay}
+      <div>
+        <h2>Comments</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="comment">New Comment</label>
+            <br />
+            <textarea
+              type="text"
+              name="text"
+              value={commentForm.text}
+              onChange={handleInput}
+            />
+          </div>
+          <button type="submit" aria-label="submit">
+            save
+          </button>
+        </form>
+        {commentsDisplay}
+      </div>
+    </section>
+  );
 };
 
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
   post: state.posts.post,
+  comments: state.posts.comments,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -63,6 +123,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onGetSinglePost: (post_id) => {
       dispatch(actions.getSinglePost(post_id));
+    },
+    onNewComment: (commentForm, post_id) => {
+      dispatch(actions.newComment(commentForm, post_id));
     },
   };
 };

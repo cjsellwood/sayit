@@ -3,6 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   posts: [],
   post: {},
+  comments: [],
 };
 
 const loadPosts = (state, action) => {
@@ -16,6 +17,7 @@ const setSinglePost = (state, action) => {
   return {
     ...state,
     post: action.post,
+    comments: action.comments
   };
 };
 

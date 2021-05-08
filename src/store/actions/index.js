@@ -6,4 +6,5 @@ export {
   getTopicPosts,
   setSinglePost,
   getSinglePost,
+  newComment,
 } from "./posts";

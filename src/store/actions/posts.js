@@ -1,10 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
+import base from "../../base";
 
 // Submit new post
 export const newPost = (postForm, history) => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:3000/posts/new", {
+    fetch(`${base}/posts/new`, {
       method: "POST",
       body: JSON.stringify(postForm),
       headers: {
@@ -36,7 +37,7 @@ export const newPost = (postForm, history) => {
 export const newTopic = (topicForm, history) => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:3000/newtopic", {
+    fetch(`${base}/newtopic`, {
       method: "POST",
       body: JSON.stringify(topicForm),
       headers: {
@@ -75,7 +76,7 @@ export const loadPosts = (posts) => {
 // Get posts
 export const getPosts = () => {
   return (dispatch) => {
-    fetch("http://localhost:3000/posts")
+    fetch(`${base}/posts`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -97,7 +98,7 @@ export const getPosts = () => {
 // Get posts for a single topic
 export const getTopicPosts = (topic) => {
   return (dispatch) => {
-    fetch(`http://localhost:3000/posts/topic/${topic}`)
+    fetch(`${base}/posts/topic/${topic}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -117,17 +118,18 @@ export const getTopicPosts = (topic) => {
 };
 
 // Set single post
-export const setSinglePost = (post) => {
+export const setSinglePost = (post, comments) => {
   return {
     type: actionTypes.SET_SINGLE_POST,
     post,
+    comments
   };
 };
 
 // Get single post
 export const getSinglePost = (post_id) => {
   return (dispatch) => {
-    fetch(`http://localhost:3000/posts/${post_id}`)
+    fetch(`${base}/posts/${post_id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -138,10 +140,39 @@ export const getSinglePost = (post_id) => {
         }
 
         // Add to state
-        dispatch(setSinglePost(data.post))
+        dispatch(setSinglePost(data.post, data.comments));
       })
       .catch((error) => {
         console.log(error);
       });
-  }
-}
+  };
+};
+
+// Submit new comment
+export const newComment = (commentForm, post_id) => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    fetch(`${base}/comments/new`, {
+      method: "POST",
+      body: JSON.stringify({...commentForm, post_id}),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Add to state
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
