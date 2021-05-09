@@ -8,4 +8,5 @@ export {
   getSinglePost,
   newComment,
   getTopics,
+  toggleReplyForm,
 } from "./posts";

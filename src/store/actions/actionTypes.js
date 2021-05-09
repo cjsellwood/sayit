@@ -6,3 +6,4 @@ export const SET_SINGLE_POST = "SET_SINGLE_POST";
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export const SET_TOPICS = "SET_TOPICS";
+export const TOGGLE_REPLY_FORM = "TOGGLE_REPLY_FORM";

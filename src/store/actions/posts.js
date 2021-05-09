@@ -215,3 +215,11 @@ export const getTopics = () => {
       });
   }
 }
+
+// Toggle display of comment reply form
+export const toggleReplyForm = comment_id => {
+  return {
+    type: actionTypes.TOGGLE_REPLY_FORM,
+    comment_id,
+  }
+}

@@ -15,26 +15,49 @@ const loadPosts = (state, action) => {
 };
 
 const setSinglePost = (state, action) => {
+  const comments = action.comments;
+  for (let comment of comments) {
+    comment.reply = "";
+    comment.showReply = false;
+  }
   return {
     ...state,
     post: action.post,
-    comments: action.comments
+    comments: action.comments,
   };
 };
 
 const addComment = (state, action) => {
   return {
     ...state,
-    comments: [...state.comments, action.comment]
-  }
-}
+    comments: [...state.comments, action.comment],
+  };
+};
 
 const setTopics = (state, action) => {
   return {
     ...state,
     topics: action.topics,
+  };
+};
+
+const toggleReplyForm = (state, action) => {
+  const comments = [];
+  for (let comment of state.comments) {
+    comments.push({ ...comment });
   }
-}
+
+  const index = comments.findIndex(
+    (comment) => comment.comment_id === Number(action.comment_id)
+  );
+
+  comments[index].showReply = !comments[index].showReply;
+
+  return {
+    ...state,
+    comments,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -46,6 +69,8 @@ const reducer = (state = initialState, action) => {
       return addComment(state, action);
     case actionTypes.SET_TOPICS:
       return setTopics(state, action);
+    case actionTypes.TOGGLE_REPLY_FORM:
+      return toggleReplyForm(state, action);
     default:
       return state;
   }
