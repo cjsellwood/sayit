@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import * as actions from "../store/actions/index";
-import Comment from "./partials/Comment"
+import Comment from "./partials/Comment";
 
 const Post = (props) => {
   const { post_id, topic } = useParams();
@@ -43,100 +43,19 @@ const Post = (props) => {
     text: "",
   });
 
-  // const showReplyForm = (e) => {
-  //   const index = e.target.getAttribute("data-index");
-  //   props.onToggleReplyForm(index);
-  // };
-
-  // const submitCommentReply = (e) => {
-  //   e.preventDefault();
-  // };
-
-  // const Comment = (props) => {
-  //   return (
-  //     <li key={props.comment.comment_id}>
-  //       <p>{props.comment.text}</p>
-  //       <p>
-  //         User: {props.comment.user_id} - {props.comment.username}
-  //       </p>
-  //       <p>
-  //         Time: {new Date(props.comment.time).toLocaleTimeString()}{" "}
-  //         {new Date(props.comment.time).toLocaleDateString()}
-  //       </p>
-  //       <button
-  //         data-index={props.index}
-  //         onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
-  //       >
-  //         Reply
-  //       </button>
-  //       {props.comment.showReply ? (
-  //         <form onSubmit={submitCommentReply}>
-  //           <div>
-  //             <label htmlFor="comment">Reply To Comment</label>
-  //             <textarea value={props.comment.commentReply}></textarea>
-  //           </div>
-  //           <button type="submit" aria-label="submit">
-  //             Submit
-  //           </button>
-  //           <button
-  //             type="button"
-  //             aria-label="cancel"
-  //             onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
-  //           >
-  //             Cancel
-  //           </button>
-  //         </form>
-  //       ) : null}
-  //       <ul>
-  //         {replies.map((comment) => {
-  //           return <Comment comment={comment} key={comment.comment_id} />;
-  //         })}
-  //       </ul>
-  //     </li>
-  //   );
-  // };
-
   // Get comments with no parent
   const topLevelComments = props.comments.filter((comment) => !comment.parent);
-  console.log(topLevelComments)
 
   // Display comments by newest for now
-  const commentsDisplay = topLevelComments.map((comment, index) => {
-    return <Comment allComments={props.comments} comment={comment} key={comment.comment_id} />;
-    // return (
-    //   <li key={comment.comment_id}>
-    //     <p>{comment.text}</p>
-    //     <p>
-    //       User: {comment.user_id} - {comment.username}
-    //     </p>
-    //     <p>
-    //       Time: {new Date(comment.time).toLocaleTimeString()}{" "}
-    //       {new Date(comment.time).toLocaleDateString()}
-    //     </p>
-    //     <button data-index={index} onClick={() => props.onToggleReplyForm(index)}>
-    //       Reply
-    //     </button>
-    //     {comment.showReply ? (
-    //       <form onSubmit={submitCommentReply}>
-    //         <div>
-    //           <label htmlFor="comment">Reply To Comment</label>
-    //           <textarea value={comment.commentReply}></textarea>
-    //         </div>
-    //         <button type="submit" aria-label="submit">
-    //           Submit
-    //         </button>
-    //         <button
-    //           type="button"
-    //           aria-label="cancel"
-    //           onClick={() => props.onToggleReplyForm(index)}
-    //         >
-    //           Cancel
-    //         </button>
-    //       </form>
-    //     ) : null}
-    //     <ul></ul>
-    //   </li>
-    // );
+  const commentsDisplay = topLevelComments.map((comment) => {
+    return (
+      <Comment
+        allComments={props.comments}
+        comment={comment}
+        key={comment.comment_id}
+        post_id={post_id}
+      />
+    );
   });
 
   // Handle text field changes

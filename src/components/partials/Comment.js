@@ -4,6 +4,11 @@ import * as actions from "../../store/actions/index";
 const Comment = (props) => {
   const submitCommentReply = (e) => {
     e.preventDefault();
+    props.onCommentReply(
+      props.comment.reply,
+      props.post_id,
+      props.comment.comment_id
+    );
   };
 
   // Filter comments that have this comment as it's parent
@@ -31,7 +36,10 @@ const Comment = (props) => {
         <form onSubmit={submitCommentReply}>
           <div>
             <label htmlFor="comment">Reply To Comment</label>
-            <textarea value={props.comment.commentReply}></textarea>
+            <textarea
+              value={props.comment.reply}
+              onChange={(e) => props.onReplyInput(e.target.value, props.comment.comment_id)}
+            ></textarea>
           </div>
           <button type="submit" aria-label="submit">
             Submit
@@ -53,6 +61,9 @@ const Comment = (props) => {
               comment={comment}
               key={comment.comment_id}
               onToggleReplyForm={props.onToggleReplyForm}
+              onReplyInput={props.onReplyInput}
+              onCommentReply={props.onCommentReply}
+              post_id={props.post_id}
             />
           );
         })}
@@ -70,6 +81,12 @@ const mapDispatchToProps = (dispatch) => {
     onToggleReplyForm: (index) => {
       dispatch(actions.toggleReplyForm(index));
     },
+    onCommentReply: (text, post_id, parent) => {
+      dispatch(actions.commentReply(text, post_id, parent));
+    },
+    onReplyInput: (value, comment_id) => {
+      dispatch(actions.replyInput(value, comment_id))
+    }
   };
 };
 

@@ -122,7 +122,7 @@ export const setSinglePost = (post, comments) => {
   return {
     type: actionTypes.SET_SINGLE_POST,
     post,
-    comments
+    comments,
   };
 };
 
@@ -153,8 +153,8 @@ export const addComment = (comment) => {
   return {
     type: actionTypes.ADD_COMMENT,
     comment,
-  }
-}
+  };
+};
 
 // Submit new comment
 export const newComment = (commentForm, post_id) => {
@@ -162,7 +162,7 @@ export const newComment = (commentForm, post_id) => {
     const token = localStorage.getItem("token");
     fetch(`${base}/comments/new`, {
       method: "POST",
-      body: JSON.stringify({...commentForm, post_id}),
+      body: JSON.stringify({ ...commentForm, post_id }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -178,7 +178,7 @@ export const newComment = (commentForm, post_id) => {
         }
 
         // Add to state
-        dispatch(addComment(data.comment))
+        dispatch(addComment(data.comment));
       })
       .catch((error) => {
         console.log(error);
@@ -191,12 +191,12 @@ export const setTopics = (topics) => {
   return {
     type: actionTypes.SET_TOPICS,
     topics,
-  }
-}
+  };
+};
 
 // Get list of topics
 export const getTopics = () => {
-  return dispatch => {
+  return (dispatch) => {
     fetch(`${base}/posts/topics`)
       .then((response) => response.json())
       .then((data) => {
@@ -213,13 +213,67 @@ export const getTopics = () => {
       .catch((error) => {
         console.log(error);
       });
-  }
-}
+  };
+};
 
 // Toggle display of comment reply form
-export const toggleReplyForm = comment_id => {
+export const toggleReplyForm = (comment_id) => {
   return {
     type: actionTypes.TOGGLE_REPLY_FORM,
     comment_id,
-  }
-}
+  };
+};
+
+// Reset submitted comment reply's input and close input form
+export const resetReplyInput = (comment_id) => {
+  return {
+    type: actionTypes.RESET_REPLY_INPUT,
+    comment_id,
+  };
+};
+
+// Submit comment to backend
+export const commentReply = (text, post_id, parent) => {
+  return (dispatch) => {
+    console.log(text, post_id, parent);
+    const token = localStorage.getItem("token");
+    fetch(`${base}/comments/new`, {
+      method: "POST",
+      body: JSON.stringify({ text, post_id, parent }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Add to state
+        dispatch(addComment(data.comment));
+
+        // Reset input
+        dispatch(resetReplyInput(parent));
+
+        // Close input form
+        dispatch(toggleReplyForm(parent));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+// Handle input of comment reply
+export const replyInput = (value, comment_id) => {
+  return {
+    type: actionTypes.REPLY_INPUT,
+    value,
+    comment_id,
+  };
+};

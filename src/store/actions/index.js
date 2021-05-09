@@ -9,4 +9,6 @@ export {
   newComment,
   getTopics,
   toggleReplyForm,
+  commentReply,
+  replyInput,
 } from "./posts";
