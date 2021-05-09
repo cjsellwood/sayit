@@ -88,7 +88,6 @@ const resetReplyInput = (state, action) => {
   );
 
   comments[index].reply = "";
-  // comments[index].showReply = false;
 
   return {
     ...state,

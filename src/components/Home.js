@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
+import AuthShow from "./helpers/AuthShow";
 
 const Home = (props) => {
   // Fetch posts on first load
@@ -34,12 +35,14 @@ const Home = (props) => {
   return (
     <div>
       <h1>Home</h1>
-      <Link to="/newpost">New Post</Link>
-      <br></br>
       <Link to="/topics">Topics</Link>
       <br></br>
-      <Link to="/newtopic">New Topic</Link>
-      <br />
+      <AuthShow>
+        <Link to="/newpost">New Post</Link>
+        <br></br>
+        <Link to="/newtopic">New Topic</Link>
+        <br />
+      </AuthShow>
       <h2>All posts</h2>
       <ul>{postsDisplay}</ul>
     </div>

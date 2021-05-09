@@ -1,9 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
+import jwt_decode from "jwt-decode"
 
 // Authorize user
-export const authorize = () => {
+export const authorize = (user_id) => {
   return {
     type: actionTypes.AUTHORIZE,
+    user_id
   };
 };
 
@@ -43,7 +45,8 @@ export const userRegister = (registerForm, history) => {
         localStorage.setItem("expires", expires);
 
         // Login user with redux state auth
-        dispatch(authorize());
+        const decoded = jwt_decode(localStorage.getItem("token"))
+        dispatch(authorize(decoded.sub));
 
         // Redirect to home page on success
         history.push("/");

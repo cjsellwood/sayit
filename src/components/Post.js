@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import * as actions from "../store/actions/index";
-import Comment from "./partials/Comment";
+import Comment from "./helpers/Comment";
+import AuthShow from "./helpers/AuthShow";
+import AuthCreator from "./helpers/AuthCreator";
 
 const Post = (props) => {
   const { post_id, topic } = useParams();
@@ -35,6 +37,12 @@ const Post = (props) => {
           Time: {new Date(props.post.time).toLocaleTimeString()}{" "}
           {new Date(props.post.time).toLocaleDateString()}
         </p>
+        <AuthCreator creator_id={props.post.user_id}>
+          <button type="button" aria-label="delete post">
+            Delete
+          </button>
+          <button type="button" aria-label="edit post">Edit</button>
+        </AuthCreator>
       </div>
     );
   }
@@ -82,21 +90,23 @@ const Post = (props) => {
       {postDisplay}
       <div>
         <h2>Comments</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="comment">New Comment</label>
-            <br />
-            <textarea
-              type="text"
-              name="text"
-              value={commentForm.text}
-              onChange={handleInput}
-            />
-          </div>
-          <button type="submit" aria-label="submit">
-            Submit
-          </button>
-        </form>
+        <AuthShow>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="comment">New Comment</label>
+              <br />
+              <textarea
+                type="text"
+                name="text"
+                value={commentForm.text}
+                onChange={handleInput}
+              />
+            </div>
+            <button type="submit" aria-label="submit">
+              Submit
+            </button>
+          </form>
+        </AuthShow>
         <ul>{commentsDisplay}</ul>
       </div>
     </section>

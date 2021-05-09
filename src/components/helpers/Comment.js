@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
+import AuthShow from "./AuthShow"
 
 const Comment = (props) => {
   const submitCommentReply = (e) => {
@@ -26,33 +27,37 @@ const Comment = (props) => {
         Time: {new Date(props.comment.time).toLocaleTimeString()}{" "}
         {new Date(props.comment.time).toLocaleDateString()}
       </p>
-      <button
-        data-index={props.index}
-        onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
-      >
-        Reply
-      </button>
-      {props.comment.showReply ? (
-        <form onSubmit={submitCommentReply}>
-          <div>
-            <label htmlFor="comment">Reply To Comment</label>
-            <textarea
-              value={props.comment.reply}
-              onChange={(e) => props.onReplyInput(e.target.value, props.comment.comment_id)}
-            ></textarea>
-          </div>
-          <button type="submit" aria-label="submit">
-            Submit
-          </button>
-          <button
-            type="button"
-            aria-label="cancel"
-            onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
-          >
-            Cancel
-          </button>
-        </form>
-      ) : null}
+      <AuthShow>
+        <button
+          data-index={props.index}
+          onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
+        >
+          Reply
+        </button>
+        {props.comment.showReply ? (
+          <form onSubmit={submitCommentReply}>
+            <div>
+              <label htmlFor="comment">Reply To Comment</label>
+              <textarea
+                value={props.comment.reply}
+                onChange={(e) =>
+                  props.onReplyInput(e.target.value, props.comment.comment_id)
+                }
+              ></textarea>
+            </div>
+            <button type="submit" aria-label="submit">
+              Submit
+            </button>
+            <button
+              type="button"
+              aria-label="cancel"
+              onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
+            >
+              Cancel
+            </button>
+          </form>
+        ) : null}
+      </AuthShow>
       <ul>
         {replies.map((comment) => {
           return (
@@ -85,8 +90,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.commentReply(text, post_id, parent));
     },
     onReplyInput: (value, comment_id) => {
-      dispatch(actions.replyInput(value, comment_id))
-    }
+      dispatch(actions.replyInput(value, comment_id));
+    },
   };
 };
 

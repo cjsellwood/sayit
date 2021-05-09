@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import jwt_decode from "jwt-decode"
 import * as actions from "./store/actions/index";
 import ScrollToTop from "./components/ScrollToTop";
 import Nav from "./components/Nav";
@@ -24,7 +25,8 @@ const App = (props) => {
   // Authorize user if they have a valid token
   useEffect(() => {
     if (isLoggedIn()) {
-      props.onAuthorize();
+      const decoded = jwt_decode(localStorage.getItem("token"))
+      props.onAuthorize(decoded.sub);
     }
     // eslint-disable-next-line
   }, []);
@@ -69,8 +71,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuthorize: () => {
-      dispatch(actions.authorize());
+    onAuthorize: (user_id) => {
+      dispatch(actions.authorize(user_id));
     },
   };
 };

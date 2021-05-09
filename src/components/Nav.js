@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../store/actions/index";
+import AuthHide from "../components/helpers/AuthHide";
+import AuthShow from "../components/helpers/AuthShow";
 
 const Nav = (props) => {
   return (
@@ -10,15 +12,21 @@ const Nav = (props) => {
         <li>
           <Link to="/">Home</Link>
         </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <button onClick={props.onDeauthorize}>Logout</button>
-        </li>
+        <AuthHide>
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
+        </AuthHide>
+        <AuthHide>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </AuthHide>
+        <AuthShow>
+          <li>
+            <button onClick={props.onDeauthorize}>Logout</button>
+          </li>
+        </AuthShow>
       </ul>
       <p>{props.isAuth ? "Logged In" : "Not Logged In"}</p>
     </nav>
