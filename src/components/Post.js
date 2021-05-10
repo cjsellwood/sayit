@@ -24,12 +24,39 @@ const Post = (props) => {
 
   let postDisplay = [];
 
+  // Submit post after editing
+  const submitPostEdit = (e) => {
+    e.preventDefault();
+    props.onEditPost(props.post.text, props.post.post_id);
+  };
+
   // If post set and the post ids' match, display post
   if (props.post.post_id && Number(props.post.post_id) === Number(post_id)) {
     postDisplay = (
       <div>
         <h1>{props.post.title}</h1>
-        <p>{props.post.text}</p>
+        {props.post.editing ? (
+          <form onSubmit={submitPostEdit}>
+            <label htmlFor="editPost" />
+            <textarea
+              id="editPost"
+              name="text"
+              value={props.post.text}
+              onChange={(e) => props.onEditPostInput(e.target.value)}
+            ></textarea>
+            <button type="submit">Submit</button>
+            <button
+              type="button"
+              aria-label="cancel"
+              onClick={() => props.onToggleEditPost(true)}
+            >
+              Cancel
+            </button>
+          </form>
+        ) : (
+          <p>{props.post.text}</p>
+        )}
+
         <p>
           User: {props.post.user_id} - {props.post.username}
         </p>
@@ -45,7 +72,11 @@ const Post = (props) => {
           >
             Delete
           </button>
-          <button type="button" aria-label="edit post">
+          <button
+            type="button"
+            aria-label="edit post"
+            onClick={() => props.onToggleEditPost()}
+          >
             Edit
           </button>
         </AuthCreator>
@@ -138,6 +169,15 @@ const mapDispatchToProps = (dispatch) => {
     onDeletePost: (post_id, history, topic) => {
       dispatch(actions.deletePost(post_id, history, topic));
     },
+    onToggleEditPost: (canceled) => {
+      dispatch(actions.toggleEditPost(canceled));
+    },
+    onEditPostInput: (value) => {
+      dispatch(actions.editPostInput(value));
+    },
+    onEditPost: (text, post_id) => {
+      dispatch(actions.editPost(text, post_id))
+    }
   };
 };
 

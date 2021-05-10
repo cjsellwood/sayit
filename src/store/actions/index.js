@@ -16,4 +16,7 @@ export {
   editCommentInput,
   editComment,
   deletePost,
+  toggleEditPost,
+  editPostInput,
+  editPost,
 } from "./posts";

@@ -393,3 +393,50 @@ export const deletePost = (post_id, history, topic) => {
       });
   };
 }
+
+// Toggle comment edit form
+export const toggleEditPost = (canceled) => {
+  return {
+    type: actionTypes.TOGGLE_EDIT_POST,
+    canceled,
+  };
+};
+
+// Handle comment editing text box
+export const editPostInput = (value, post_id) => {
+  return {
+    type: actionTypes.EDIT_POST_INPUT,
+    value,
+    post_id,
+  };
+};
+
+// Submit edited post to backend
+export const editPost = (text, post_id) => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    fetch(`${base}/posts/${post_id}/edit`, {
+      method: "PATCH",
+      body: JSON.stringify({ text, post_id }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Close input form
+        dispatch(toggleEditPost());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
