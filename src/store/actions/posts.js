@@ -25,7 +25,7 @@ export const newPost = (postForm, history) => {
         // Add to state
 
         // Redirect
-        history.push("/");
+        history.push(`/topics/${postForm.topic}/${data.post_id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -289,7 +289,7 @@ export const setDeletedComment = (comment_id) => {
 export const deleteComment = (comment_id) => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    fetch(`${base}/comments/${comment_id}/delete?_method=DELETE`, {
+    fetch(`${base}/comments/${comment_id}/delete`, {
       method: "DELETE",
       body: JSON.stringify({ comment_id }),
       headers: {
@@ -337,8 +337,8 @@ export const editCommentInput = (value, comment_id) => {
 export const editComment = (text, comment_id) => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    fetch(`${base}/comments/${comment_id}/edit?_method=PATCH`, {
-      method: "POST",
+    fetch(`${base}/comments/${comment_id}/edit`, {
+      method: "PATCH",
       body: JSON.stringify({ text, comment_id }),
       headers: {
         "Content-Type": "application/json",
@@ -356,6 +356,37 @@ export const editComment = (text, comment_id) => {
 
         // Close input form
         dispatch(toggleEditComment(comment_id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+// Delete a post
+export const deletePost = (post_id, history, topic) => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    fetch(`${base}/posts/${post_id}/delete`, {
+      method: "DELETE",
+      body: JSON.stringify({post_id}),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Redirect
+        history.push(`/topics/${topic}`)
+
       })
       .catch((error) => {
         console.log(error);

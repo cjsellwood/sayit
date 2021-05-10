@@ -30,8 +30,10 @@ const Comment = (props) => {
       {props.comment.editing ? (
         <form onSubmit={submitCommentEdit}>
           <div>
-            <label htmlFor="text" />
+            <label htmlFor="editComment" />
             <textarea
+              name="text"
+              id="editComment"
               value={props.comment.text}
               onChange={(e) =>
                 props.onEditCommentInput(
@@ -87,8 +89,10 @@ const Comment = (props) => {
         {props.comment.showReply ? (
           <form onSubmit={submitCommentReply}>
             <div>
-              <label htmlFor="comment">Reply To Comment</label>
+              <label htmlFor="commentReply">Reply To Comment</label>
               <textarea
+                name="comment"
+                id="commentReply"
                 value={props.comment.reply}
                 onChange={(e) =>
                   props.onReplyInput(e.target.value, props.comment.comment_id)

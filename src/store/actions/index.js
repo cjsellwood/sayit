@@ -15,4 +15,5 @@ export {
   toggleEditComment,
   editCommentInput,
   editComment,
+  deletePost,
 } from "./posts";

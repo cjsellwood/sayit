@@ -38,7 +38,11 @@ const Post = (props) => {
           {new Date(props.post.time).toLocaleDateString()}
         </p>
         <AuthCreator creator_id={props.post.user_id}>
-          <button type="button" aria-label="delete post">
+          <button
+            type="button"
+            aria-label="delete post"
+            onClick={() => props.onDeletePost(post_id, history, topic)}
+          >
             Delete
           </button>
           <button type="button" aria-label="edit post">
@@ -95,11 +99,10 @@ const Post = (props) => {
         <AuthShow>
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="comment">New Comment</label>
-              <br />
+              <label htmlFor="newComment">New Comment</label>
               <textarea
-                type="text"
                 name="text"
+                id="newComment"
                 value={commentForm.text}
                 onChange={handleInput}
               />
@@ -131,6 +134,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onNewComment: (commentForm, post_id) => {
       dispatch(actions.newComment(commentForm, post_id));
+    },
+    onDeletePost: (post_id, history, topic) => {
+      dispatch(actions.deletePost(post_id, history, topic));
     },
   };
 };
