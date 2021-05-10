@@ -4,6 +4,7 @@ import AuthCreator from "./AuthCreator";
 import AuthShow from "./AuthShow";
 
 const Comment = (props) => {
+  // Submit reply to a comment
   const submitCommentReply = (e) => {
     e.preventDefault();
     props.onCommentReply(
@@ -13,6 +14,12 @@ const Comment = (props) => {
     );
   };
 
+  // Submit comment after editing
+  const submitCommentEdit = (e) => {
+    e.preventDefault();
+    props.onEditComment(props.comment.text, props.comment.comment_id);
+  };
+
   // Filter comments that have this comment as it's parent
   const replies = props.allComments.filter(
     (comment) => comment.parent === props.comment.comment_id
@@ -20,7 +27,33 @@ const Comment = (props) => {
 
   return (
     <li className="child" key={props.comment.comment_id}>
-      <p>{props.comment.text}</p>
+      {props.comment.editing ? (
+        <form onSubmit={submitCommentEdit}>
+          <div>
+            <label htmlFor="text" />
+            <textarea
+              value={props.comment.text}
+              onChange={(e) =>
+                props.onEditCommentInput(
+                  e.target.value,
+                  props.comment.comment_id
+                )
+              }
+            ></textarea>
+          </div>
+          <button type="submit">Submit</button>
+          <button
+            type="button"
+            onClick={() =>
+              props.onToggleEditComment(props.comment.comment_id, true)
+            }
+          >
+            Cancel
+          </button>
+        </form>
+      ) : (
+        <p>{props.comment.text}</p>
+      )}
       <p>
         User: {props.comment.user_id} - {props.comment.username}
       </p>
@@ -43,7 +76,11 @@ const Comment = (props) => {
           >
             Delete
           </button>
-          <button type="edit" aria-label="edit">
+          <button
+            type="edit"
+            aria-label="edit"
+            onClick={() => props.onToggleEditComment(props.comment.comment_id)}
+          >
             Edit
           </button>
         </AuthCreator>
@@ -108,6 +145,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDeleteComment: (comment_id) => {
       dispatch(actions.deleteComment(comment_id));
+    },
+    onToggleEditComment: (comment_id, canceled) => {
+      dispatch(actions.toggleEditComment(comment_id, canceled));
+    },
+    onEditCommentInput: (value, comment_id) => {
+      dispatch(actions.editCommentInput(value, comment_id));
+    },
+    onEditComment: (text, comment_id) => {
+      dispatch(actions.editComment(text, comment_id));
     },
   };
 };

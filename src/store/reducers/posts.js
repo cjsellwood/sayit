@@ -13,8 +13,8 @@ const duplicateComments = (comments) => {
   for (let comment of comments) {
     duplicate.push({ ...comment });
   }
-  return duplicate
-}
+  return duplicate;
+};
 
 const loadPosts = (state, action) => {
   return {
@@ -28,6 +28,7 @@ const setSinglePost = (state, action) => {
   for (let comment of comments) {
     comment.reply = "";
     comment.showReply = false;
+    comment.editing = false;
   }
   return {
     ...state,
@@ -101,17 +102,57 @@ const setDeletedComment = (state, action) => {
   const index = comments.findIndex(
     (comment) => comment.comment_id === Number(action.comment_id)
   );
-  
+
   // Set displayed comment text to deleted values
   comments[index].text = "[deleted]";
   comments[index].user_id = 11;
-  comments[index].username = "[deleted]"
+  comments[index].username = "[deleted]";
 
   return {
     ...state,
     comments,
+  };
+};
+
+const toggleEditComment = (state, action) => {
+  const comments = duplicateComments(state.comments);
+
+  const index = comments.findIndex(
+    (comment) => comment.comment_id === Number(action.comment_id)
+  );
+
+  // Set chosen comment to editing mode
+  comments[index].editing = !comments[index].editing;
+
+  // If was canceled reset to original
+  if (action.canceled) {
+    comments[index].text = comments[index].original;
   }
-}
+
+  // Set original value so can be used if canceled
+  comments[index].original = comments[index].text;
+
+
+  return {
+    ...state,
+    comments,
+  };
+};
+
+const editCommentInput = (state, action) => {
+  const comments = duplicateComments(state.comments);
+
+  const index = comments.findIndex(
+    (comment) => comment.comment_id === Number(action.comment_id)
+  );
+
+  comments[index].text = action.value;
+
+  return {
+    ...state,
+    comments,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -131,6 +172,10 @@ const reducer = (state = initialState, action) => {
       return resetReplyInput(state, action);
     case actionTypes.SET_DELETED_COMMENT:
       return setDeletedComment(state, action);
+    case actionTypes.TOGGLE_EDIT_COMMENT:
+      return toggleEditComment(state, action);
+    case actionTypes.EDIT_COMMENT_INPUT:
+      return editCommentInput(state, action);
     default:
       return state;
   }

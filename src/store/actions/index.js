@@ -12,4 +12,7 @@ export {
   commentReply,
   replyInput,
   deleteComment,
+  toggleEditComment,
+  editCommentInput,
+  editComment,
 } from "./posts";

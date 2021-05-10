@@ -282,8 +282,8 @@ export const setDeletedComment = (comment_id) => {
   return {
     type: actionTypes.SET_DELETED_COMMENT,
     comment_id,
-  }
-}
+  };
+};
 
 // Delete comment from database
 export const deleteComment = (comment_id) => {
@@ -291,7 +291,7 @@ export const deleteComment = (comment_id) => {
     const token = localStorage.getItem("token");
     fetch(`${base}/comments/${comment_id}/delete?_method=DELETE`, {
       method: "DELETE",
-      body: JSON.stringify({comment_id }),
+      body: JSON.stringify({ comment_id }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -307,8 +307,55 @@ export const deleteComment = (comment_id) => {
         }
 
         // Remove from state
-        dispatch(setDeletedComment(comment_id))
+        dispatch(setDeletedComment(comment_id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
+// Toggle comment edit form
+export const toggleEditComment = (comment_id, canceled) => {
+  return {
+    type: actionTypes.TOGGLE_EDIT_COMMENT,
+    comment_id,
+    canceled,
+  };
+};
+
+// Handle comment editing text box
+export const editCommentInput = (value, comment_id) => {
+  return {
+    type: actionTypes.EDIT_COMMENT_INPUT,
+    value,
+    comment_id,
+  };
+};
+
+// Submit edited comment to backend
+export const editComment = (text, comment_id) => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    fetch(`${base}/comments/${comment_id}/edit?_method=PATCH`, {
+      method: "POST",
+      body: JSON.stringify({ text, comment_id }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Close input form
+        dispatch(toggleEditComment(comment_id));
       })
       .catch((error) => {
         console.log(error);
