@@ -11,4 +11,5 @@ export {
   toggleReplyForm,
   commentReply,
   replyInput,
+  deleteComment,
 } from "./posts";

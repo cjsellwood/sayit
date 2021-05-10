@@ -41,7 +41,9 @@ const Post = (props) => {
           <button type="button" aria-label="delete post">
             Delete
           </button>
-          <button type="button" aria-label="edit post">Edit</button>
+          <button type="button" aria-label="edit post">
+            Edit
+          </button>
         </AuthCreator>
       </div>
     );

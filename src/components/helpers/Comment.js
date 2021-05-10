@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-import AuthShow from "./AuthShow"
+import AuthCreator from "./AuthCreator";
+import AuthShow from "./AuthShow";
 
 const Comment = (props) => {
   const submitCommentReply = (e) => {
@@ -34,6 +35,18 @@ const Comment = (props) => {
         >
           Reply
         </button>
+        <AuthCreator creator_id={props.comment.user_id}>
+          <button
+            type="button"
+            aria-label="delete"
+            onClick={() => props.onDeleteComment(props.comment.comment_id)}
+          >
+            Delete
+          </button>
+          <button type="edit" aria-label="edit">
+            Edit
+          </button>
+        </AuthCreator>
         {props.comment.showReply ? (
           <form onSubmit={submitCommentReply}>
             <div>
@@ -68,6 +81,7 @@ const Comment = (props) => {
               onToggleReplyForm={props.onToggleReplyForm}
               onReplyInput={props.onReplyInput}
               onCommentReply={props.onCommentReply}
+              onDeleteComment={props.onDeleteComment}
               post_id={props.post_id}
             />
           );
@@ -91,6 +105,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onReplyInput: (value, comment_id) => {
       dispatch(actions.replyInput(value, comment_id));
+    },
+    onDeleteComment: (comment_id) => {
+      dispatch(actions.deleteComment(comment_id));
     },
   };
 };

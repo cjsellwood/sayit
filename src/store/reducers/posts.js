@@ -7,6 +7,15 @@ const initialState = {
   topics: [],
 };
 
+// Helper function to duplicate comments array
+const duplicateComments = (comments) => {
+  const duplicate = [];
+  for (let comment of comments) {
+    duplicate.push({ ...comment });
+  }
+  return duplicate
+}
+
 const loadPosts = (state, action) => {
   return {
     ...state,
@@ -42,10 +51,7 @@ const setTopics = (state, action) => {
 };
 
 const toggleReplyForm = (state, action) => {
-  const comments = [];
-  for (let comment of state.comments) {
-    comments.push({ ...comment });
-  }
+  const comments = duplicateComments(state.comments);
 
   const index = comments.findIndex(
     (comment) => comment.comment_id === Number(action.comment_id)
@@ -60,10 +66,7 @@ const toggleReplyForm = (state, action) => {
 };
 
 const replyInput = (state, action) => {
-  const comments = [];
-  for (let comment of state.comments) {
-    comments.push({ ...comment });
-  }
+  const comments = duplicateComments(state.comments);
 
   const index = comments.findIndex(
     (comment) => comment.comment_id === Number(action.comment_id)
@@ -78,10 +81,7 @@ const replyInput = (state, action) => {
 };
 
 const resetReplyInput = (state, action) => {
-  const comments = [];
-  for (let comment of state.comments) {
-    comments.push({ ...comment });
-  }
+  const comments = duplicateComments(state.comments);
 
   const index = comments.findIndex(
     (comment) => comment.comment_id === Number(action.comment_id)
@@ -94,6 +94,24 @@ const resetReplyInput = (state, action) => {
     comments,
   };
 };
+
+const setDeletedComment = (state, action) => {
+  const comments = duplicateComments(state.comments);
+
+  const index = comments.findIndex(
+    (comment) => comment.comment_id === Number(action.comment_id)
+  );
+  
+  // Set displayed comment text to deleted values
+  comments[index].text = "[deleted]";
+  comments[index].user_id = 11;
+  comments[index].username = "[deleted]"
+
+  return {
+    ...state,
+    comments,
+  }
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -111,6 +129,8 @@ const reducer = (state = initialState, action) => {
       return replyInput(state, action);
     case actionTypes.RESET_REPLY_INPUT:
       return resetReplyInput(state, action);
+    case actionTypes.SET_DELETED_COMMENT:
+      return setDeletedComment(state, action);
     default:
       return state;
   }

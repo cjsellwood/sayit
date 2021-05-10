@@ -235,7 +235,6 @@ export const resetReplyInput = (comment_id) => {
 // Submit comment to backend
 export const commentReply = (text, post_id, parent) => {
   return (dispatch) => {
-    console.log(text, post_id, parent);
     const token = localStorage.getItem("token");
     fetch(`${base}/comments/new`, {
       method: "POST",
@@ -277,3 +276,42 @@ export const replyInput = (value, comment_id) => {
     comment_id,
   };
 };
+
+// Set comment to deleted in state
+export const setDeletedComment = (comment_id) => {
+  return {
+    type: actionTypes.SET_DELETED_COMMENT,
+    comment_id,
+  }
+}
+
+// Delete comment from database
+export const deleteComment = (comment_id) => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    fetch(`${base}/comments/${comment_id}/delete?_method=DELETE`, {
+      method: "DELETE",
+      body: JSON.stringify({comment_id }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Remove from state
+        dispatch(setDeletedComment(comment_id))
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
