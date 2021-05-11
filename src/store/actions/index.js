@@ -19,4 +19,6 @@ export {
   toggleEditPost,
   editPostInput,
   editPost,
+  setSidebar,
+  addTopic,
 } from "./posts";

@@ -123,6 +123,9 @@ const Comment = (props) => {
               onReplyInput={props.onReplyInput}
               onCommentReply={props.onCommentReply}
               onDeleteComment={props.onDeleteComment}
+              onToggleEditComment={props.onToggleEditComment}
+              onEditCommentInput={props.onEditCommentInput}
+              onEditComment={props.onEditComment}
               post_id={props.post_id}
             />
           );

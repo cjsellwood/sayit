@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
 import * as actions from "./store/actions/index";
 import ScrollToTop from "./components/ScrollToTop";
 import Nav from "./components/Nav";
@@ -14,6 +14,7 @@ import NewTopic from "./components/NewTopic";
 import Topic from "./components/Topic";
 import Post from "./components/Post";
 import Topics from "./components/Topics";
+import Sidebar from "./components/helpers/Sidebar";
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -25,7 +26,7 @@ const App = (props) => {
   // Authorize user if they have a valid token
   useEffect(() => {
     if (isLoggedIn()) {
-      const decoded = jwt_decode(localStorage.getItem("token"))
+      const decoded = jwt_decode(localStorage.getItem("token"));
       props.onAuthorize(decoded.sub);
     }
     // eslint-disable-next-line
@@ -35,32 +36,37 @@ const App = (props) => {
     <div className="App">
       <ScrollToTop />
       <Nav />
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/newpost">
-          <NewPost />
-        </Route>
-        <Route path="/newtopic">
-          <NewTopic />
-        </Route>
-        <Route path="/topics" exact>
-          <Topics />
-        </Route>
-        <Route path="/topics/:topic" exact>
-          <Topic />
-        </Route>
-        <Route path="/topics/:topic/:post_id" exact>
-          <Post />
-        </Route>
-      </Switch>
+      <div className="main-grid">
+        <main>
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/newpost">
+              <NewPost />
+            </Route>
+            <Route path="/newtopic">
+              <NewTopic />
+            </Route>
+            <Route path="/topics" exact>
+              <Topics />
+            </Route>
+            <Route path="/topics/:topic" exact>
+              <Topic />
+            </Route>
+            <Route path="/topics/:topic/:post_id" exact>
+              <Post />
+            </Route>
+          </Switch>
+        </main>
+        <Sidebar />
+      </div>
     </div>
   );
 };

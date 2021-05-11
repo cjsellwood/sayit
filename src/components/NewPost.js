@@ -42,13 +42,13 @@ const NewPost = (props) => {
         </div>
         <div>
           <label htmlFor="text">Text</label>
-          <input
+          <textarea
             type="text"
             name="text"
             value={postForm.text}
             onChange={handleInput}
             required
-          />
+          ></textarea>
         </div>
         <div>
           <label htmlFor="topic">Topic*</label>

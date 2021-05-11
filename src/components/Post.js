@@ -11,16 +11,46 @@ const Post = (props) => {
 
   let history = useHistory();
 
+  console.log(post_id, topic);
+
   useEffect(() => {
-    props.onGetSinglePost(post_id, topic, history);
+    // Fetch only if post undefined or wrong post
+    if (!props.post.post_id || props.post.post_id !== Number(post_id)) {
+      console.log("-----------fetching post");
+      props.onGetSinglePost(post_id, topic, history);
+    }
 
     // If topic in url wrong redirect to correct page
+    console.log(props.post.post_id, props.post.topic, topic);
     if (props.post.post_id && props.post.topic !== topic) {
       history.replace(`/topics/${props.post.topic}/${post_id}`);
     }
 
+    // Find index of topic in state
+    const topicIndex = props.topics.findIndex(
+      (topic) => topic.name === props.post.topic
+    );
+
+    // If post defined and topic not in state, fetch and add it
+    if (props.post.topic && topicIndex === -1) {
+      props.onAddTopic(props.post.topic);
+    }
+
+    // If post defined and topic in state, display topic in sidebar
+    if (props.post.topic && topicIndex !== -1) {
+      props.onSetSidebar(
+        false,
+        props.topics[topicIndex].name,
+        props.topics[topicIndex].description
+      );
+    }
+
     // eslint-disable-next-line
-  }, [post_id, props.post.post_id]);
+  }, [post_id, props.post.topic, props.topics]);
+
+  useEffect(() => {
+    // eslint-disable-next-line
+  }, [post_id]);
 
   let postDisplay = [];
 
@@ -153,6 +183,7 @@ const mapStateToProps = (state) => ({
   posts: state.posts.posts,
   post: state.posts.post,
   comments: state.posts.comments,
+  topics: state.posts.topics,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -176,8 +207,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.editPostInput(value));
     },
     onEditPost: (text, post_id) => {
-      dispatch(actions.editPost(text, post_id))
-    }
+      dispatch(actions.editPost(text, post_id));
+    },
+    onSetSidebar: (isHome, name, description) => {
+      dispatch(actions.setSidebar(isHome, name, description));
+    },
+    onAddTopic: (topic) => {
+      dispatch(actions.addTopic(topic));
+    },
   };
 };
 

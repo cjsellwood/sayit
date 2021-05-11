@@ -361,7 +361,7 @@ export const editComment = (text, comment_id) => {
         console.log(error);
       });
   };
-}
+};
 
 // Delete a post
 export const deletePost = (post_id, history, topic) => {
@@ -369,7 +369,7 @@ export const deletePost = (post_id, history, topic) => {
     const token = localStorage.getItem("token");
     fetch(`${base}/posts/${post_id}/delete`, {
       method: "DELETE",
-      body: JSON.stringify({post_id}),
+      body: JSON.stringify({ post_id }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -385,14 +385,13 @@ export const deletePost = (post_id, history, topic) => {
         }
 
         // Redirect
-        history.push(`/topics/${topic}`)
-
+        history.push(`/topics/${topic}`);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-}
+};
 
 // Toggle comment edit form
 export const toggleEditPost = (canceled) => {
@@ -439,4 +438,51 @@ export const editPost = (text, post_id) => {
         console.log(error);
       });
   };
-}
+};
+
+// Set sidebar content
+export const setSidebar = (isHome, name, description) => {
+  return {
+    type: actionTypes.SET_SIDEBAR,
+    isHome,
+    name,
+    description,
+  };
+};
+
+// Set added topic in state
+export const setAddedTopic = (topic) => {
+  return {
+    type: actionTypes.SET_ADDED_TOPIC,
+    topic,
+  };
+};
+
+// Fetch topic information
+export const addTopic = (topic) => {
+  return (dispatch) => {
+    fetch(`${base}/posts/singletopic`, {
+      method: "POST",
+      body: JSON.stringify({ topic }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        console.log("Fetched TOPIC", data.topic)
+
+        dispatch(setAddedTopic(data.topic));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};

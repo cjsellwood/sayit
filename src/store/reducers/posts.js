@@ -5,6 +5,11 @@ const initialState = {
   post: {},
   comments: [],
   topics: [],
+  sidebar: {
+    isHome: true,
+    name: "",
+    description: "",
+  },
 };
 
 // Helper function to duplicate comments array
@@ -184,6 +189,29 @@ const editPostInput = (state, action) => {
   };
 };
 
+const setSidebar = (state, action) => {
+  return {
+    ...state,
+    sidebar: {
+      isHome: action.isHome,
+      name: action.name,
+      description: action.description,
+    },
+  };
+};
+
+const setAddedTopic = (state, action) => {
+  const topics = [];
+  for (let topic of state.topics) {
+    topics.push({ ...topic });
+  }
+
+  return {
+    ...state,
+    topics: [...topics, action.topic],
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
@@ -210,6 +238,10 @@ const reducer = (state = initialState, action) => {
       return toggleEditPost(state, action);
     case actionTypes.EDIT_POST_INPUT:
       return editPostInput(state, action);
+    case actionTypes.SET_SIDEBAR:
+      return setSidebar(state, action);
+    case actionTypes.SET_ADDED_TOPIC:
+      return setAddedTopic(state, action);
     default:
       return state;
   }

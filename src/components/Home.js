@@ -5,9 +5,13 @@ import * as actions from "../store/actions/index";
 import AuthShow from "./helpers/AuthShow";
 
 const Home = (props) => {
-  // Fetch posts on first load
   useEffect(() => {
+    // Fetch posts on first load
     props.onGetPosts();
+
+    // Set sidebar to home content
+    props.onSetSidebar(true, "", "");
+
     // eslint-disable-next-line
   }, []);
 
@@ -57,6 +61,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onGetPosts: () => {
       dispatch(actions.getPosts());
+    },
+    onSetSidebar: (isHome, name, description) => {
+      dispatch(actions.setSidebar(isHome, name, description));
     },
   };
 };
