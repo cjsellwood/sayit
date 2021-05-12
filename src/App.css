@@ -131,11 +131,16 @@ a {
   --nav-background: rgb(49, 49, 49);
   --main-text: white;
   --dull-text: rgb(211, 211, 211);
-  --hover-text: rgb(23, 131, 255);
+  --hover-text: rgb(117, 181, 255);
+  --dull-blue: rgb(40, 131, 236);
 }
 
 html {
   background-color: var(--main-background);
+  font-family: "Roboto";
+}
+
+button {
   font-family: "Roboto";
 }
 
@@ -165,6 +170,10 @@ html {
   font-size: 1.5rem;
 }
 
+section {
+  padding: 12px;
+}
+
 .posts-list {
 }
 
@@ -172,32 +181,117 @@ html {
   padding: 16px 0px 16px 50px;
 }
 
-.posts-list .post-title {
+.post-title {
   padding-bottom: 8px;
 }
 
-.posts-list .post-title a {
+
+.post-title a {
   color: var(--main-text);
   font-size: 1.4rem;
   line-height: 1.4rem;
 }
 
-.posts-list .post-subtitle {
-  color: var(--dull-text)
+.single-post {
+  
 }
 
-.posts-list .post-subtitle a {
-  color: var(--dull-text);
+.single-post .post-title a {
+  font-size: 1.6rem;
 }
 
-.posts-list .post-subtitle a:hover {
+.post-title a:hover {
   color: var(--hover-text)
 }
 
-.posts-list a:hover {
-  color: var(--hover-text);
+.post-subtitle {
+  color: var(--dull-text)
 }
 
-.posts-list p {
-  color: white;
+.post-subtitle a {
+  color: var(--dull-text);
+}
+
+.post-subtitle a:hover {
+  color: var(--hover-text)
+}
+
+.post-text {
+  color: var(--dull-text);
+  padding: 8px;
+  margin: 16px 0;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  border: 1px solid var(--dull-text);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.comments-section > h2 {
+  color: var(--main-text);
+  font-size: 1.4rem;
+}
+
+.comments-section ul {
+
+}
+
+.comments-section li {
+  margin-top: 16px;
+}
+
+.comment-text {
+  color: var(--main-text);
+  padding: 12px 0;
+}
+
+.comment-subtitle {
+  color: var(--dull-text);
+}
+
+.comment-subtitle button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--dull-blue);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.comment-subtitle button:hover {
+  color: var(--hover-text)
+}
+
+.comment-username {
+  margin-right: 8px;
+  color: var(--hover-text)
+}
+
+.child .child {
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px dotted rgba(255, 255, 255, 0.383);
+}
+
+.comment-buttons {
+  margin-left: -8px;
+}
+
+.comment-buttons > button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--dull-text);
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0 8px;
+}
+
+.comment-buttons > button:hover {
+  color: var(--dull-blue)
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import * as actions from "../store/actions/index";
 import Comment from "./helpers/Comment";
 import AuthShow from "./helpers/AuthShow";
@@ -11,17 +11,13 @@ const Post = (props) => {
 
   let history = useHistory();
 
-  console.log(post_id, topic);
-
   useEffect(() => {
     // Fetch only if post undefined or wrong post
     if (!props.post.post_id || props.post.post_id !== Number(post_id)) {
-      console.log("-----------fetching post");
       props.onGetSinglePost(post_id, topic, history);
     }
 
     // If topic in url wrong redirect to correct page
-    console.log(props.post.post_id, props.post.topic, topic);
     if (props.post.post_id && props.post.topic !== topic) {
       history.replace(`/topics/${props.post.topic}/${post_id}`);
     }
@@ -60,11 +56,33 @@ const Post = (props) => {
     props.onEditPost(props.post.text, props.post.post_id);
   };
 
+  const dateSince = (date) => {
+    const duration = (Date.now() - new Date(date)) / 1000;
+    if (duration < 60) {
+      return `${duration.toFixed(0)} seconds ago`;
+    } else if (duration < 60 * 60) {
+      return `${(duration / 60).toFixed(0)} minutes ago`;
+    } else if (duration < 60 * 60 * 24) {
+      return `${(duration / (60 * 60)).toFixed(0)} hours ago`;
+    } else if (duration < 60 * 60 * 24 * 365) {
+      return `${(duration / (60 * 60 * 24)).toFixed(0)} days ago`;
+    } else {
+      return `${(duration / (60 * 60 * 24 * 365)).toFixed(0)} years ago`;
+    }
+  };
+
   // If post set and the post ids' match, display post
   if (props.post.post_id && Number(props.post.post_id) === Number(post_id)) {
     postDisplay = (
-      <div>
-        <h1>{props.post.title}</h1>
+      <div className="single-post">
+        <div className="post-title">
+          <Link to={`/topics/${props.post.topic}/${props.post.post_id}`}>
+            {props.post.title}
+          </Link>
+        </div>
+        <p className="post-subtitle">
+          submitted {dateSince(props.post.time)} by {props.post.username}
+        </p>
         {props.post.editing ? (
           <form onSubmit={submitPostEdit}>
             <label htmlFor="editPost" />
@@ -84,16 +102,10 @@ const Post = (props) => {
             </button>
           </form>
         ) : (
-          <p>{props.post.text}</p>
+          <div className="post-text">
+            <p>{props.post.text}</p>
+          </div>
         )}
-
-        <p>
-          User: {props.post.user_id} - {props.post.username}
-        </p>
-        <p>
-          Time: {new Date(props.post.time).toLocaleTimeString()}{" "}
-          {new Date(props.post.time).toLocaleDateString()}
-        </p>
         <AuthCreator creator_id={props.post.user_id}>
           <button
             type="button"
@@ -155,7 +167,7 @@ const Post = (props) => {
   return (
     <section>
       {postDisplay}
-      <div>
+      <div className="comments-section">
         <h2>Comments</h2>
         <AuthShow>
           <form onSubmit={handleSubmit}>

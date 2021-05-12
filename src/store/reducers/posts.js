@@ -34,6 +34,7 @@ const setSinglePost = (state, action) => {
     comment.reply = "";
     comment.showReply = false;
     comment.editing = false;
+    comment.show = true;
   }
   return {
     ...state,
@@ -212,6 +213,21 @@ const setAddedTopic = (state, action) => {
   };
 };
 
+const toggleShowComment = (state, action) => {
+  const comments = duplicateComments(state.comments);
+
+  const index = comments.findIndex(
+    (comment) => comment.comment_id === Number(action.comment_id)
+  );
+
+  comments[index].show = !comments[index].show;
+
+  return {
+    ...state,
+    comments,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
@@ -242,6 +258,8 @@ const reducer = (state = initialState, action) => {
       return setSidebar(state, action);
     case actionTypes.SET_ADDED_TOPIC:
       return setAddedTopic(state, action);
+    case actionTypes.TOGGLE_SHOW_COMMENT:
+      return toggleShowComment(state, action);
     default:
       return state;
   }

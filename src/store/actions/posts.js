@@ -477,8 +477,6 @@ export const addTopic = (topic) => {
           throw new Error(data.error);
         }
 
-        console.log("Fetched TOPIC", data.topic)
-
         dispatch(setAddedTopic(data.topic));
       })
       .catch((error) => {
@@ -486,3 +484,11 @@ export const addTopic = (topic) => {
       });
   };
 };
+
+// Toggle showing of comment and its' children
+export const toggleShowComment = (comment_id) => {
+  return {
+    type: actionTypes.TOGGLE_SHOW_COMMENT,
+    comment_id
+  }
+}

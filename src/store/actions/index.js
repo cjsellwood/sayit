@@ -21,4 +21,5 @@ export {
   editPost,
   setSidebar,
   addTopic,
+  toggleShowComment,
 } from "./posts";
