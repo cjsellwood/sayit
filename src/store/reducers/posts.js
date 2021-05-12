@@ -46,7 +46,16 @@ const setSinglePost = (state, action) => {
 const addComment = (state, action) => {
   return {
     ...state,
-    comments: [...state.comments, action.comment],
+    comments: [
+      ...state.comments,
+      {
+        ...action.comment,
+        reply: "",
+        showReply: false,
+        editing: false,
+        show: true,
+      },
+    ],
   };
 };
 

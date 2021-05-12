@@ -133,6 +133,8 @@ a {
   --dull-text: rgb(211, 211, 211);
   --hover-text: rgb(117, 181, 255);
   --dull-blue: rgb(40, 131, 236);
+  --button-color: rgb(90, 25, 195);
+  --button-hover: rgb(136, 76, 233);
 }
 
 html {
@@ -140,12 +142,35 @@ html {
   font-family: "Roboto";
 }
 
+html * {
+  box-sizing: border-box;
+}
+
 button {
   font-family: "Roboto";
 }
 
-.App {
+textarea {
+  font-family: "Roboto";
+  padding: 8px;
+  color: var(--dull-text);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border: 1px dashed var(--dull-text);
+  border: 1px solid white;
+  background-color: transparent;
+  outline: none;
+  resize: none;
+}
 
+textarea:focus {
+  border: 1px solid var(--hover-text)
+}
+
+.App {
 }
 
 .main-grid {
@@ -185,7 +210,6 @@ section {
   padding-bottom: 8px;
 }
 
-
 .post-title a {
   color: var(--main-text);
   font-size: 1.4rem;
@@ -193,7 +217,9 @@ section {
 }
 
 .single-post {
-  
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.521);
 }
 
 .single-post .post-title a {
@@ -201,11 +227,11 @@ section {
 }
 
 .post-title a:hover {
-  color: var(--hover-text)
+  color: var(--hover-text);
 }
 
 .post-subtitle {
-  color: var(--dull-text)
+  color: var(--dull-text);
 }
 
 .post-subtitle a {
@@ -213,21 +239,23 @@ section {
 }
 
 .post-subtitle a:hover {
-  color: var(--hover-text)
+  color: var(--hover-text);
 }
 
 .post-text {
   color: var(--dull-text);
   padding: 8px;
   margin: 16px 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.2rem;
   border: 1px solid var(--dull-text);
+  border: 1px solid gray;
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
+  white-space: pre-wrap;
 }
 
 .comments-section > h2 {
@@ -236,7 +264,6 @@ section {
 }
 
 .comments-section ul {
-
 }
 
 .comments-section li {
@@ -246,6 +273,8 @@ section {
 .comment-text {
   color: var(--main-text);
   padding: 12px 0;
+  white-space: pre-wrap;
+  line-height: 1.2rem;
 }
 
 .comment-subtitle {
@@ -262,12 +291,12 @@ section {
 }
 
 .comment-subtitle button:hover {
-  color: var(--hover-text)
+  color: var(--hover-text);
 }
 
 .comment-username {
   margin-right: 8px;
-  color: var(--hover-text)
+  color: var(--hover-text);
 }
 
 .child .child {
@@ -293,5 +322,79 @@ section {
 }
 
 .comment-buttons > button:hover {
-  color: var(--dull-blue)
+  color: var(--dull-blue);
+}
+
+.basic-button {
+  background-color: var(--button-color);
+  color: var(--main-text);
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 4px 20px;
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
+
+.basic-button:hover {
+  background-color: var(--button-hover);
+}
+
+.edit-post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-post-form textarea {
+  margin: 16px 0;
+  font-size: 1.1rem;
+  line-height: 1.2rem;
+  height: 6rem;
+}
+
+.edit-post-form > div {
+  margin-bottom: 8px;
+}
+
+.new-comment-form {
+
+}
+
+.new-comment-form textarea {
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 4.8rem;
+  width: 500px;
+}
+
+.reply-form {
+  padding-top: 8px;
+  padding-left: 16px;
+}
+
+.reply-form textarea {
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 4.8rem;
+  width: 500px;
+}
+
+.edit-comment-form {
+  padding: 8px 0;
+}
+
+.edit-comment-form textarea {
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 4.8rem;
+  width: 500px;
 }

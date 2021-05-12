@@ -84,22 +84,27 @@ const Post = (props) => {
           submitted {dateSince(props.post.time)} by {props.post.username}
         </p>
         {props.post.editing ? (
-          <form onSubmit={submitPostEdit}>
-            <label htmlFor="editPost" />
+          <form className="edit-post-form" onSubmit={submitPostEdit}>
+            <label htmlFor="editPost" aria-label="edit post" />
             <textarea
               id="editPost"
               name="text"
-              value={props.post.text}
+              value={props.post.text.toString()}
               onChange={(e) => props.onEditPostInput(e.target.value)}
             ></textarea>
-            <button type="submit">Submit</button>
-            <button
-              type="button"
-              aria-label="cancel"
-              onClick={() => props.onToggleEditPost(true)}
-            >
-              Cancel
-            </button>
+            <div>
+              <button className="basic-button" type="submit">
+                Submit
+              </button>
+              <button
+                className="basic-button"
+                type="button"
+                aria-label="cancel"
+                onClick={() => props.onToggleEditPost(true)}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         ) : (
           <div className="post-text">
@@ -107,20 +112,24 @@ const Post = (props) => {
           </div>
         )}
         <AuthCreator creator_id={props.post.user_id}>
-          <button
-            type="button"
-            aria-label="delete post"
-            onClick={() => props.onDeletePost(post_id, history, topic)}
-          >
-            Delete
-          </button>
-          <button
-            type="button"
-            aria-label="edit post"
-            onClick={() => props.onToggleEditPost()}
-          >
-            Edit
-          </button>
+          <div className="comment-buttons">
+            <button
+              // className="basic-button"
+              type="button"
+              aria-label="delete post"
+              onClick={() => props.onDeletePost(post_id, history, topic)}
+            >
+              Delete
+            </button>
+            <button
+              // className="basic-button"
+              type="button"
+              aria-label="edit post"
+              onClick={() => props.onToggleEditPost()}
+            >
+              Edit
+            </button>
+          </div>
         </AuthCreator>
       </div>
     );
@@ -170,17 +179,19 @@ const Post = (props) => {
       <div className="comments-section">
         <h2>Comments</h2>
         <AuthShow>
-          <form onSubmit={handleSubmit}>
+          <form className="new-comment-form" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="newComment">New Comment</label>
+              <label htmlFor="newComment" aria-label="new comment"></label>
               <textarea
                 name="text"
                 id="newComment"
+                placeholder="New Comment"
                 value={commentForm.text}
                 onChange={handleInput}
+                required
               />
             </div>
-            <button type="submit" aria-label="submit">
+            <button className="basic-button" type="submit" aria-label="submit">
               Submit
             </button>
           </form>

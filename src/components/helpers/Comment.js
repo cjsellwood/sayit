@@ -47,7 +47,7 @@ const Comment = (props) => {
     commentContent = (
       <React.Fragment>
         {props.comment.editing ? (
-          <form onSubmit={submitCommentEdit}>
+          <form className="edit-comment-form" onSubmit={submitCommentEdit}>
             <div>
               <label htmlFor="editComment" />
               <textarea
@@ -60,10 +60,14 @@ const Comment = (props) => {
                     props.comment.comment_id
                   )
                 }
+                required
               ></textarea>
             </div>
-            <button type="submit">Submit</button>
+            <button className="basic-button" type="submit">
+              Submit
+            </button>
             <button
+              className="basic-button"
               type="button"
               onClick={() =>
                 props.onToggleEditComment(props.comment.comment_id, true)
@@ -77,8 +81,8 @@ const Comment = (props) => {
             <p>{props.comment.text}</p>
           </div>
         )}
-        <div className="comment-buttons">
-          <AuthShow>
+        <AuthShow>
+          <div className="comment-buttons">
             <button
               data-index={props.index}
               onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
@@ -103,38 +107,42 @@ const Comment = (props) => {
                 Edit
               </button>
             </AuthCreator>
-            {props.comment.showReply ? (
-              <form onSubmit={submitCommentReply}>
-                <div>
-                  <label htmlFor="commentReply">Reply To Comment</label>
-                  <textarea
-                    name="comment"
-                    id="commentReply"
-                    value={props.comment.reply}
-                    onChange={(e) =>
-                      props.onReplyInput(
-                        e.target.value,
-                        props.comment.comment_id
-                      )
-                    }
-                  ></textarea>
-                </div>
-                <button type="submit" aria-label="submit">
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  aria-label="cancel"
-                  onClick={() =>
-                    props.onToggleReplyForm(props.comment.comment_id)
+          </div>
+          {props.comment.showReply ? (
+            <form className="reply-form" onSubmit={submitCommentReply}>
+              <div>
+                <label htmlFor="commentReply"></label>
+                <textarea
+                  name="comment"
+                  id="commentReply"
+                  placeholder="Reply"
+                  value={props.comment.reply}
+                  onChange={(e) =>
+                    props.onReplyInput(e.target.value, props.comment.comment_id)
                   }
-                >
-                  Cancel
-                </button>
-              </form>
-            ) : null}
-          </AuthShow>
-        </div>
+                  required
+                ></textarea>
+              </div>
+              <button
+                className="basic-button"
+                type="submit"
+                aria-label="submit"
+              >
+                Submit
+              </button>
+              <button
+                className="basic-button"
+                type="button"
+                aria-label="cancel"
+                onClick={() =>
+                  props.onToggleReplyForm(props.comment.comment_id)
+                }
+              >
+                Cancel
+              </button>
+            </form>
+          ) : null}
+        </AuthShow>
         <ul>
           {replies.map((comment) => {
             return (
@@ -167,9 +175,7 @@ const Comment = (props) => {
         >
           {props.comment.show ? "[–]" : "[+]"}
         </button>
-        <span className="comment-username">
-          {props.comment.username}
-        </span>
+        <span className="comment-username">{props.comment.username}</span>
         {dateSince(props.comment.time)}
       </p>
       {props.comment.show ? commentContent : null}
