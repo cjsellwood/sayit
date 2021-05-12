@@ -5,7 +5,7 @@ import AuthShow from "./AuthShow";
 
 const Sidebar = (props) => {
   return (
-    <aside>
+    <aside className="sidebar">
       <form>
         <div>
           <label htmlFor="search">Search</label>

@@ -29,9 +29,15 @@ const Home = (props) => {
     }
   };
 
-  const postsDisplay = props.posts.map((post) => {
+  const postsDisplay = props.posts.map((post, index) => {
     return (
       <li key={post.post_id}>
+        <div className="post-number">
+          <p>{index + 1}</p>
+        </div>
+        <div className="post-votes">
+          <p>Votes</p>
+        </div>
         <div>
           <div className="post-title">
             <Link to={`/topics/${post.topic}/${post.post_id}`}>
@@ -39,7 +45,8 @@ const Home = (props) => {
             </Link>
           </div>
           <p className="post-subtitle">
-            submitted {dateSince(post.time)} by {post.username} in{" "}
+            submitted {dateSince(post.time)} by{" "}
+            <span className="post-username">{post.username}</span> in{" "}
             <Link to={`/topics/${post.topic}`}>{post.topic}</Link>
           </p>
         </div>
@@ -48,9 +55,9 @@ const Home = (props) => {
   });
 
   return (
-    <div className="Home">
+    <section className="Home">
       <ul className="posts-list">{postsDisplay}</ul>
-    </div>
+    </section>
   );
 };
 

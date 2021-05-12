@@ -75,42 +75,47 @@ const Post = (props) => {
   if (props.post.post_id && Number(props.post.post_id) === Number(post_id)) {
     postDisplay = (
       <div className="single-post">
-        <div className="post-title">
-          <Link to={`/topics/${props.post.topic}/${props.post.post_id}`}>
-            {props.post.title}
-          </Link>
+        <div className="post-votes">
+          <p>Votes</p>
         </div>
-        <p className="post-subtitle">
-          submitted {dateSince(props.post.time)} by {props.post.username}
-        </p>
-        {props.post.editing ? (
-          <form className="edit-post-form" onSubmit={submitPostEdit}>
-            <label htmlFor="editPost" aria-label="edit post" />
-            <textarea
-              id="editPost"
-              name="text"
-              value={props.post.text.toString()}
-              onChange={(e) => props.onEditPostInput(e.target.value)}
-            ></textarea>
-            <div>
-              <button className="basic-button" type="submit">
-                Submit
-              </button>
-              <button
-                className="basic-button"
-                type="button"
-                aria-label="cancel"
-                onClick={() => props.onToggleEditPost(true)}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        ) : (
-          <div className="post-text">
-            <p>{props.post.text}</p>
+        <div className="post-details">
+          <div className="post-title">
+            <Link to={`/topics/${props.post.topic}/${props.post.post_id}`}>
+              {props.post.title}
+            </Link>
           </div>
-        )}
+          <p className="post-subtitle">
+            submitted {dateSince(props.post.time)} by{" "}
+            <span className="comment-username">{props.post.username}</span>
+          </p>
+          {props.post.editing ? (
+            <form className="edit-post-form" onSubmit={submitPostEdit}>
+              <label htmlFor="editPost" aria-label="edit post" />
+              <textarea
+                id="editPost"
+                name="text"
+                value={props.post.text.toString()}
+                onChange={(e) => props.onEditPostInput(e.target.value)}
+              ></textarea>
+              <div>
+                <button className="basic-button" type="submit">
+                  Submit
+                </button>
+                <button
+                  className="basic-button"
+                  type="button"
+                  aria-label="cancel"
+                  onClick={() => props.onToggleEditPost(true)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="post-text">
+              <p>{props.post.text}</p>
+            </div>
+          )}
         <AuthCreator creator_id={props.post.user_id}>
           <div className="comment-buttons">
             <button
@@ -131,6 +136,7 @@ const Post = (props) => {
             </button>
           </div>
         </AuthCreator>
+        </div>
       </div>
     );
   }

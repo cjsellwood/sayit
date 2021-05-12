@@ -171,11 +171,12 @@ textarea:focus {
 }
 
 .App {
+  margin-top: 40px;
 }
 
 .main-grid {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 350px;
   padding: 20px;
 }
 
@@ -183,6 +184,9 @@ textarea:focus {
   background-color: var(--nav-background);
   display: flex;
   padding: 8px;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .Nav ul {
@@ -203,9 +207,23 @@ section {
 }
 
 .posts-list li {
-  padding: 16px 0px 16px 50px;
+  padding: 16px 0px 16px 30px;
+  display: flex;
+  align-items: center;
+  margin: 4px;
 }
 
+.post-number {
+  color: var(--dull-text);
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.post-votes {
+  color: white;
+  padding: 8px;
+  margin-right: 10px;
+}
 .post-title {
   padding-bottom: 8px;
 }
@@ -220,10 +238,16 @@ section {
   padding-bottom: 10px;
   margin-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.521);
+  display: flex;
+  align-items: top;
 }
 
 .single-post .post-title a {
   font-size: 1.6rem;
+}
+
+.post-details {
+  flex: 1;
 }
 
 .post-title a:hover {
@@ -296,7 +320,11 @@ section {
 
 .comment-username {
   margin-right: 8px;
-  color: var(--hover-text);
+  color: var(--dull-blue);
+}
+
+.post-username {
+  color: var(--dull-blue)
 }
 
 .child .child {
@@ -397,4 +425,16 @@ section {
   line-height: 1.2rem;
   height: 4.8rem;
   width: 500px;
+}
+
+.sidebar {
+  border: 1px solid rgba(255, 255, 255, 0.295);
+  margin-top: 20px;
+  height: fit-content;
+  color: white;
+  padding: 12px;
+}
+
+.sidebar a {
+  color: white;
 }

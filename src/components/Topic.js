@@ -47,16 +47,25 @@ const Topic = (props) => {
     }
   };
 
-  const postsDisplay = props.posts.map((post) => {
+  const postsDisplay = props.posts.map((post, index) => {
     return (
       <li key={post.post_id}>
-        <div to="/">
+        <div className="post-number">
+          <p>{index + 1}</p>
+        </div>
+        <div className="post-votes">
+          <p>Votes</p>
+        </div>
+        <div>
           <div className="post-title">
             <Link to={`/topics/${post.topic}/${post.post_id}`}>
               {post.title}
             </Link>
           </div>
-          <p className="post-subtitle">submitted {dateSince(post.time)} by {post.username}</p>
+          <p className="post-subtitle">
+            submitted {dateSince(post.time)} by
+            <span className="comment-username"> {post.username}</span>
+          </p>
         </div>
       </li>
     );
