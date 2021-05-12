@@ -27,7 +27,7 @@ const Sidebar = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  sidebar: state.posts.sidebar,
+  sidebar: state.sidebar.sidebar,
 });
 
 const mapDispatchToProps = (dispatch) => {

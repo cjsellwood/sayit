@@ -211,8 +211,8 @@ const Post = (props) => {
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
   post: state.posts.post,
-  comments: state.posts.comments,
-  topics: state.posts.topics,
+  comments: state.comments.comments,
+  topics: state.topics.topics,
 });
 
 const mapDispatchToProps = (dispatch) => {

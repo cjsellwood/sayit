@@ -1,13 +1,18 @@
 export { authorize, deauthorize, userRegister, userLogin } from "./auth";
 export {
   newPost,
-  newTopic,
   getPosts,
   getTopicPosts,
   setSinglePost,
   getSinglePost,
+  deletePost,
+  toggleEditPost,
+  editPostInput,
+  editPost,
+} from "./posts";
+
+export {
   newComment,
-  getTopics,
   toggleReplyForm,
   commentReply,
   replyInput,
@@ -15,11 +20,9 @@ export {
   toggleEditComment,
   editCommentInput,
   editComment,
-  deletePost,
-  toggleEditPost,
-  editPostInput,
-  editPost,
-  setSidebar,
-  addTopic,
   toggleShowComment,
-} from "./posts";
+} from "./comments";
+
+export { newTopic, getTopics, addTopic } from "./topics";
+
+export { setSidebar } from "./sidebar";

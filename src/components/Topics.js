@@ -23,7 +23,7 @@ const Topics = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  topics: state.posts.topics,
+  topics: state.topics.topics,
 });
 
 const mapDispatchToProps = (dispatch) => {

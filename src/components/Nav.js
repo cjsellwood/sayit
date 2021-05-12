@@ -41,7 +41,7 @@ const Nav = (props) => {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
-    sidebar: state.posts.sidebar
+    sidebar: state.sidebar.sidebar
   };
 };
 

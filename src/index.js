@@ -8,12 +8,18 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import auth from "./store/reducers/auth";
 import posts from "./store/reducers/posts"
+import topics from "./store/reducers/topics"
+import sidebar from "./store/reducers/sidebar"
+import comments from "./store/reducers/comments"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: auth,
   posts: posts,
+  comments: comments,
+  topics: topics,
+  sidebar: sidebar,
 });
 
 const store = createStore(

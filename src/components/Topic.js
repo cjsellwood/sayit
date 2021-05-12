@@ -81,7 +81,7 @@ const Topic = (props) => {
 const mapStateToProps = (state) => {
   return {
     posts: state.posts.posts,
-    topics: state.posts.topics,
+    topics: state.topics.topics,
   };
 };
 
