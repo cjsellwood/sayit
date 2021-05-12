@@ -7,11 +7,17 @@ import AuthShow from "../components/helpers/AuthShow";
 
 const Nav = (props) => {
   return (
-    <nav>
+    <nav className="Nav">
       <ul>
+        {props.sidebar.isHome ? 
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Sayit</Link>
+        </li> :
+        <li>
+          <Link to={`/topics/${props.sidebar.name}`}>{props.sidebar.name}</Link>
         </li>
+        }
+        
         <AuthHide>
           <li>
             <Link to="/register">Register</Link>
@@ -28,7 +34,6 @@ const Nav = (props) => {
           </li>
         </AuthShow>
       </ul>
-      <p>{props.isAuth ? "Logged In" : "Not Logged In"}</p>
     </nav>
   );
 };
@@ -36,6 +41,7 @@ const Nav = (props) => {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
+    sidebar: state.posts.sidebar
   };
 };
 

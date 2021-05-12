@@ -12,12 +12,14 @@ const Sidebar = (props) => {
           <input type="text" name="search" id="search" placeholder="search" />
         </div>
       </form>
+      <Link to="/topics">Topics</Link>
       <AuthShow>
         <Link to="/newpost">New Post</Link>
         <br />
         {props.sidebar.isHome ? <Link to="/newtopic">New Topic</Link> : null}
         <br />
       </AuthShow>
+      
       <h3>{props.sidebar.name}</h3>
       <p>{props.sidebar.description}</p>
     </aside>
