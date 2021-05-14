@@ -25,4 +25,4 @@ export {
 
 export { newTopic, getTopics, addTopic } from "./topics";
 
-export { setSidebar } from "./sidebar";
+export { setSidebar, toggleSidebar } from "./sidebar";

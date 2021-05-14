@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
 import * as actions from "./store/actions/index";
 import ScrollToTop from "./components/ScrollToTop";
-import Nav from "./components/Nav";
+import Nav from "./components/helpers/Nav";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";

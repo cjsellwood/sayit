@@ -5,7 +5,7 @@ import AuthShow from "./AuthShow";
 
 const Sidebar = (props) => {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${props.show ? "open" : ""}`}>
       <form>
         <div>
           <label htmlFor="search">Search</label>
@@ -19,7 +19,7 @@ const Sidebar = (props) => {
         {props.sidebar.isHome ? <Link to="/newtopic">New Topic</Link> : null}
         <br />
       </AuthShow>
-      
+
       <h3>{props.sidebar.name}</h3>
       <p>{props.sidebar.description}</p>
     </aside>
@@ -28,6 +28,7 @@ const Sidebar = (props) => {
 
 const mapStateToProps = (state) => ({
   sidebar: state.sidebar.sidebar,
+  show: state.sidebar.show,
 });
 
 const mapDispatchToProps = (dispatch) => {

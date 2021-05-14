@@ -1,0 +1,43 @@
+
+.Nav {
+  background-color: var(--nav-background);
+  display: flex;
+  padding: 8px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.Nav ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Nav a {
+  color: var(--main-text);
+  font-size: 1.5rem;
+}
+
+.menu-button {
+  border: none;
+  outline: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+  color: white;
+  height: 100%;
+  fill: white;
+}
+
+.menu-button svg {
+  width: 32px;
+  height: 32px;
+}
+
+@media screen and (min-width: 800px) {
+  .menu-button {
+    display: none;
+  }
+}

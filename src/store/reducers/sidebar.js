@@ -6,6 +6,7 @@ const initialState = {
     name: "",
     description: "",
   },
+  show: false,
 };
 
 const setSidebar = (state, action) => {
@@ -19,10 +20,19 @@ const setSidebar = (state, action) => {
   };
 };
 
+const toggleSidebar = (state, action) => {
+  return {
+    ...state,
+    show: !state.show,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_SIDEBAR:
       return setSidebar(state, action);
+    case actionTypes.TOGGLE_SIDEBAR:
+      return toggleSidebar(state, action);
     default:
       return state;
   }

@@ -21,3 +21,4 @@ export const SET_TOPICS = "SET_TOPICS";
 export const SET_ADDED_TOPIC = "SET_ADDED_TOPIC";
 
 export const SET_SIDEBAR = "SET_SIDEBAR";
+export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";

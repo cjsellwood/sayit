@@ -9,3 +9,10 @@ export const setSidebar = (isHome, name, description) => {
     description,
   };
 };
+
+// Toggle sidebar showing
+export const toggleSidebar = () => {
+  return {
+    type: actionTypes.TOGGLE_SIDEBAR
+  }
+}
