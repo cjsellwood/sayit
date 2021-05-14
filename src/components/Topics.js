@@ -8,6 +8,10 @@ const Topics = (props) => {
   useEffect(() => {
     // Get list of topics
     props.onGetTopics();
+
+    // Set sidebar to home content
+    props.onSetSidebar(true, "", "");
+
     // eslint-disable-next-line
   }, []);
 
@@ -36,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onGetTopics: () => {
       dispatch(actions.getTopics());
+    },
+    onSetSidebar: (isHome, name, description) => {
+      dispatch(actions.setSidebar(isHome, name, description));
     },
   };
 };

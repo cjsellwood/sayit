@@ -1,0 +1,11 @@
+.new-post-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.new-post-form textarea {
+  width: 100%;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 6rem;
+}

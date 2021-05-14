@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import * as actions from "../store/actions/index";
+import "./NewPost.css";
 
 const NewPost = (props) => {
   let history = useHistory();
@@ -11,6 +12,17 @@ const NewPost = (props) => {
     text: "",
     topic: "",
   });
+
+  useEffect(() => {
+    // If coming from a specific topic, pre fill in state
+    if (history.location.state) {
+      setPostForm({
+        ...postForm,
+        topic: history.location.state.topic,
+      });
+    }
+    // eslint-disable-next-line
+  }, []);
 
   // Handle text field changes
   const handleInput = (e) => {
@@ -28,8 +40,8 @@ const NewPost = (props) => {
 
   return (
     <section>
-      <h1>New Post</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="page-title">New Post</h1>
+      <form className="auth-form new-post-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title*</label>
           <input
@@ -60,7 +72,7 @@ const NewPost = (props) => {
             required
           />
         </div>
-        <button type="submit" aria-label="submit">
+        <button className="basic-button" type="submit" aria-label="submit">
           Submit
         </button>
       </form>

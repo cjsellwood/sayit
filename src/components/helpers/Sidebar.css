@@ -7,7 +7,6 @@
   top: 48px;
   background-color: var(--main-background);
   visibility: hidden;
-  height: auto;
   min-height: 100%;
   transform: translateX(100%);
   -webkit-transform: translateX(100%);

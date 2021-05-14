@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory} from "react-router";
+import { useHistory } from "react-router";
 import * as actions from "../store/actions/index";
+import "./NewTopic.css";
+
 const NewTopic = (props) => {
   let history = useHistory();
+
+  useEffect(() => {
+    // Set sidebar to home content
+    props.onSetSidebar(true, "", "");
+
+    // eslint-disable-next-line
+  }, []);
 
   const [topicForm, setTopicForm] = useState({
     name: "",
@@ -26,8 +35,8 @@ const NewTopic = (props) => {
 
   return (
     <section>
-      <h1>New Topic</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="page-title">New Topic</h1>
+      <form className="auth-form new-topic-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name*</label>
           <input
@@ -48,7 +57,7 @@ const NewTopic = (props) => {
             required
           />
         </div>
-        <button type="submit" aria-label="submit">
+        <button className="basic-button" type="submit" aria-label="submit">
           Submit
         </button>
       </form>
@@ -62,6 +71,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onNewTopic: (topicForm, history) => {
       dispatch(actions.newTopic(topicForm, history));
+    },
+    onSetSidebar: (isHome, name, description) => {
+      dispatch(actions.setSidebar(isHome, name, description));
     },
   };
 };
