@@ -135,6 +135,7 @@ a {
   --dull-blue: rgb(40, 131, 236);
   --button-color: rgb(90, 25, 195);
   --button-hover: rgb(136, 76, 233);
+  --modal-frame: rgba(0, 0, 0, 0.87);
 }
 
 html {
@@ -177,40 +178,8 @@ textarea:focus {
 .main-grid {
   display: grid;
   position: relative;
-  /* padding: 20px; */
+  padding: 12px 0 12px 0;
   overflow: hidden;
-}
-
-.sidebar {
-  color: white;
-  padding: 12px;
-  height: 500px;
-  flex-direction: column;
-  justify-content: space-between;
-  position: fixed;
-  background-color: var(--main-background);
-  visibility: hidden;
-  height: 100%;
-  transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  -moz-transform: translateX(100%);
-  -ms-transform: translateX(100%);
-  -o-transform: translateX(100%);
-  transition: 0.25s transform;
-  -webkit-transition: 0.25s transform;
-  -moz-transition: 0.25s transform;
-  -ms-transition: 0.25s transform;
-  -o-transition: 0.25s transform;
-}
-
-.sidebar.open {
-  width: 100%;
-  visibility: visible;
-  transform: translateX(0%);
-  -webkit-transform: translateX(0%);
-  -moz-transform: translateX(0%);
-  -ms-transform: translateX(0%);
-  -o-transform: translateX(0%);
 }
 
 @media screen and (min-width: 800px) {
@@ -218,27 +187,6 @@ textarea:focus {
     grid-template-columns: 1fr 350px;
     padding: 12px;
   }
-
-  .sidebar {
-    position: relative;
-    margin-top: 20px;
-    width: 100%;
-    visibility: visible;
-    transform: none;
-    -webkit-transform: none;
-    -moz-transform: none;
-    -ms-transform: none;
-    -o-transform: none;
-    transition: none;
-    -webkit-transition: none;
-    -moz-transition: none;
-    -ms-transition: none;
-    -o-transition: none;
-  }
-}
-
-.sidebar a {
-  color: white;
 }
 
 section {
@@ -249,10 +197,16 @@ section {
 }
 
 .posts-list li {
-  padding: 16px 0px 16px 30px;
+  padding: 16px 0px 16px 4px;
   display: flex;
   align-items: center;
   margin: 4px;
+}
+
+@media screen and (min-width: 800px) {
+  .posts-list li {
+    padding: 16px 0px 16px 16px;
+  }
 }
 
 .post-number {

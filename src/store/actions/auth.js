@@ -92,3 +92,18 @@ export const userLogin = (loginForm, history) => {
       });
   };
 };
+
+// Toggle register modal
+export const toggleRegisterModal = () => {
+  return {
+    type: actionTypes.TOGGLE_REGISTER_MODAL
+  }
+}
+
+
+// Toggle register modal
+export const toggleLoginModal = () => {
+  return {
+    type: actionTypes.TOGGLE_LOGIN_MODAL
+  }
+}

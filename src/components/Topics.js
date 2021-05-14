@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import {Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
+import "./Topics.css";
 
 const Topics = (props) => {
   useEffect(() => {
@@ -19,7 +20,12 @@ const Topics = (props) => {
     );
   });
 
-  return <section><h1>Topics</h1>{topicsDisplay}</section>;
+  return (
+    <section>
+      <h1 className="page-title">Topics</h1>
+      <ul className="topics-list">{topicsDisplay}</ul>
+    </section>
+  );
 };
 
 const mapStateToProps = (state) => ({

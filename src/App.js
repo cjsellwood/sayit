@@ -42,12 +42,6 @@ const App = (props) => {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
             <Route path="/newpost">
               <NewPost />
             </Route>
@@ -65,6 +59,8 @@ const App = (props) => {
             </Route>
           </Switch>
         </main>
+        {props.registerModal ? <Register/> : null}
+        {props.loginModal ? <Login/> : null}
         <Sidebar />
       </div>
     </div>
@@ -72,7 +68,10 @@ const App = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    registerModal: state.auth.registerModal,
+    loginModal: state.auth.loginModal,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,4 +1,11 @@
-export { authorize, deauthorize, userRegister, userLogin } from "./auth";
+export {
+  authorize,
+  deauthorize,
+  userRegister,
+  userLogin,
+  toggleLoginModal,
+  toggleRegisterModal,
+} from "./auth";
 export {
   newPost,
   getPosts,

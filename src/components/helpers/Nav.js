@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/index";
-import AuthHide from "./AuthHide";
-import AuthShow from "./AuthShow";
+
 import "./Nav.css"
 
 const Nav = (props) => {
@@ -22,21 +21,7 @@ const Nav = (props) => {
           </li>
         )}
 
-        <AuthHide>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
-        </AuthHide>
-        <AuthHide>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </AuthHide>
-        <AuthShow>
-          <li>
-            <button onClick={props.onDeauthorize}>Logout</button>
-          </li>
-        </AuthShow>
+
         <button
           className="menu-button"
           onClick={props.onToggleSidebar}
@@ -76,9 +61,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDeauthorize: () => {
-      dispatch(actions.deauthorize());
-    },
     onToggleSidebar: () => {
       dispatch(actions.toggleSidebar());
     },

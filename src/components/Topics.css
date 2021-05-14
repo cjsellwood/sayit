@@ -1,0 +1,32 @@
+.page-title {
+  font-size: 3rem;
+  color: var(--main-text);
+  text-align: center;
+}
+
+.topics-list {
+}
+
+.topics-list li {
+  padding: 16px 0px 16px 30px;
+  margin: 4px;
+}
+
+.topics-list a {
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+  color: var(--main-text);
+
+}
+
+.topics-list a:hover {
+  color: var(--hover-text);
+}
+
+.topics-list p {
+  font-size: 1rem;
+  line-height: 1.2rem;
+  color: var(--dull-text);
+  margin-top: 10px;
+  display: block;
+}
