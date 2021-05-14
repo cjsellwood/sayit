@@ -7,7 +7,8 @@
   top: 48px;
   background-color: var(--main-background);
   visibility: hidden;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
   transform: translateX(100%);
   -webkit-transform: translateX(100%);
   -moz-transform: translateX(100%);
@@ -51,4 +52,106 @@
 
 .sidebar a {
   color: white;
+}
+
+.search-bar {
+  width: 100%;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.search-bar input {
+  font-size: 1rem;
+  font-family: "Roboto";
+  font-size: 1rem;
+  padding: 8px;
+  width: 100%;
+  color: var(--dull-text);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border: 1px solid white;
+  background-color: transparent;
+  outline: none;
+  resize: none;
+  padding-right: 36px;
+}
+
+.search-bar input:focus {
+  border: 1px solid var(--hover-text);
+}
+
+.search-bar button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+
+.search-bar button svg {
+  width: 28px;
+  height: 28px;
+  fill: white;
+}
+
+.search-bar button:hover svg {
+  fill: var(--hover-text);
+}
+
+.auth-links {
+  display: flex;
+  padding: 12px 0;
+  justify-content: space-around;
+}
+
+.auth-links li {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-links button {
+  width: 80%;
+}
+
+.sidebar-links {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.sidebar-links a {
+  font-size: 1.2rem;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 12px 20px;
+}
+
+.sidebar-links a:hover {
+  color: var(--hover-text)
+}
+
+.sidebar-topic {
+  padding: 12px;
+  border-top: 1px solid var(--dull-text)
+}
+
+.sidebar-topic h3 {
+  display: block;
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+}
+
+.sidebar-topic p {
+  line-height: 1.2rem;
+  display: block;
 }
