@@ -1,6 +1,6 @@
 export {
   authorize,
-  deauthorize,
+  userLogout,
   userRegister,
   userLogin,
   toggleLoginModal,
@@ -34,3 +34,5 @@ export {
 export { newTopic, getTopics, addTopic } from "./topics";
 
 export { setSidebar, toggleSidebar } from "./sidebar";
+
+export { setError, setSuccess, setTimeout, setLoading } from "./flash";

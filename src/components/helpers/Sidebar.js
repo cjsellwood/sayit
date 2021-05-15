@@ -91,7 +91,7 @@ const Sidebar = (props) => {
           <li>
             <button
               className="basic-button"
-              onClick={props.onDeauthorize}
+              onClick={props.onUserLogout}
               aria-label="logout"
             >
               Logout
@@ -117,8 +117,8 @@ const mapDispatchToProps = (dispatch) => {
     onToggleSidebar: () => {
       dispatch(actions.toggleSidebar());
     },
-    onDeauthorize: () => {
-      dispatch(actions.deauthorize());
+    onUserLogout: () => {
+      dispatch(actions.userLogout());
     },
     onToggleLoginModal: () => {
       dispatch(actions.toggleLoginModal());

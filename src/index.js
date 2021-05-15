@@ -11,6 +11,7 @@ import posts from "./store/reducers/posts"
 import topics from "./store/reducers/topics"
 import sidebar from "./store/reducers/sidebar"
 import comments from "./store/reducers/comments"
+import flash from "./store/reducers/flash"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   comments: comments,
   topics: topics,
   sidebar: sidebar,
+  flash: flash,
 });
 
 const store = createStore(

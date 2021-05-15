@@ -16,6 +16,9 @@ import Post from "./components/Post";
 import Topics from "./components/Topics";
 import Sidebar from "./components/helpers/Sidebar";
 import SearchPosts from "./components/SearchPosts";
+import FlashError from "./components/helpers/FlashError";
+import FlashSuccess from "./components/helpers/FlashSuccess";
+import FlashLoading from "./components/helpers/FlashLoading";
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -37,6 +40,9 @@ const App = (props) => {
     <div className="App">
       <ScrollToTop />
       <Nav />
+      <FlashError />
+      <FlashSuccess />
+      <FlashLoading />
       <div className="main-grid">
         <main>
           <Switch>
