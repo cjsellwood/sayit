@@ -19,9 +19,10 @@ const Sidebar = (props) => {
   // Handle search bar submission
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    console.log(search);
 
     history.push(`/search?q=${search}`);
+
+    setSearch("")
   };
 
   return (
@@ -39,6 +40,7 @@ const Sidebar = (props) => {
             placeholder="search"
             value={search}
             onChange={searchInput}
+            required
           />
           <button type="submit" aria-label="search">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">

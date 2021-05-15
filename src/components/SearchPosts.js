@@ -5,15 +5,14 @@ import * as actions from "../store/actions/index";
 import dateSince from "./functions/dateSince"
 
 const SearchPosts = (props) => {
-
   const location = useLocation();
-  console.log(location)
 
+  const params = new URLSearchParams(location.search)
+  const query = params.get("q")
+  
   useEffect(() => {
 
-    const params = new URLSearchParams(location.search)
-
-    const query = params.get("q")
+    console.log(query)
     // Fetch posts on first load
     props.onGetSearchPosts(query);
 
@@ -21,7 +20,7 @@ const SearchPosts = (props) => {
     props.onSetSidebar(true, "", "");
 
     // eslint-disable-next-line
-  }, []);
+  }, [query]);
 
   const postsDisplay = props.posts.map((post, index) => {
     return (
