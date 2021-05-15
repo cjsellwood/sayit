@@ -15,6 +15,7 @@ import Topic from "./components/Topic";
 import Post from "./components/Post";
 import Topics from "./components/Topics";
 import Sidebar from "./components/helpers/Sidebar";
+import SearchPosts from "./components/SearchPosts";
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -48,6 +49,9 @@ const App = (props) => {
             <Route path="/newtopic">
               <NewTopic />
             </Route>
+            <Route path="/search">
+              <SearchPosts />
+            </Route>
             <Route path="/topics" exact>
               <Topics />
             </Route>
@@ -59,8 +63,8 @@ const App = (props) => {
             </Route>
           </Switch>
         </main>
-        {props.registerModal ? <Register/> : null}
-        {props.loginModal ? <Login/> : null}
+        {props.registerModal ? <Register /> : null}
+        {props.loginModal ? <Login /> : null}
         <Sidebar />
       </div>
     </div>

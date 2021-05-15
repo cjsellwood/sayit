@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AuthShow from "./AuthShow";
 import AuthHide from "./AuthHide";
 import * as actions from "../../store/actions/index";
@@ -14,10 +14,14 @@ const Sidebar = (props) => {
     setSearch(e.target.value);
   };
 
+  let history = useHistory();
+
   // Handle search bar submission
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log(search);
+
+    history.push(`/search?q=${search}`)
   };
 
   return (

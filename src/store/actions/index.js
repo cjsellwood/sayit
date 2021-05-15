@@ -16,6 +16,7 @@ export {
   toggleEditPost,
   editPostInput,
   editPost,
+  getSearchPosts,
 } from "./posts";
 
 export {

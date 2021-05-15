@@ -195,3 +195,25 @@ export const editPost = (text, post_id) => {
       });
   };
 };
+
+// Get posts from submitted search
+export const getSearchPosts = (query) => {
+  return (dispatch) => {
+    fetch(`${base}/posts/search?q=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Add to state
+        dispatch(loadPosts(data.posts));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
