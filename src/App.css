@@ -371,6 +371,12 @@ section {
   background-color: var(--button-hover);
 }
 
+.basic-button:disabled {
+  background-color: rgb(230, 230, 230);
+  cursor: not-allowed;
+}
+
+
 .edit-post-form {
   display: flex;
   flex-direction: column;

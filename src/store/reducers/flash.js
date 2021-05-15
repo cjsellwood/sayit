@@ -24,8 +24,16 @@ const setSuccess = (state, action) => {
 };
 
 const setLoading = (state, action) => {
+  // Clear message if loading
+  const messages = {};
+  if (action.loading) {
+    messages.error = "";
+    messages.success = "";
+  }
+
   return {
     ...state,
+    ...messages,
     loading: action.loading,
   };
 };
@@ -33,9 +41,9 @@ const setLoading = (state, action) => {
 const setTimeout = (state, action) => {
   return {
     ...state,
-    timeout: action.timeout
-  }
-}
+    timeout: action.timeout,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

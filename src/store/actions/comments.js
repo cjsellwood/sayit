@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 import base from "../../base";
+import {setError, setSuccess, setLoading} from "./flash";
 
 // Add comment to post
 export const addComment = (comment) => {
@@ -12,6 +13,8 @@ export const addComment = (comment) => {
 // Submit new comment
 export const newComment = (commentForm, post_id) => {
   return (dispatch) => {
+    dispatch(setLoading(true))
+
     const token = localStorage.getItem("token");
     fetch(`${base}/comments/new`, {
       method: "POST",
@@ -32,9 +35,13 @@ export const newComment = (commentForm, post_id) => {
 
         // Add to state
         dispatch(addComment(data.comment));
+
+        dispatch(setLoading(false))
+        dispatch(setSuccess(data.message))
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setLoading(false))
+        dispatch(setError(error.message))
       });
   };
 };
@@ -66,6 +73,7 @@ export const resetReplyInput = (comment_id) => {
 // Submit comment to backend
 export const commentReply = (text, post_id, parent) => {
   return (dispatch) => {
+    dispatch(setLoading(true))
     const token = localStorage.getItem("token");
     fetch(`${base}/comments/new`, {
       method: "POST",
@@ -92,9 +100,13 @@ export const commentReply = (text, post_id, parent) => {
 
         // Close input form
         dispatch(toggleReplyForm(parent));
+
+        dispatch(setLoading(false))
+        dispatch(setSuccess(data.message))
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setLoading(false))
+        dispatch(setError(error.message))
       });
   };
 };
@@ -119,6 +131,7 @@ export const setDeletedComment = (comment_id) => {
 // Delete comment from database
 export const deleteComment = (comment_id) => {
   return (dispatch) => {
+    dispatch(setLoading(true))
     const token = localStorage.getItem("token");
     fetch(`${base}/comments/${comment_id}/delete`, {
       method: "DELETE",
@@ -139,9 +152,13 @@ export const deleteComment = (comment_id) => {
 
         // Remove from state
         dispatch(setDeletedComment(comment_id));
+
+        dispatch(setLoading(false))
+        dispatch(setSuccess(data.message))
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setLoading(false));
+        dispatch(setError(error.message))
       });
   };
 };
@@ -167,6 +184,7 @@ export const editCommentInput = (value, comment_id) => {
 // Submit edited comment to backend
 export const editComment = (text, comment_id) => {
   return (dispatch) => {
+    dispatch(setLoading(true))
     const token = localStorage.getItem("token");
     fetch(`${base}/comments/${comment_id}/edit`, {
       method: "PATCH",
@@ -187,9 +205,12 @@ export const editComment = (text, comment_id) => {
 
         // Close input form
         dispatch(toggleEditComment(comment_id));
+
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setLoading(false))
+        dispatch(setError(error.message))
       });
   };
 };

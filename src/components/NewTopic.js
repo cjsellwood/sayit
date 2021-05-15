@@ -57,7 +57,8 @@ const NewTopic = (props) => {
             required
           />
         </div>
-        <button className="basic-button" type="submit" aria-label="submit">
+        <button className="basic-button" type="submit" aria-label="submit" 
+        disabled={props.loading ? "disabled" : false}>
           Submit
         </button>
       </form>
@@ -65,7 +66,9 @@ const NewTopic = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  loading: state.flash.loading
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -1,10 +1,12 @@
 import * as actionTypes from "../actions/actionTypes";
 import base from "../../base";
 import { setSinglePostComments } from "./comments";
+import { setError, setSuccess, setLoading } from "./flash";
 
 // Submit new post
 export const newPost = (postForm, history) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     const token = localStorage.getItem("token");
     fetch(`${base}/posts/new`, {
       method: "POST",
@@ -23,13 +25,15 @@ export const newPost = (postForm, history) => {
           throw new Error(data.error);
         }
 
-        // Add to state
-
         // Redirect
         history.push(`/topics/${postForm.topic}/${data.post_id}`);
+
+        dispatch(setLoading(false));
+        dispatch(setSuccess(data.message));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
       });
   };
 };
@@ -45,6 +49,7 @@ export const loadPosts = (posts) => {
 // Get posts
 export const getPosts = () => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     fetch(`${base}/posts`)
       .then((response) => response.json())
       .then((data) => {
@@ -57,9 +62,12 @@ export const getPosts = () => {
 
         // Add to state
         dispatch(loadPosts(data.posts));
+
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
       });
   };
 };
@@ -67,11 +75,10 @@ export const getPosts = () => {
 // Get posts for a single topic
 export const getTopicPosts = (topic) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     fetch(`${base}/posts/topics/${topic}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -79,9 +86,13 @@ export const getTopicPosts = (topic) => {
 
         // Add to state
         dispatch(loadPosts(data.posts));
+
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(loadPosts([]));
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
       });
   };
 };
@@ -97,6 +108,7 @@ export const setSinglePost = (post, comments) => {
 // Get single post
 export const getSinglePost = (post_id) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     fetch(`${base}/posts/${post_id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -112,9 +124,12 @@ export const getSinglePost = (post_id) => {
 
         // Add comments to state
         dispatch(setSinglePostComments(data.comments));
+
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
       });
   };
 };
@@ -122,6 +137,7 @@ export const getSinglePost = (post_id) => {
 // Delete a post
 export const deletePost = (post_id, history, topic) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     const token = localStorage.getItem("token");
     fetch(`${base}/posts/${post_id}/delete`, {
       method: "DELETE",
@@ -142,9 +158,13 @@ export const deletePost = (post_id, history, topic) => {
 
         // Redirect
         history.push(`/topics/${topic}`);
+
+        dispatch(setLoading(false))
+        dispatch(setSuccess(data.message))
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
       });
   };
 };
@@ -169,6 +189,7 @@ export const editPostInput = (value, post_id) => {
 // Submit edited post to backend
 export const editPost = (text, post_id) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     const token = localStorage.getItem("token");
     fetch(`${base}/posts/${post_id}/edit`, {
       method: "PATCH",
@@ -189,9 +210,12 @@ export const editPost = (text, post_id) => {
 
         // Close input form
         dispatch(toggleEditPost());
+
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
       });
   };
 };
@@ -199,6 +223,7 @@ export const editPost = (text, post_id) => {
 // Get posts from submitted search
 export const getSearchPosts = (query) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     fetch(`${base}/posts/search?q=${query}`)
       .then((response) => response.json())
       .then((data) => {
@@ -211,9 +236,12 @@ export const getSearchPosts = (query) => {
 
         // Add to state
         dispatch(loadPosts(data.posts));
+
+        dispatch(setLoading(false))
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
       });
   };
-}
+};

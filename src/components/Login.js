@@ -68,7 +68,7 @@ const Login = (props) => {
               required
             />
           </div>
-          <button className="basic-button" type="submit" aria-label="submit">
+          <button className="basic-button" type="submit" aria-label="submit" disabled={props.loading ? "disabled" : null}>
             Login
           </button>
         </form>
@@ -78,7 +78,9 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    loading: state.flash.loading
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

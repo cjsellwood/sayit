@@ -8,12 +8,17 @@ const Topic = (props) => {
 
   // Get posts on first run or if topic changes
   useEffect(() => {
-    props.onGetTopicPosts(topic);
+    if (props.error !== "There are no posts for this topic") {
+      props.onGetTopicPosts(topic);
+    }
 
     // Find index of topic in state
-    const topicIndex = props.topics.findIndex(
-      (topicState) => topicState.name === topic
-    );
+    let topicIndex = -1;
+    if (props.topics.length) {
+      topicIndex = props.topics.findIndex(
+        (topicState) => topicState.name === topic
+      );
+    }
 
     // If topic not in state, fetch and add it
     if (topicIndex === -1) {
@@ -82,6 +87,7 @@ const mapStateToProps = (state) => {
   return {
     posts: state.posts.posts,
     topics: state.topics.topics,
+    error: state.flash.error,
   };
 };
 
