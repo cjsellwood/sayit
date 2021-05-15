@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
+import dateSince from "./functions/dateSince";
 
 const Topic = (props) => {
   const { topic } = useParams();
@@ -9,8 +10,8 @@ const Topic = (props) => {
   // Get posts on first run or if topic changes
   useEffect(() => {
     props.onGetTopicPosts(topic);
-        // eslint-disable-next-line
-  }, [topic])
+    // eslint-disable-next-line
+  }, [topic]);
 
   useEffect(() => {
     // Find index of topic in state
@@ -37,21 +38,6 @@ const Topic = (props) => {
 
     // eslint-disable-next-line
   }, [topic, props.topics]);
-
-  const dateSince = (date) => {
-    const duration = (Date.now() - new Date(date)) / 1000;
-    if (duration < 60) {
-      return `${duration.toFixed(0)} seconds ago`;
-    } else if (duration < 60 * 60) {
-      return `${(duration / 60).toFixed(0)} minutes ago`;
-    } else if (duration < 60 * 60 * 24) {
-      return `${(duration / (60 * 60)).toFixed(0)} hours ago`;
-    } else if (duration < 60 * 60 * 24 * 365) {
-      return `${(duration / (60 * 60 * 24)).toFixed(0)} days ago`;
-    } else {
-      return `${(duration / (60 * 60 * 24 * 365)).toFixed(0)} years ago`;
-    }
-  };
 
   const postsDisplay = props.posts.map((post, index) => {
     return (
@@ -80,9 +66,6 @@ const Topic = (props) => {
   return (
     <section>
       <ul className="posts-list">{postsDisplay}</ul>
-      {/* {!postsDisplay.length && !props.loading ? (
-        <h2 className="empty-message">There are no posts for this topic</h2>
-      ) : null} */}
     </section>
   );
 };

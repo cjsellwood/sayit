@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import AuthCreator from "./AuthCreator";
 import AuthShow from "./AuthShow";
+import dateSince from "../functions/dateSince"
 
 const Comment = (props) => {
   // Submit reply to a comment
@@ -25,21 +26,6 @@ const Comment = (props) => {
   const replies = props.allComments.filter(
     (comment) => comment.parent === props.comment.comment_id
   );
-
-  const dateSince = (date) => {
-    const duration = (Date.now() - new Date(date)) / 1000;
-    if (duration < 60) {
-      return `${duration.toFixed(0)} seconds ago`;
-    } else if (duration < 60 * 60) {
-      return `${(duration / 60).toFixed(0)} minutes ago`;
-    } else if (duration < 60 * 60 * 24) {
-      return `${(duration / (60 * 60)).toFixed(0)} hours ago`;
-    } else if (duration < 60 * 60 * 24 * 365) {
-      return `${(duration / (60 * 60 * 24)).toFixed(0)} days ago`;
-    } else {
-      return `${(duration / (60 * 60 * 24 * 365)).toFixed(0)} years ago`;
-    }
-  };
 
   // Change content when hiding comment
   let commentContent = null;
