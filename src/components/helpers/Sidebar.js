@@ -21,7 +21,7 @@ const Sidebar = (props) => {
     e.preventDefault();
     console.log(search);
 
-    history.push(`/search?q=${search}`)
+    history.push(`/search?q=${search}`);
   };
 
   return (
@@ -63,6 +63,7 @@ const Sidebar = (props) => {
           <li>
             <button
               className="basic-button"
+              disabled={props.loading ? "disabled" : false}
               onClick={(e) => {
                 // e.stopPropagation();
                 props.onToggleRegisterModal();
@@ -77,6 +78,7 @@ const Sidebar = (props) => {
           <li>
             <button
               className="basic-button"
+              disabled={props.loading ? "disabled" : false}
               onClick={(e) => {
                 // e.stopPropagation();
                 props.onToggleLoginModal();
@@ -90,6 +92,7 @@ const Sidebar = (props) => {
         <AuthShow>
           <li>
             <button
+              disabled={props.loading ? "disabled" : false}
               className="basic-button"
               onClick={props.onUserLogout}
               aria-label="logout"
@@ -110,6 +113,7 @@ const Sidebar = (props) => {
 const mapStateToProps = (state) => ({
   sidebar: state.sidebar.sidebar,
   show: state.sidebar.show,
+  loading: state.flash.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {

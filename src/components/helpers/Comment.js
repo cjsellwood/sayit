@@ -69,6 +69,7 @@ const Comment = (props) => {
             <button
               className="basic-button"
               type="button"
+              disabled={props.loading ? "disabled" : false}
               onClick={() =>
                 props.onToggleEditComment(props.comment.comment_id, true)
               }
@@ -85,6 +86,7 @@ const Comment = (props) => {
           <div className="comment-buttons">
             <button
               data-index={props.index}
+              disabled={props.loading ? "disabled" : false}
               onClick={() => props.onToggleReplyForm(props.comment.comment_id)}
             >
               Reply
@@ -93,6 +95,7 @@ const Comment = (props) => {
               <button
                 type="button"
                 aria-label="delete"
+                disabled={props.loading ? "disabled" : false}
                 onClick={() => props.onDeleteComment(props.comment.comment_id)}
               >
                 Delete
@@ -100,6 +103,7 @@ const Comment = (props) => {
               <button
                 type="edit"
                 aria-label="edit"
+                disabled={props.loading ? "disabled" : false}
                 onClick={() =>
                   props.onToggleEditComment(props.comment.comment_id)
                 }
@@ -127,6 +131,7 @@ const Comment = (props) => {
                 className="basic-button"
                 type="submit"
                 aria-label="submit"
+                disabled={props.loading ? "disabled" : false}
               >
                 Submit
               </button>
@@ -134,6 +139,7 @@ const Comment = (props) => {
                 className="basic-button"
                 type="button"
                 aria-label="cancel"
+                disabled={props.loading ? "disabled" : false}
                 onClick={() =>
                   props.onToggleReplyForm(props.comment.comment_id)
                 }
@@ -151,6 +157,7 @@ const Comment = (props) => {
                 comment={comment}
                 post_id={props.post_id}
                 key={comment.comment_id}
+                loading={props.loading}
                 onToggleReplyForm={props.onToggleReplyForm}
                 onReplyInput={props.onReplyInput}
                 onCommentReply={props.onCommentReply}
@@ -184,7 +191,7 @@ const Comment = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  // allComments: state.posts.comments,
+  loading: state.flash.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {

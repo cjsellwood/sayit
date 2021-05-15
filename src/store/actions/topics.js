@@ -9,8 +9,8 @@ export const newTopic = (topicForm, history) => {
 
     const token = localStorage.getItem("token");
 
-    // Remove spaces from topic name
-    topicForm.name = topicForm.name.split(" ").join("");
+    // Remove spaces from topic name and make lowercase
+    topicForm.name = topicForm.name.split(" ").join("").toLowerCase();
 
     fetch(`${base}/newtopic`, {
       method: "POST",
@@ -57,6 +57,8 @@ export const setTopics = (topics) => {
 export const getTopics = () => {
   return (dispatch) => {
     dispatch(setLoading(true));
+    dispatch(setTopics([]));
+
     fetch(`${base}/posts/topics`)
       .then((response) => response.json())
       .then((data) => {
@@ -106,7 +108,6 @@ export const addTopic = (topic) => {
         if (data.error) {
           throw new Error(data.error);
         }
-
         dispatch(setAddedTopic(data.topic));
 
         dispatch(setLoading(false));

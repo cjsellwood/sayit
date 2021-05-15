@@ -48,8 +48,6 @@ const Post = (props) => {
     // eslint-disable-next-line
   }, [post_id]);
 
-  let postDisplay = [];
-
   // Submit post after editing
   const submitPostEdit = (e) => {
     e.preventDefault();
@@ -70,6 +68,8 @@ const Post = (props) => {
       return `${(duration / (60 * 60 * 24 * 365)).toFixed(0)} years ago`;
     }
   };
+
+  let postDisplay = [];
 
   // If post set and the post ids' match, display post
   if (props.post.post_id && Number(props.post.post_id) === Number(post_id)) {
@@ -98,13 +98,18 @@ const Post = (props) => {
                 onChange={(e) => props.onEditPostInput(e.target.value)}
               ></textarea>
               <div>
-                <button className="basic-button" type="submit">
+                <button
+                  className="basic-button"
+                  type="submit"
+                  disabled={props.loading ? "disabled" : false}
+                >
                   Submit
                 </button>
                 <button
                   className="basic-button"
                   type="button"
                   aria-label="cancel"
+                  disabled={props.loading ? "disabled" : false}
                   onClick={() => props.onToggleEditPost(true)}
                 >
                   Cancel
@@ -116,26 +121,26 @@ const Post = (props) => {
               <p>{props.post.text}</p>
             </div>
           )}
-        <AuthCreator creator_id={props.post.user_id}>
-          <div className="comment-buttons">
-            <button
-              // className="basic-button"
-              type="button"
-              aria-label="delete post"
-              onClick={() => props.onDeletePost(post_id, history, topic)}
-            >
-              Delete
-            </button>
-            <button
-              // className="basic-button"
-              type="button"
-              aria-label="edit post"
-              onClick={() => props.onToggleEditPost()}
-            >
-              Edit
-            </button>
-          </div>
-        </AuthCreator>
+          <AuthCreator creator_id={props.post.user_id}>
+            <div className="comment-buttons">
+              <button
+                type="button"
+                aria-label="delete post"
+                disabled={props.loading ? "disabled" : false}
+                onClick={() => props.onDeletePost(post_id, history, topic)}
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                aria-label="edit post"
+                disabled={props.loading ? "disabled" : false}
+                onClick={() => props.onToggleEditPost()}
+              >
+                Edit
+              </button>
+            </div>
+          </AuthCreator>
         </div>
       </div>
     );
@@ -182,28 +187,35 @@ const Post = (props) => {
   return (
     <section>
       {postDisplay}
-      <div className="comments-section">
-        <h2>Comments</h2>
-        <AuthShow>
-          <form className="new-comment-form" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="newComment" aria-label="new comment"></label>
-              <textarea
-                name="text"
-                id="newComment"
-                placeholder="New Comment"
-                value={commentForm.text}
-                onChange={handleInput}
-                required
-              />
-            </div>
-            <button className="basic-button" type="submit" aria-label="submit">
-              Submit
-            </button>
-          </form>
-        </AuthShow>
-        <ul>{commentsDisplay}</ul>
-      </div>
+      {!props.post.post_id ? null : (
+        <div className="comments-section">
+          <h2>Comments</h2>
+          <AuthShow>
+            <form className="new-comment-form" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="newComment" aria-label="new comment"></label>
+                <textarea
+                  name="text"
+                  id="newComment"
+                  placeholder="New Comment"
+                  value={commentForm.text}
+                  onChange={handleInput}
+                  required
+                />
+              </div>
+              <button
+                className="basic-button"
+                type="submit"
+                aria-label="submit"
+                disabled={props.loading ? "disabled" : false}
+              >
+                Submit
+              </button>
+            </form>
+          </AuthShow>
+          <ul>{commentsDisplay}</ul>
+        </div>
+      )}
     </section>
   );
 };
@@ -213,6 +225,7 @@ const mapStateToProps = (state) => ({
   post: state.posts.post,
   comments: state.comments.comments,
   topics: state.topics.topics,
+  loading: state.flash.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {

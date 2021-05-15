@@ -50,11 +50,10 @@ export const loadPosts = (posts) => {
 export const getPosts = () => {
   return (dispatch) => {
     dispatch(setLoading(true));
+    dispatch(loadPosts([]));
     fetch(`${base}/posts`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -76,6 +75,8 @@ export const getPosts = () => {
 export const getTopicPosts = (topic) => {
   return (dispatch) => {
     dispatch(setLoading(true));
+    dispatch(loadPosts([]))
+
     fetch(`${base}/posts/topics/${topic}`)
       .then((response) => response.json())
       .then((data) => {
@@ -90,7 +91,6 @@ export const getTopicPosts = (topic) => {
         dispatch(setLoading(false));
       })
       .catch((error) => {
-        dispatch(loadPosts([]));
         dispatch(setError(error.message));
         dispatch(setLoading(false));
       });
@@ -109,11 +109,11 @@ export const setSinglePost = (post, comments) => {
 export const getSinglePost = (post_id) => {
   return (dispatch) => {
     dispatch(setLoading(true));
+    dispatch(setSinglePost({}))
+
     fetch(`${base}/posts/${post_id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -149,8 +149,6 @@ export const deletePost = (post_id, history, topic) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -159,8 +157,8 @@ export const deletePost = (post_id, history, topic) => {
         // Redirect
         history.push(`/topics/${topic}`);
 
-        dispatch(setLoading(false))
-        dispatch(setSuccess(data.message))
+        dispatch(setLoading(false));
+        dispatch(setSuccess(data.message));
       })
       .catch((error) => {
         dispatch(setError(error.message));
@@ -201,8 +199,6 @@ export const editPost = (text, post_id) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -224,11 +220,11 @@ export const editPost = (text, post_id) => {
 export const getSearchPosts = (query) => {
   return (dispatch) => {
     dispatch(setLoading(true));
+    dispatch(loadPosts([]))
+
     fetch(`${base}/posts/search?q=${query}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -237,7 +233,7 @@ export const getSearchPosts = (query) => {
         // Add to state
         dispatch(loadPosts(data.posts));
 
-        dispatch(setLoading(false))
+        dispatch(setLoading(false));
       })
       .catch((error) => {
         dispatch(setError(error.message));

@@ -8,15 +8,16 @@ const Topic = (props) => {
 
   // Get posts on first run or if topic changes
   useEffect(() => {
-    if (props.error !== "There are no posts for this topic") {
-      props.onGetTopicPosts(topic);
-    }
+    props.onGetTopicPosts(topic);
+        // eslint-disable-next-line
+  }, [topic])
 
+  useEffect(() => {
     // Find index of topic in state
     let topicIndex = -1;
     if (props.topics.length) {
       topicIndex = props.topics.findIndex(
-        (topicState) => topicState.name === topic
+        (topicState) => topicState && topicState.name === topic
       );
     }
 
@@ -79,6 +80,9 @@ const Topic = (props) => {
   return (
     <section>
       <ul className="posts-list">{postsDisplay}</ul>
+      {/* {!postsDisplay.length && !props.loading ? (
+        <h2 className="empty-message">There are no posts for this topic</h2>
+      ) : null} */}
     </section>
   );
 };
@@ -88,6 +92,7 @@ const mapStateToProps = (state) => {
     posts: state.posts.posts,
     topics: state.topics.topics,
     error: state.flash.error,
+    loading: state.flash.loading,
   };
 };
 

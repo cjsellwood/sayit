@@ -6,6 +6,7 @@
   position: fixed;
   top: 48px;
   background-color: var(--main-background);
+  background-color: var(--mobile-sidebar-color);
   visibility: hidden;
   min-height: 100%;
   transform: translateX(100%);
@@ -46,6 +47,7 @@
     -moz-transition: none;
     -ms-transition: none;
     -o-transition: none;
+    background-color: var(--main-background);
   }
 }
 
@@ -93,8 +95,8 @@
 }
 
 .search-bar button svg {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   fill: white;
 }
 

@@ -1,3 +1,16 @@
+:root {
+  --main-background: rgb(34, 34, 34);
+  --nav-background: rgb(49, 49, 49);
+  --main-text: white;
+  --dull-text: rgb(211, 211, 211);
+  --hover-text: rgb(117, 181, 255);
+  --dull-blue: rgb(40, 131, 236);
+  --button-color: rgb(90, 25, 195);
+  --button-hover: rgb(136, 76, 233);
+  --modal-frame: rgba(0, 0, 0, 0.87); 
+  --mobile-sidebar-color: rgb(17, 17, 17);
+}
+
 html,
 body,
 div,
@@ -124,18 +137,6 @@ table {
 }
 a {
   text-decoration: none;
-}
-
-:root {
-  --main-background: rgb(34, 34, 34);
-  --nav-background: rgb(49, 49, 49);
-  --main-text: white;
-  --dull-text: rgb(211, 211, 211);
-  --hover-text: rgb(117, 181, 255);
-  --dull-blue: rgb(40, 131, 236);
-  --button-color: rgb(90, 25, 195);
-  --button-hover: rgb(136, 76, 233);
-  --modal-frame: rgba(0, 0, 0, 0.87);
 }
 
 html {
@@ -430,4 +431,13 @@ section {
   height: 4.8rem;
   width: 100%;
   max-width: 500px;
+}
+
+.empty-message {
+  color: var(--main-text);
+  font-size: 1.4rem;
+  margin: 0 auto;
+  display: block;
+  margin-top: 25px;
+  text-align: center;
 }
