@@ -4,15 +4,31 @@ import * as actions from "../../store/actions/index";
 
 const Votes = (props) => {
   const voteUp = () => {
+    // Display error if not logged in
     if (!props.isAuth) {
       return props.onSetError("Login to vote");
     }
+
+    // If already voted set to not voted again
+    if (props.user_vote === 1) {
+      return props.onPostVote(0, props.post_id);
+    }
+
+    props.onPostVote(1, props.post_id);
   };
 
   const voteDown = () => {
+    // Display error if not logged in
     if (!props.isAuth) {
       return props.onSetError("Login to vote");
     }
+
+    // If already voted set to not voted again
+    if (props.user_vote === -1) {
+      return props.onPostVote(0, props.post_id);
+    }
+
+    props.onPostVote(-1, props.post_id);
   };
 
   return (
@@ -46,6 +62,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onSetError: (error) => {
     dispatch(actions.setError(error));
+  },
+  onPostVote: (vote, post_id) => {
+    dispatch(actions.postVote(vote, post_id));
   },
 });
 

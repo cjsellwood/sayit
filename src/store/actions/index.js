@@ -18,6 +18,7 @@ export {
   editPost,
   getSearchPosts,
   getUserPosts,
+  postVote,
 } from "./posts";
 
 export {

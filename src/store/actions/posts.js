@@ -277,3 +277,43 @@ export const getUserPosts = (username) => {
       });
   };
 };
+
+export const setPostVote = (vote, post_id) => {
+  return {
+    type: actionTypes.SET_POST_VOTE,
+    vote,
+    post_id,
+  }
+}
+
+// Vote on a post
+export const postVote = (vote, post_id) => {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    const token = localStorage.getItem("token");
+    fetch(`${base}/posts/${post_id}/vote`, {
+      method: "POST",
+      body: JSON.stringify({ post_id, vote }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Set vote in state
+        dispatch(setPostVote(vote, post_id))
+
+        dispatch(setLoading(false));
+      })
+      .catch((error) => {
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
+      });
+  };
+}

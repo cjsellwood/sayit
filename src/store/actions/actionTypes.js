@@ -7,6 +7,7 @@ export const LOAD_POSTS = "LOAD_POSTS";
 export const SET_SINGLE_POST = "SET_SINGLE_POST";
 export const TOGGLE_EDIT_POST = "TOGGLE_EDIT_POST";
 export const EDIT_POST_INPUT = "EDIT_POST_INPUT";
+export const SET_POST_VOTE = "SET_POST_VOTE";
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export const TOGGLE_REPLY_FORM = "TOGGLE_REPLY_FORM";

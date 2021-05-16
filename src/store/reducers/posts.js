@@ -50,6 +50,36 @@ const editPostInput = (state, action) => {
   };
 };
 
+const setPostVote = (state, action) => {
+  const posts = [];
+  for (let post of state.posts) {
+    posts.push({ ...post });
+  }
+
+  const index = posts.findIndex((post) => post.post_id === action.post_id);
+
+  // Set new user vote
+  posts[index].user_vote = action.vote;
+
+  // Change total votes based on users previous vote or new vote
+  const previousVote = state.posts[index].user_vote;
+
+  if (previousVote === 1 && action.vote === -1) {
+    posts[index].votes -= 2;
+  } else if (previousVote === -1 && action.vote === 1) {
+    posts[index].votes += 2;
+  } else if (previousVote === 1 || action.vote === -1) {
+    posts[index].votes -= 1;
+  } else if (previousVote === -1 || action.vote === 1) {
+    posts[index].votes += 1;
+  }
+
+  return {
+    ...state,
+    posts,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
@@ -60,6 +90,8 @@ const reducer = (state = initialState, action) => {
       return toggleEditPost(state, action);
     case actionTypes.EDIT_POST_INPUT:
       return editPostInput(state, action);
+    case actionTypes.SET_POST_VOTE:
+      return setPostVote(state, action);
     default:
       return state;
   }
