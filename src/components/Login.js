@@ -66,6 +66,7 @@ const Login = (props) => {
               value={loginForm.password}
               onChange={handleInput}
               required
+              minLength="8"
             />
           </div>
           <button className="basic-button" type="submit" aria-label="submit" disabled={props.loading ? "disabled" : null}>

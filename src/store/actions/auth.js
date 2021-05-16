@@ -24,7 +24,7 @@ export const deauthorize = () => {
 export const userLogout = () => {
   return dispatch => {
     dispatch(deauthorize())
-    dispatch(setSuccess("Logged Out"))
+    dispatch(setSuccess("Logged out"))
   }
 }
 

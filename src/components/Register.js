@@ -68,6 +68,7 @@ const Register = (props) => {
               value={registerForm.password}
               onChange={handleInput}
               required
+              minLength="8"
             />
           </div>
           <div>
@@ -78,6 +79,7 @@ const Register = (props) => {
               value={registerForm.confirmPassword}
               onChange={handleInput}
               required
+              minLength="8"
             />
           </div>
           <button

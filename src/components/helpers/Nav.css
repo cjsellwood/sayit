@@ -32,6 +32,10 @@
   color: var(--hover-text);
 }
 
+.nav-logo:focus {
+  color: var(--main-text)
+}
+
 .menu-button {
   border: none;
   outline: none;

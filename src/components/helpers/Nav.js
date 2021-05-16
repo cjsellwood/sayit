@@ -10,7 +10,11 @@ const Nav = (props) => {
     <nav className="Nav">
       <ul>
         <li>
-          <Link to="/" className="nav-logo">
+          <Link
+            to="/"
+            className="nav-logo"
+            onClick={props.sidebarShow ? props.onToggleSidebar : null}
+          >
             Sayit
           </Link>
         </li>
