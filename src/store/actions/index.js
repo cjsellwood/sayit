@@ -17,6 +17,7 @@ export {
   editPostInput,
   editPost,
   getSearchPosts,
+  getUserPosts,
 } from "./posts";
 
 export {

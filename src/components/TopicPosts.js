@@ -4,7 +4,7 @@ import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 import dateSince from "./functions/dateSince";
 
-const Topic = (props) => {
+const TopicPosts = (props) => {
   const { topic } = useParams();
 
   // Get posts on first run or if topic changes
@@ -56,7 +56,9 @@ const Topic = (props) => {
           </div>
           <p className="post-subtitle">
             submitted {dateSince(post.time)} by
-            <span className="comment-username"> {post.username}</span>
+            <Link className="post-username" to={`/users/${post.username}`}>
+              {post.username}
+            </Link>
           </p>
         </div>
       </li>
@@ -65,6 +67,7 @@ const Topic = (props) => {
 
   return (
     <section>
+      {props.loading ? null : <h1 className="page-title">{topic}</h1>}
       <ul className="posts-list">{postsDisplay}</ul>
     </section>
   );
@@ -93,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Topic);
+export default connect(mapStateToProps, mapDispatchToProps)(TopicPosts);

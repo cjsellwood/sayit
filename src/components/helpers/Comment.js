@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import {Link} from "react-router-dom"
 import * as actions from "../../store/actions/index";
 import AuthCreator from "./AuthCreator";
 import AuthShow from "./AuthShow";
@@ -168,7 +169,9 @@ const Comment = (props) => {
         >
           {props.comment.show ? "[–]" : "[+]"}
         </button>
-        <span className="comment-username">{props.comment.username}</span>
+        <Link className="post-username comment-username" to={`/users/${props.comment.username}`}>
+              {props.comment.username}
+            </Link>
         {dateSince(props.comment.time)}
       </p>
       {props.comment.show ? commentContent : null}

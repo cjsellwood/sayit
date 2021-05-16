@@ -5,7 +5,7 @@ import * as actions from "../store/actions/index";
 import Comment from "./helpers/Comment";
 import AuthShow from "./helpers/AuthShow";
 import AuthCreator from "./helpers/AuthCreator";
-import dateSince from "./functions/dateSince"
+import dateSince from "./functions/dateSince";
 import "./Post.css";
 
 const Post = (props) => {
@@ -73,7 +73,12 @@ const Post = (props) => {
           </div>
           <p className="post-subtitle">
             submitted {dateSince(props.post.time)} by{" "}
-            <span className="comment-username">{props.post.username}</span>
+            <Link
+              className="props.post-username"
+              to={`/users/${props.post.username}`}
+            >
+              {props.post.username}
+            </Link>
           </p>
           {props.post.editing ? (
             <form className="edit-post-form" onSubmit={submitPostEdit}>

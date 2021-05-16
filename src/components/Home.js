@@ -32,7 +32,10 @@ const Home = (props) => {
           </div>
           <p className="post-subtitle">
             submitted {dateSince(post.time)} by{" "}
-            <span className="post-username">{post.username}</span> in{" "}
+            <Link className="post-username" to={`/users/${post.username}`}>
+              {post.username}
+            </Link>{" "}
+            in{" "}
             <Link className="post-topic" to={`/topics/${post.topic}`}>
               {post.topic}
             </Link>

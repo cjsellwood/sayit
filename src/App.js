@@ -11,7 +11,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import NewPost from "./components/NewPost";
 import NewTopic from "./components/NewTopic";
-import Topic from "./components/Topic";
+import TopicPosts from "./components/TopicPosts";
 import Post from "./components/Post";
 import Topics from "./components/Topics";
 import Sidebar from "./components/helpers/Sidebar";
@@ -19,6 +19,7 @@ import SearchPosts from "./components/SearchPosts";
 import FlashError from "./components/helpers/FlashError";
 import FlashSuccess from "./components/helpers/FlashSuccess";
 import FlashLoading from "./components/helpers/FlashLoading";
+import UserPosts from "./components/UserPosts"
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -58,11 +59,14 @@ const App = (props) => {
             <Route path="/search">
               <SearchPosts />
             </Route>
+            <Route path="/users/:username">
+              <UserPosts/>
+            </Route>
             <Route path="/topics" exact>
               <Topics />
             </Route>
             <Route path="/topics/:topic" exact>
-              <Topic />
+              <TopicPosts />
             </Route>
             <Route path="/topics/:topic/:post_id" exact>
               <Post />

@@ -22,7 +22,7 @@ const Sidebar = (props) => {
 
     history.push(`/search?q=${search}`);
 
-    setSearch("")
+    setSearch("");
   };
 
   return (
@@ -105,7 +105,9 @@ const Sidebar = (props) => {
         </AuthShow>
       </ul>
       <div className="sidebar-topic">
-        <h3>{props.sidebar.name}</h3>
+        <Link to={`/topics/${props.sidebar.name}`}>
+          {props.sidebar.name}
+        </Link>
         <p>{props.sidebar.description}</p>
       </div>
     </aside>

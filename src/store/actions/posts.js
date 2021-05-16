@@ -241,3 +241,30 @@ export const getSearchPosts = (query) => {
       });
   };
 };
+
+// Get posts from submitted search
+export const getUserPosts = (username) => {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    dispatch(loadPosts([]))
+
+    fetch(`${base}/posts/user/${username}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // If error on backend throw to catch block
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        // Add to state
+        dispatch(loadPosts(data.posts));
+
+        dispatch(setLoading(false));
+      })
+      .catch((error) => {
+        dispatch(setError(error.message));
+        dispatch(setLoading(false));
+      });
+  };
+};
+

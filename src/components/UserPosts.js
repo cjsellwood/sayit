@@ -1,24 +1,25 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams} from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
-import dateSince from "./functions/dateSince";
+import dateSince from "./functions/dateSince"
 
-const SearchPosts = (props) => {
-  const location = useLocation();
+const UserPosts = (props) => {
 
-  const params = new URLSearchParams(location.search);
-  const query = params.get("q");
+  const params = useParams();
 
+  const {username} = useParams();
+
+  console.log(params)  
   useEffect(() => {
     // Fetch posts on first load
-    props.onGetSearchPosts(query);
+    props.onGetUserPosts(username);
 
     // Set sidebar to home content
     props.onSetSidebar(true, "", "");
 
     // eslint-disable-next-line
-  }, [query]);
+  }, [username]);
 
   const postsDisplay = props.posts.map((post, index) => {
     return (
@@ -37,10 +38,8 @@ const SearchPosts = (props) => {
           </div>
           <p className="post-subtitle">
             submitted {dateSince(post.time)} by{" "}
-            <Link className="post-username" to={`/users/${post.username}`}>
-              {post.username}
-            </Link>{" "}
-            in <Link to={`/topics/${post.topic}`}>{post.topic}</Link>
+            <span className="post-username">{post.username}</span> in{" "}
+            <Link to={`/topics/${post.topic}`}>{post.topic}</Link>
           </p>
         </div>
       </li>
@@ -60,8 +59,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetSearchPosts: (query) => {
-      dispatch(actions.getSearchPosts(query));
+    onGetUserPosts: (username) => {
+      dispatch(actions.getUserPosts(username));
     },
     onSetSidebar: (isHome, name, description) => {
       dispatch(actions.setSidebar(isHome, name, description));
@@ -69,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchPosts);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPosts);
