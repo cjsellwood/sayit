@@ -66,10 +66,7 @@ const Sidebar = (props) => {
             <button
               className="basic-button"
               disabled={props.loading ? "disabled" : false}
-              onClick={(e) => {
-                // e.stopPropagation();
-                props.onToggleRegisterModal();
-              }}
+              onClick={props.onToggleRegisterModal}
               aria-label="register"
             >
               Register
@@ -81,10 +78,7 @@ const Sidebar = (props) => {
             <button
               className="basic-button"
               disabled={props.loading ? "disabled" : false}
-              onClick={(e) => {
-                // e.stopPropagation();
-                props.onToggleLoginModal();
-              }}
+              onClick={props.onToggleLoginModal}
               aria-label="login"
             >
               Login
@@ -105,9 +99,7 @@ const Sidebar = (props) => {
         </AuthShow>
       </ul>
       <div className="sidebar-topic">
-        <Link to={`/topics/${props.sidebar.name}`}>
-          {props.sidebar.name}
-        </Link>
+        <Link to={`/topics/${props.sidebar.name}`}>{props.sidebar.name}</Link>
         <p>{props.sidebar.description}</p>
       </div>
     </aside>

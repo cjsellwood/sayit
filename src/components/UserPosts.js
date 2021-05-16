@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
-import { Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
-import dateSince from "./functions/dateSince"
+import dateSince from "./functions/dateSince";
 
 const UserPosts = (props) => {
+  const { username } = useParams();
 
-  const params = useParams();
-
-  const {username} = useParams();
-
-  console.log(params)  
   useEffect(() => {
     // Fetch posts on first load
     props.onGetUserPosts(username);
@@ -48,6 +44,7 @@ const UserPosts = (props) => {
 
   return (
     <section className="Home">
+      {props.loading ? null : <h1 className="page-title">{username}</h1>}
       <ul className="posts-list">{postsDisplay}</ul>
     </section>
   );

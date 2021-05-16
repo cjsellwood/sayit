@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 import base from "../../base";
 import { setSinglePostComments } from "./comments";
 import { setError, setSuccess, setLoading } from "./flash";
+import jwt_decode from "jwt-decode"
 
 // Submit new post
 export const newPost = (postForm, history) => {
@@ -51,7 +52,16 @@ export const getPosts = () => {
   return (dispatch) => {
     dispatch(setLoading(true));
     dispatch(loadPosts([]));
-    fetch(`${base}/posts`)
+
+    // Get user id if logged in
+    const token = localStorage.getItem("token");
+    let query = "";
+    if (token) {
+      const user_id = jwt_decode(token).sub;
+      query = `?user_id=${user_id}`;
+    }
+
+    fetch(`${base}/posts${query}`)
       .then((response) => response.json())
       .then((data) => {
         // If error on backend throw to catch block
@@ -75,7 +85,7 @@ export const getPosts = () => {
 export const getTopicPosts = (topic) => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    dispatch(loadPosts([]))
+    dispatch(loadPosts([]));
 
     fetch(`${base}/posts/topics/${topic}`)
       .then((response) => response.json())
@@ -109,7 +119,7 @@ export const setSinglePost = (post, comments) => {
 export const getSinglePost = (post_id) => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    dispatch(setSinglePost({}))
+    dispatch(setSinglePost({}));
 
     fetch(`${base}/posts/${post_id}`)
       .then((response) => response.json())
@@ -220,7 +230,7 @@ export const editPost = (text, post_id) => {
 export const getSearchPosts = (query) => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    dispatch(loadPosts([]))
+    dispatch(loadPosts([]));
 
     fetch(`${base}/posts/search?q=${query}`)
       .then((response) => response.json())
@@ -246,7 +256,7 @@ export const getSearchPosts = (query) => {
 export const getUserPosts = (username) => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    dispatch(loadPosts([]))
+    dispatch(loadPosts([]));
 
     fetch(`${base}/posts/user/${username}`)
       .then((response) => response.json())
@@ -267,4 +277,3 @@ export const getUserPosts = (username) => {
       });
   };
 };
-

@@ -22,11 +22,11 @@ export const deauthorize = () => {
 
 // Logout user
 export const userLogout = () => {
-  return dispatch => {
-    dispatch(deauthorize())
-    dispatch(setSuccess("Logged out"))
-  }
-}
+  return (dispatch) => {
+    dispatch(deauthorize());
+    dispatch(setSuccess("Logged out"));
+  };
+};
 
 // Toggle register modal
 export const toggleRegisterModal = () => {
@@ -78,6 +78,10 @@ export const userRegister = (registerForm, history) => {
         // Stop loading and set success message
         dispatch(setLoading(false));
         dispatch(setSuccess(data.message));
+
+        // Reload page to get posts for logged in users
+        history.push("/refresh");
+        history.goBack();
       })
       .catch((error) => {
         // Display error to user and stop loading
@@ -111,13 +115,18 @@ export const userLogin = (loginForm, history) => {
         localStorage.setItem("expires", expires);
 
         // Login user with redux state auth
-        dispatch(authorize());
+        const decoded = jwt_decode(localStorage.getItem("token"));
+        dispatch(authorize(decoded.sub));
 
         dispatch(toggleLoginModal());
 
         // Stop loading and set success message
         dispatch(setLoading(false));
         dispatch(setSuccess(data.message));
+
+        // Reload page to get posts for logged in users
+        history.push("/refresh");
+        history.goBack();
       })
       .catch((error) => {
         // Display error to user and stop loading

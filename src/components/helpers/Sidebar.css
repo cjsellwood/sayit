@@ -48,6 +48,8 @@
     -ms-transition: none;
     -o-transition: none;
     background-color: var(--main-background);
+    max-height: 100%;
+    min-height: 0;
   }
 }
 

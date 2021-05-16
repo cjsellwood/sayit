@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 import dateSince from "./functions/dateSince";
+import Votes from "./helpers/Votes";
 
 const Home = (props) => {
   useEffect(() => {
@@ -21,9 +22,11 @@ const Home = (props) => {
         <div className="post-number">
           <p>{index + 1}</p>
         </div>
-        <div className="post-votes">
-          <p>Votes</p>
-        </div>
+        <Votes
+          post_id={post.post_id}
+          votes={post.votes}
+          user_vote={post.user_vote}
+        />
         <div>
           <div className="post-title">
             <Link to={`/topics/${post.topic}/${post.post_id}`}>
@@ -54,6 +57,7 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
+  user_id: state.auth.user_id,
 });
 
 const mapDispatchToProps = (dispatch) => {
