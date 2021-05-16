@@ -11,8 +11,6 @@ const SearchPosts = (props) => {
   const query = params.get("q")
   
   useEffect(() => {
-
-    console.log(query)
     // Fetch posts on first load
     props.onGetSearchPosts(query);
 

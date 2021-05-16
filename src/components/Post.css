@@ -1,0 +1,127 @@
+.comments-section > h2 {
+  color: var(--main-text);
+  font-size: 1.4rem;
+}
+
+.comments-section ul {
+}
+
+.comments-section li {
+  margin-top: 16px;
+}
+
+.comment-text {
+  color: var(--main-text);
+  padding: 12px 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.2rem;
+}
+
+.comment-subtitle {
+  color: var(--dull-text);
+}
+
+.comment-subtitle button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--dull-blue);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.comment-subtitle button:hover {
+  color: var(--hover-text);
+}
+
+.comment-username {
+  margin-right: 8px;
+  color: var(--dull-blue);
+}
+
+.post-username {
+  color: var(--dull-blue);
+}
+
+.child .child {
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px dotted rgba(255, 255, 255, 0.383);
+}
+
+.comment-buttons {
+  margin-left: -8px;
+}
+
+.comment-buttons > button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--dull-text);
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0 8px;
+}
+
+.comment-buttons > button:hover {
+  color: var(--dull-blue);
+}
+
+
+.edit-post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-post-form textarea {
+  margin: 16px 0;
+  font-size: 1.1rem;
+  line-height: 1.2rem;
+  height: 6rem;
+}
+
+.edit-post-form > div {
+  margin-bottom: 8px;
+}
+
+.new-comment-form {
+}
+
+.new-comment-form textarea {
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 4.8rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.reply-form {
+  padding-top: 8px;
+  padding-left: 16px;
+}
+
+.reply-form textarea {
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 4.8rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.edit-comment-form {
+  padding: 8px 0;
+}
+
+.edit-comment-form textarea {
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  height: 4.8rem;
+  width: 100%;
+  max-width: 500px;
+}

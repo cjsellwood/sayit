@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
-import dateSince from "./functions/dateSince"
+import dateSince from "./functions/dateSince";
 
 const Home = (props) => {
   useEffect(() => {
@@ -33,7 +33,9 @@ const Home = (props) => {
           <p className="post-subtitle">
             submitted {dateSince(post.time)} by{" "}
             <span className="post-username">{post.username}</span> in{" "}
-            <Link to={`/topics/${post.topic}`}>{post.topic}</Link>
+            <Link className="post-topic" to={`/topics/${post.topic}`}>
+              {post.topic}
+            </Link>
           </p>
         </div>
       </li>

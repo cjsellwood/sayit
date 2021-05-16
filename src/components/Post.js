@@ -6,6 +6,7 @@ import Comment from "./helpers/Comment";
 import AuthShow from "./helpers/AuthShow";
 import AuthCreator from "./helpers/AuthCreator";
 import dateSince from "./functions/dateSince"
+import "./Post.css";
 
 const Post = (props) => {
   const { post_id, topic } = useParams();

@@ -134,10 +134,12 @@
   width: 100%;
   text-align: center;
   padding: 12px 20px;
+  /* font-weight: bold; */
+  color: var(--dull-blue);
 }
 
 .sidebar-links a:hover {
-  color: var(--hover-text)
+  color: var(--hover-text);
 }
 
 .sidebar-topic {

@@ -2,7 +2,7 @@
 .Nav {
   background-color: var(--nav-background);
   display: flex;
-  padding: 8px;
+  padding: 4px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -12,12 +12,24 @@
 
 .Nav ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-.Nav a {
+.nav-logo {
+  font-size: 2rem;
   color: var(--main-text);
-  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 2px rgb(8, 8, 8);
+  display: block;
+  padding: 8px;
+}
+
+.nav-logo:hover {
+  color: var(--hover-text);
 }
 
 .menu-button {
@@ -27,9 +39,8 @@
   right: 0;
   top: 0;
   background-color: transparent;
-  color: white;
   height: 100%;
-  fill: white;
+  fill: var(--main-text);
 }
 
 .menu-button svg {

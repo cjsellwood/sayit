@@ -26,7 +26,7 @@ const Topics = (props) => {
 
   return (
     <section>
-      <h1 className="page-title">Topics</h1>
+      {props.loading ? null : <h1 className="page-title">Topics</h1>}
       <ul className="topics-list">{topicsDisplay}</ul>
     </section>
   );
@@ -34,6 +34,7 @@ const Topics = (props) => {
 
 const mapStateToProps = (state) => ({
   topics: state.topics.topics,
+  loading: state.flash.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {
