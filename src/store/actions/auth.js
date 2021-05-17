@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 import jwt_decode from "jwt-decode";
 import { setError, setLoading, setSuccess } from "./flash";
+import base from "../../base";
 
 // Authorize user
 export const authorize = (user_id) => {
@@ -47,7 +48,7 @@ export const userRegister = (registerForm, history) => {
   return (dispatch) => {
     dispatch(setLoading(true));
 
-    fetch("http://localhost:3000/register", {
+    fetch(`${base}/register`, {
       method: "POST",
       body: JSON.stringify(registerForm),
       headers: {
@@ -95,7 +96,7 @@ export const userRegister = (registerForm, history) => {
 export const userLogin = (loginForm, history) => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    fetch("http://localhost:3000/login", {
+    fetch(`${base}/login`, {
       method: "POST",
       body: JSON.stringify(loginForm),
       headers: {
