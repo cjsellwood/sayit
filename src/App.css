@@ -21,20 +21,14 @@ a {
 
 html {
   background-color: var(--main-background);
-  font-family: "Roboto";
 }
 
 html * {
   box-sizing: border-box;
-  font-family: "Roboto";
-}
-
-button {
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
 }
 
 textarea {
-  font-family: "Roboto";
   padding: 8px;
   color: var(--dull-text);
   border-radius: 8px;
