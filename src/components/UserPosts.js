@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 import dateSince from "./functions/dateSince";
+import Votes from "./helpers/Votes";
 
 const UserPosts = (props) => {
   const { username } = useParams();
@@ -24,7 +25,11 @@ const UserPosts = (props) => {
           <p>{index + 1}</p>
         </div>
         <div className="post-votes">
-          <p>Votes</p>
+          <Votes
+            post_id={post.post_id}
+            votes={post.votes}
+            user_vote={post.user_vote}
+          />
         </div>
         <div>
           <div className="post-title">
@@ -44,7 +49,7 @@ const UserPosts = (props) => {
 
   return (
     <section className="Home">
-      {props.loading ? null : <h1 className="page-title">{username}</h1>}
+      <h1 className="page-title">{username}</h1>
       <ul className="posts-list">{postsDisplay}</ul>
     </section>
   );
@@ -52,6 +57,7 @@ const UserPosts = (props) => {
 
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
+  loading: state.flash.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {

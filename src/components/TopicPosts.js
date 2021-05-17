@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 import dateSince from "./functions/dateSince";
+import Votes from "./helpers/Votes";
 
 const TopicPosts = (props) => {
   const { topic } = useParams();
@@ -46,7 +47,11 @@ const TopicPosts = (props) => {
           <p>{index + 1}</p>
         </div>
         <div className="post-votes">
-          <p>Votes</p>
+          <Votes
+            post_id={post.post_id}
+            votes={post.votes}
+            user_vote={post.user_vote}
+          />
         </div>
         <div>
           <div className="post-title">
@@ -55,7 +60,7 @@ const TopicPosts = (props) => {
             </Link>
           </div>
           <p className="post-subtitle">
-            submitted {dateSince(post.time)} by
+            submitted {dateSince(post.time)} by{" "}
             <Link className="post-username" to={`/users/${post.username}`}>
               {post.username}
             </Link>
@@ -67,7 +72,7 @@ const TopicPosts = (props) => {
 
   return (
     <section>
-      {props.loading ? null : <h1 className="page-title">{topic}</h1>}
+      <h1 className="page-title">{topic}</h1>
       <ul className="posts-list">{postsDisplay}</ul>
     </section>
   );

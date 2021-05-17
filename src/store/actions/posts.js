@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 import base from "../../base";
 import { setSinglePostComments } from "./comments";
 import { setError, setSuccess, setLoading } from "./flash";
-import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
 
 // Submit new post
 export const newPost = (postForm, history) => {
@@ -87,7 +87,15 @@ export const getTopicPosts = (topic) => {
     dispatch(setLoading(true));
     dispatch(loadPosts([]));
 
-    fetch(`${base}/posts/topics/${topic}`)
+    // Get user id if logged in
+    const token = localStorage.getItem("token");
+    let query = "";
+    if (token) {
+      const user_id = jwt_decode(token).sub;
+      query += `?user_id=${user_id}`;
+    }
+
+    fetch(`${base}/posts/topics/${topic}${query}`)
       .then((response) => response.json())
       .then((data) => {
         // If error on backend throw to catch block
@@ -121,7 +129,15 @@ export const getSinglePost = (post_id) => {
     dispatch(setLoading(true));
     dispatch(setSinglePost({}));
 
-    fetch(`${base}/posts/${post_id}`)
+    // Get user id if logged in
+    const token = localStorage.getItem("token");
+    let query = "";
+    if (token) {
+      const user_id = jwt_decode(token).sub;
+      query += `?user_id=${user_id}`;
+    }
+
+    fetch(`${base}/posts/${post_id}${query}`)
       .then((response) => response.json())
       .then((data) => {
         // If error on backend throw to catch block
@@ -232,6 +248,13 @@ export const getSearchPosts = (query) => {
     dispatch(setLoading(true));
     dispatch(loadPosts([]));
 
+    // Get user id if logged in
+    const token = localStorage.getItem("token");
+    if (token) {
+      const user_id = jwt_decode(token).sub;
+      query += `&user_id=${user_id}`;
+    }
+
     fetch(`${base}/posts/search?q=${query}`)
       .then((response) => response.json())
       .then((data) => {
@@ -258,7 +281,15 @@ export const getUserPosts = (username) => {
     dispatch(setLoading(true));
     dispatch(loadPosts([]));
 
-    fetch(`${base}/posts/user/${username}`)
+    // Get user id if logged in
+    const token = localStorage.getItem("token");
+    let query = "";
+    if (token) {
+      const user_id = jwt_decode(token).sub;
+      query = `?user_id=${user_id}`;
+    }
+
+    fetch(`${base}/posts/user/${username}${query}`)
       .then((response) => response.json())
       .then((data) => {
         // If error on backend throw to catch block
@@ -283,14 +314,23 @@ export const setPostVote = (vote, post_id) => {
     type: actionTypes.SET_POST_VOTE,
     vote,
     post_id,
-  }
-}
+  };
+};
+
+export const setSinglePostVote = (vote, post_id) => {
+  return {
+    type: actionTypes.SET_SINGLE_POST_VOTE,
+    vote,
+    post_id,
+  };
+};
 
 // Vote on a post
-export const postVote = (vote, post_id) => {
+export const postVote = (vote, post_id, single_post) => {
   return (dispatch) => {
     dispatch(setLoading(true));
     const token = localStorage.getItem("token");
+
     fetch(`${base}/posts/${post_id}/vote`, {
       method: "POST",
       body: JSON.stringify({ post_id, vote }),
@@ -306,8 +346,12 @@ export const postVote = (vote, post_id) => {
           throw new Error(data.error);
         }
 
-        // Set vote in state
-        dispatch(setPostVote(vote, post_id))
+        // Set single post vote if on single post page
+        if (single_post) {
+          dispatch(setSinglePostVote(vote, post_id));
+        } else {
+          dispatch(setPostVote(vote, post_id));
+        }
 
         dispatch(setLoading(false));
       })
@@ -316,4 +360,4 @@ export const postVote = (vote, post_id) => {
         dispatch(setLoading(false));
       });
   };
-}
+};

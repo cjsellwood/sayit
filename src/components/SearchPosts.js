@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 import dateSince from "./functions/dateSince";
+import Votes from "./helpers/Votes";
 
 const SearchPosts = (props) => {
   const location = useLocation();
@@ -27,7 +28,11 @@ const SearchPosts = (props) => {
           <p>{index + 1}</p>
         </div>
         <div className="post-votes">
-          <p>Votes</p>
+        <Votes
+            post_id={post.post_id}
+            votes={post.votes}
+            user_vote={post.user_vote}
+          />
         </div>
         <div>
           <div className="post-title">

@@ -7,6 +7,7 @@ import AuthShow from "./helpers/AuthShow";
 import AuthCreator from "./helpers/AuthCreator";
 import dateSince from "./functions/dateSince";
 import "./Post.css";
+import Votes from "./helpers/Votes";
 
 const Post = (props) => {
   const { post_id, topic } = useParams();
@@ -63,7 +64,12 @@ const Post = (props) => {
     postDisplay = (
       <div className="single-post">
         <div className="post-votes">
-          <p>Votes</p>
+          <Votes
+            post_id={props.post.post_id}
+            votes={props.post.votes}
+            user_vote={props.post.user_vote}
+            single_post={true}
+          />
         </div>
         <div className="post-details">
           <div className="post-title">

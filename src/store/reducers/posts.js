@@ -80,6 +80,31 @@ const setPostVote = (state, action) => {
   };
 };
 
+const setSinglePostVote = (state, action) => {
+  const post = { ...state.post };
+
+  // Set new user vote
+  post.user_vote = action.vote;
+
+  // Change total votes based on users previous vote or new vote
+  const previousVote = state.post.user_vote;
+
+  if (previousVote === 1 && action.vote === -1) {
+    post.votes -= 2;
+  } else if (previousVote === -1 && action.vote === 1) {
+    post.votes += 2;
+  } else if (previousVote === 1 || action.vote === -1) {
+    post.votes -= 1;
+  } else if (previousVote === -1 || action.vote === 1) {
+    post.votes += 1;
+  }
+
+  return {
+    ...state,
+    post,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
@@ -92,6 +117,8 @@ const reducer = (state = initialState, action) => {
       return editPostInput(state, action);
     case actionTypes.SET_POST_VOTE:
       return setPostVote(state, action);
+    case actionTypes.SET_SINGLE_POST_VOTE:
+      return setSinglePostVote(state, action);
     default:
       return state;
   }

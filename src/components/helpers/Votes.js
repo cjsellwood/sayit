@@ -11,10 +11,10 @@ const Votes = (props) => {
 
     // If already voted set to not voted again
     if (props.user_vote === 1) {
-      return props.onPostVote(0, props.post_id);
+      return props.onPostVote(0, props.post_id, props.single_post);
     }
 
-    props.onPostVote(1, props.post_id);
+    props.onPostVote(1, props.post_id, props.single_post);
   };
 
   const voteDown = () => {
@@ -25,10 +25,10 @@ const Votes = (props) => {
 
     // If already voted set to not voted again
     if (props.user_vote === -1) {
-      return props.onPostVote(0, props.post_id);
+      return props.onPostVote(0, props.post_id, props.single_post);
     }
 
-    props.onPostVote(-1, props.post_id);
+    props.onPostVote(-1, props.post_id, props.single_post);
   };
 
   return (
@@ -63,8 +63,8 @@ const mapDispatchToProps = (dispatch) => ({
   onSetError: (error) => {
     dispatch(actions.setError(error));
   },
-  onPostVote: (vote, post_id) => {
-    dispatch(actions.postVote(vote, post_id));
+  onPostVote: (vote, post_id, single_post) => {
+    dispatch(actions.postVote(vote, post_id, single_post));
   },
 });
 
