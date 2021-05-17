@@ -11,6 +11,8 @@
   --mobile-sidebar-color: rgb(17, 17, 17);
   --visited-color: rgb(140, 114, 255);
   --visited-hover: rgb(162, 141, 255);
+  --input-border: rgb(59, 59, 59);
+  --input-background: rgb(24, 24, 24);
 }
 
 a {
@@ -24,6 +26,7 @@ html {
 
 html * {
   box-sizing: border-box;
+  font-family: "Roboto";
 }
 
 button {
@@ -39,15 +42,33 @@ textarea {
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
-  border: 1px dashed var(--dull-text);
-  border: 1px solid white;
+  border: 1px solid var(--input-border);
   background-color: transparent;
+  background-color: var(--input-background);
   outline: none;
   resize: none;
 }
 
 textarea:focus {
   border: 1px solid var(--hover-text);
+  border: 1px solid var(--dull-blue);
+}
+
+input {
+  color: var(--dull-text);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border: 1px solid var(--input-border);
+  background-color: transparent;
+  background-color: var(--input-background);
+  outline: none;
+}
+
+input:focus {
+  border: 1px solid var(--dull-blue);
 }
 
 .App {
@@ -79,7 +100,7 @@ section {
   padding: 8px 0px 8px 0px;
   display: flex;
   align-items: center;
-  margin: 4px;
+  margin: 0 4px;
 }
 
 @media screen and (min-width: 800px) {
@@ -209,7 +230,6 @@ section {
 }
 
 .basic-button:disabled {
-  background-color: rgb(230, 230, 230);
   cursor: not-allowed;
 }
 

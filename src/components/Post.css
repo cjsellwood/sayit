@@ -3,16 +3,13 @@
   font-size: 1.4rem;
 }
 
-.comments-section ul {
-}
-
 .comments-section li {
   margin-top: 16px;
 }
 
 .comment-text {
   color: var(--main-text);
-  padding: 12px 0;
+  padding: 8px 0;
   white-space: pre-wrap;
   word-break: break-all;
   line-height: 1.2rem;
@@ -45,9 +42,17 @@
 }
 
 .child .child {
-  margin-left: 14px;
-  padding-left: 14px;
+  margin-left: 10px;
+  padding-left: 10px;
   border-left: 1px dotted rgba(255, 255, 255, 0.383);
+}
+
+@media screen and (min-width: 800px) {
+  .child .child {
+    margin-left: 14px;
+    padding-left: 14px;
+    border-left: 1px dotted rgba(255, 255, 255, 0.383);
+  }
 }
 
 .comment-buttons {
@@ -85,9 +90,6 @@
 
 .edit-post-form > div {
   margin-bottom: 8px;
-}
-
-.new-comment-form {
 }
 
 .new-comment-form textarea {

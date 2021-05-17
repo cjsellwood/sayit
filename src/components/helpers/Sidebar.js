@@ -41,6 +41,9 @@ const Sidebar = (props) => {
             value={search}
             onChange={searchInput}
             required
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           />
           <button type="submit" aria-label="search">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">

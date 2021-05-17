@@ -45,6 +45,7 @@ const NewTopic = (props) => {
             value={topicForm.name}
             onChange={handleInput}
             required
+            maxLength="100"
           />
         </div>
         <div>
@@ -55,6 +56,7 @@ const NewTopic = (props) => {
             value={topicForm.description}
             onChange={handleInput}
             required
+            maxLength="255"
           />
         </div>
         <button
