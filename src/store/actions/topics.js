@@ -57,7 +57,7 @@ export const setTopics = (topics) => {
 export const getTopics = () => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    dispatch(setTopics([]));
+    // dispatch(setTopics([]));
 
     fetch(`${base}/posts/topics`)
       .then((response) => response.json())

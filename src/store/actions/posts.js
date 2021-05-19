@@ -331,7 +331,6 @@ export const setSinglePostVote = (vote, post_id) => {
 // Vote on a post
 export const postVote = (vote, post_id, single_post) => {
   return (dispatch) => {
-    dispatch(setLoading(true));
     const token = localStorage.getItem("token");
 
     fetch(`${base}/posts/${post_id}/vote`, {
@@ -355,12 +354,9 @@ export const postVote = (vote, post_id, single_post) => {
         } else {
           dispatch(setPostVote(vote, post_id));
         }
-
-        dispatch(setLoading(false));
       })
       .catch((error) => {
         dispatch(setError(error.message));
-        dispatch(setLoading(false));
       });
   };
 };
