@@ -3,12 +3,14 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   posts: [],
   post: {},
+  history: [],
 };
 
 const loadPosts = (state, action) => {
   return {
     ...state,
     posts: action.posts,
+    history: [...state.history, action.page]
   };
 };
 

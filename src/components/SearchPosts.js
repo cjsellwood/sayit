@@ -12,8 +12,13 @@ const SearchPosts = (props) => {
   const query = params.get("q");
 
   useEffect(() => {
-    // Fetch posts on first load
-    props.onGetSearchPosts(query);
+    // Fetch posts on first load or if search changes
+    if (
+      !props.history.length ||
+      props.history[props.history.length - 1] !== "SEARCH: " + query
+    ) {
+      props.onGetSearchPosts(query);
+    }
 
     // Set sidebar to home content
     props.onSetSidebar(true, "", "");
@@ -28,7 +33,7 @@ const SearchPosts = (props) => {
           <p>{index + 1}</p>
         </div>
         <div className="post-votes">
-        <Votes
+          <Votes
             post_id={post.post_id}
             votes={post.votes}
             user_vote={post.user_vote}
@@ -54,6 +59,9 @@ const SearchPosts = (props) => {
 
   return (
     <section className="Home">
+      {props.history[props.history.length - 1] === "SEARCH: " + query ? (
+        <h1 className="page-title">Search: {query}</h1>
+      ) : null}
       <ul className="posts-list">{postsDisplay}</ul>
     </section>
   );
@@ -61,6 +69,7 @@ const SearchPosts = (props) => {
 
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
+  history: state.posts.history,
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -7,8 +7,13 @@ import Votes from "./helpers/Votes";
 
 const Home = (props) => {
   useEffect(() => {
-    // Fetch posts on first load
-    props.onGetPosts();
+    // Fetch posts on first load or if from a different set of posts
+    if (
+      !props.history.length ||
+      props.history[props.history.length - 1] !== "home"
+    ) {
+      props.onGetPosts();
+    }
 
     // Set sidebar to home content
     props.onSetSidebar(true, "", "");
@@ -50,7 +55,9 @@ const Home = (props) => {
 
   return (
     <section className="Home">
-      <ul className="posts-list">{postsDisplay}</ul>
+      {props.history[props.history.length - 1] === "home" ? (
+        <ul className="posts-list">{postsDisplay}</ul>
+      ) : null}
     </section>
   );
 };
@@ -58,6 +65,8 @@ const Home = (props) => {
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
   user_id: state.auth.user_id,
+  loading: state.flash.loading,
+  history: state.posts.history,
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -21,7 +21,12 @@ const Post = (props) => {
     }
 
     // If topic in url wrong redirect to correct page
-    if (props.post.post_id && props.post.topic !== topic) {
+    console.log(props.post.topic, topic);
+    if (
+      props.post.post_id &&
+      props.post.post_id === Number(post_id) &&
+      props.post.topic !== topic
+    ) {
       history.replace(`/topics/${props.post.topic}/${post_id}`);
     }
 
@@ -185,7 +190,7 @@ const Post = (props) => {
   return (
     <section>
       {postDisplay}
-      {!props.post.post_id ? null : (
+      {!props.post.post_id || props.post.post_id !== Number(post_id) ? null : (
         <div className="comments-section">
           <h2>Comments</h2>
           <AuthShow>

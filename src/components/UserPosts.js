@@ -9,8 +9,13 @@ const UserPosts = (props) => {
   const { username } = useParams();
 
   useEffect(() => {
-    // Fetch posts on first load
-    props.onGetUserPosts(username);
+    // Fetch posts on first load or if username changes
+    if (
+      !props.history.length ||
+      props.history[props.history.length - 1] !== "USERNAME: " + username
+    ) {
+      props.onGetUserPosts(username);
+    }
 
     // Set sidebar to home content
     props.onSetSidebar(true, "", "");
@@ -49,7 +54,9 @@ const UserPosts = (props) => {
 
   return (
     <section className="Home">
-      <h1 className="page-title">{username}</h1>
+      {props.history[props.history.length - 1] === "USERNAME: " + username ? (
+        <h1 className="page-title">{username}</h1>
+      ) : null}
       <ul className="posts-list">{postsDisplay}</ul>
     </section>
   );
@@ -58,6 +65,7 @@ const UserPosts = (props) => {
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
   loading: state.flash.loading,
+  history: state.posts.history,
 });
 
 const mapDispatchToProps = (dispatch) => {

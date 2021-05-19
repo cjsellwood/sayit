@@ -19,7 +19,7 @@ import SearchPosts from "./components/SearchPosts";
 import FlashError from "./components/helpers/FlashError";
 import FlashSuccess from "./components/helpers/FlashSuccess";
 import FlashLoading from "./components/helpers/FlashLoading";
-import UserPosts from "./components/UserPosts"
+import UserPosts from "./components/UserPosts";
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -60,7 +60,7 @@ const App = (props) => {
               <SearchPosts />
             </Route>
             <Route path="/users/:username">
-              <UserPosts/>
+              <UserPosts />
             </Route>
             <Route path="/topics" exact>
               <Topics />

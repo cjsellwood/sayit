@@ -6,11 +6,17 @@ import dateSince from "./functions/dateSince";
 import Votes from "./helpers/Votes";
 
 const TopicPosts = (props) => {
-  const { topic } = useParams();
+  let { topic } = useParams();
+  topic = topic.toLowerCase();
 
   // Get posts on first run or if topic changes
   useEffect(() => {
-    props.onGetTopicPosts(topic);
+    if (
+      !props.history.length ||
+      props.history[props.history.length - 1] !== "TOPIC: " + topic
+    ) {
+      props.onGetTopicPosts(topic);
+    }
     // eslint-disable-next-line
   }, [topic]);
 
@@ -72,7 +78,9 @@ const TopicPosts = (props) => {
 
   return (
     <section>
-      <h1 className="page-title">{topic}</h1>
+      {props.history[props.history.length - 1] === "TOPIC: " + topic ? (
+        <h1 className="page-title">{topic}</h1>
+      ) : null}
       <ul className="posts-list">{postsDisplay}</ul>
     </section>
   );
@@ -84,6 +92,7 @@ const mapStateToProps = (state) => {
     topics: state.topics.topics,
     error: state.flash.error,
     loading: state.flash.loading,
+    history: state.posts.history,
   };
 };
 

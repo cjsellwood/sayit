@@ -136,6 +136,7 @@
   text-align: center;
   margin-bottom: 16px;
   font-size: 1.4rem;
+  text-transform: capitalize;
 }
 
 .sidebar-topic a:hover {

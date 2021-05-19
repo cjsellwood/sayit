@@ -9,6 +9,8 @@ export const newPost = (postForm, history) => {
   return (dispatch) => {
     dispatch(setLoading(true));
     const token = localStorage.getItem("token");
+    postForm.topic = postForm.topic.split(" ").join("").toLowerCase();
+    console.log(postForm);
     fetch(`${base}/posts/new`, {
       method: "POST",
       body: JSON.stringify(postForm),
@@ -40,10 +42,11 @@ export const newPost = (postForm, history) => {
 };
 
 // Load posts
-export const loadPosts = (posts) => {
+export const loadPosts = (posts, page) => {
   return {
     type: actionTypes.LOAD_POSTS,
     posts,
+    page,
   };
 };
 
@@ -70,7 +73,7 @@ export const getPosts = () => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts));
+        dispatch(loadPosts(data.posts, "home"));
 
         dispatch(setLoading(false));
       })
@@ -104,7 +107,7 @@ export const getTopicPosts = (topic) => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts));
+        dispatch(loadPosts(data.posts, topic));
 
         dispatch(setLoading(false));
       })
@@ -116,7 +119,7 @@ export const getTopicPosts = (topic) => {
 };
 
 // Set single post
-export const setSinglePost = (post, comments) => {
+export const setSinglePost = (post) => {
   return {
     type: actionTypes.SET_SINGLE_POST,
     post,
@@ -127,7 +130,6 @@ export const setSinglePost = (post, comments) => {
 export const getSinglePost = (post_id) => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    dispatch(setSinglePost({}));
 
     // Get user id if logged in
     const token = localStorage.getItem("token");
@@ -247,6 +249,7 @@ export const getSearchPosts = (query) => {
   return (dispatch) => {
     dispatch(setLoading(true));
     dispatch(loadPosts([]));
+    const q = query;
 
     // Get user id if logged in
     const token = localStorage.getItem("token");
@@ -264,7 +267,7 @@ export const getSearchPosts = (query) => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts));
+        dispatch(loadPosts(data.posts, "SEARCH: " + q));
 
         dispatch(setLoading(false));
       })
@@ -298,7 +301,7 @@ export const getUserPosts = (username) => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts));
+        dispatch(loadPosts(data.posts, "USERNAME: " + username));
 
         dispatch(setLoading(false));
       })
