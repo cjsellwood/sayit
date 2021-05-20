@@ -186,22 +186,6 @@ section {
   color: var(--hover-text);
 }
 
-.post-text {
-  color: var(--dull-text);
-  padding: 8px;
-  margin: 16px 0;
-  font-size: 1.1rem;
-  line-height: 1.2rem;
-  border: 1px solid var(--dull-text);
-  border: 1px solid gray;
-  border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
-  white-space: pre-wrap;
-}
-
 .basic-button {
   background-color: var(--button-color);
   color: var(--main-text);

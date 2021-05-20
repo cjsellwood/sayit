@@ -20,6 +20,7 @@ import FlashError from "./components/helpers/FlashError";
 import FlashSuccess from "./components/helpers/FlashSuccess";
 import FlashLoading from "./components/helpers/FlashLoading";
 import UserPosts from "./components/UserPosts";
+import NewLinkPost from "./components/NewLinkPost";
 
 const App = (props) => {
   // Check if user has a valid token in local storage
@@ -52,6 +53,9 @@ const App = (props) => {
             </Route>
             <Route path="/newpost">
               <NewPost />
+            </Route>
+            <Route path="/newlinkpost">
+              <NewLinkPost />
             </Route>
             <Route path="/newtopic">
               <NewTopic />

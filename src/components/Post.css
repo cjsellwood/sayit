@@ -1,3 +1,56 @@
+.post-text {
+  color: var(--dull-text);
+  padding: 8px;
+  margin: 16px 0;
+  font-size: 1.1rem;
+  line-height: 1.2rem;
+  border: 1px solid var(--dull-text);
+  border: 1px solid gray;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  white-space: pre-wrap;
+  width: 98vw;
+  margin-left: -55px;
+  margin-top: 30px;
+}
+
+.post-text iframe {
+  width: 100%;
+  height: 360px;
+}
+
+@media screen and (min-width: 800px) {
+  .post-text {
+    width: auto;
+    margin: 16px 0;
+  }
+
+  .post-text iframe {
+    height: 480px;
+  }
+}
+
+.post-text a {
+  color: var(--dull-blue)
+}
+
+.post-text a:hover {
+  color: var(--hover-text);
+}
+
+
+.post-text img {
+  width: auto;
+  max-width: 100%;
+  max-height: 480px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
 .comments-section > h2 {
   color: var(--main-text);
   font-size: 1.4rem;

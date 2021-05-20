@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import * as actions from "../store/actions/index";
-import "./NewPost.css";
 
-const NewPost = (props) => {
+const NewLinkPost = (props) => {
   let history = useHistory();
 
   const [postForm, setPostForm] = useState({
@@ -35,12 +34,13 @@ const NewPost = (props) => {
   // Handle Submission of form
   const handleSubmit = (e) => {
     e.preventDefault();
+    postForm.text = "<<<Link>>>" + postForm.text;
     props.onNewPost(postForm, history);
   };
 
   return (
     <section>
-      <h1 className="page-title">New Post</h1>
+      <h1 className="page-title">New Link Post</h1>
       <form className="auth-form new-post-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title*</label>
@@ -53,13 +53,14 @@ const NewPost = (props) => {
           />
         </div>
         <div>
-          <label htmlFor="text">Text</label>
-          <textarea
+          <label htmlFor="text">Link* (page, image or youtube)</label>
+          <input
             type="text"
             name="text"
             value={postForm.text}
             onChange={handleInput}
-          ></textarea>
+            required
+          />
         </div>
         <div>
           <label htmlFor="topic">Topic*</label>
@@ -89,4 +90,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
+export default connect(mapStateToProps, mapDispatchToProps)(NewLinkPost);

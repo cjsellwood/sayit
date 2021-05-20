@@ -21,7 +21,6 @@ const Post = (props) => {
     }
 
     // If topic in url wrong redirect to correct page
-    console.log(props.post.topic, topic);
     if (
       props.post.post_id &&
       props.post.post_id === Number(post_id) &&
@@ -66,6 +65,61 @@ const Post = (props) => {
 
   // If post set and the post ids' match, display post
   if (props.post.post_id && Number(props.post.post_id) === Number(post_id)) {
+    let postContentDisplay = null;
+    const imgPattern = /.(jpg|jpeg|png|gif|gifv|webp)$/;
+    console.log();
+
+    // Change displayed post content if has a link in it
+    if (props.post.text.includes("<<<Link>>>")) {
+      const link = props.post.text.replace("<<<Link>>>", "");
+      console.log(imgPattern.test(link));
+
+      // Parse for embedded iframe if youtube link
+      if (link.includes("youtube.com") || link.includes("youtu.be")) {
+        const idPattern = /[A-Za-z0-9]{11}/;
+        const id = link.match(idPattern);
+
+        const timePattern = /(t=\d+)|(start=\d+)/;
+        const time = link.match(timePattern);
+        let start = "";
+        if (time) {
+          start = time[0].split("=")[1];
+        }
+        // Update if valid video
+        if (id) {
+          const src = `https://www.youtube.com/embed/${id[0]}?start=${start}`;
+          // Set iframe
+          postContentDisplay = (
+            <iframe
+              src={src}
+              title={props.post.title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          );
+        }
+      } else if (imgPattern.test(link)) {
+        // Show img if ends with image extension
+        postContentDisplay = (
+          <img
+            src={props.post.text.replace("<<<Link>>>", "")}
+            alt={props.post.title}
+          />
+        );
+        // Else just show link
+      } else {
+        postContentDisplay = (
+          <a href={props.post.text.replace("<<<Link>>>", "")}>
+            {props.post.text.replace("<<<Link>>>", "")}
+          </a>
+        );
+      }
+    } else {
+      postContentDisplay = <p>{props.post.text}</p>;
+    }
+
+    // Display of whole post
     postDisplay = (
       <div className="single-post">
         <div className="post-votes">
@@ -120,9 +174,7 @@ const Post = (props) => {
               </div>
             </form>
           ) : (
-            <div className="post-text">
-              <p>{props.post.text}</p>
-            </div>
+            <div className="post-text">{postContentDisplay}</div>
           )}
           <AuthCreator creator_id={props.post.user_id}>
             <div className="comment-buttons">
