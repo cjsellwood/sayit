@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/sayit/static/css/main.d23fc0b2.chunk.css",
-    "main.js": "/sayit/static/js/main.15a64f7d.chunk.js",
-    "main.js.map": "/sayit/static/js/main.15a64f7d.chunk.js.map",
+    "main.css": "/sayit/static/css/main.ee3a0738.chunk.css",
+    "main.js": "/sayit/static/js/main.f249e12c.chunk.js",
+    "main.js.map": "/sayit/static/js/main.f249e12c.chunk.js.map",
     "runtime-main.js": "/sayit/static/js/runtime-main.5cba5b77.js",
     "runtime-main.js.map": "/sayit/static/js/runtime-main.5cba5b77.js.map",
-    "static/js/2.6027c505.chunk.js": "/sayit/static/js/2.6027c505.chunk.js",
-    "static/js/2.6027c505.chunk.js.map": "/sayit/static/js/2.6027c505.chunk.js.map",
+    "static/js/2.980712a4.chunk.js": "/sayit/static/js/2.980712a4.chunk.js",
+    "static/js/2.980712a4.chunk.js.map": "/sayit/static/js/2.980712a4.chunk.js.map",
     "index.html": "/sayit/index.html",
-    "static/css/main.d23fc0b2.chunk.css.map": "/sayit/static/css/main.d23fc0b2.chunk.css.map",
-    "static/js/2.6027c505.chunk.js.LICENSE.txt": "/sayit/static/js/2.6027c505.chunk.js.LICENSE.txt"
+    "static/css/main.ee3a0738.chunk.css.map": "/sayit/static/css/main.ee3a0738.chunk.css.map",
+    "static/js/2.980712a4.chunk.js.LICENSE.txt": "/sayit/static/js/2.980712a4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5cba5b77.js",
-    "static/js/2.6027c505.chunk.js",
-    "static/css/main.d23fc0b2.chunk.css",
-    "static/js/main.15a64f7d.chunk.js"
+    "static/js/2.980712a4.chunk.js",
+    "static/css/main.ee3a0738.chunk.css",
+    "static/js/main.f249e12c.chunk.js"
   ]
 }
