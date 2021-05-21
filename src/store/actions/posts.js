@@ -361,6 +361,7 @@ export const postVote = (vote, post_id, single_post) => {
   };
 };
 
+// Change posts display order
 export const changeOrder = (order) => {
   return {
     type: actionTypes.CHANGE_ORDER,
@@ -368,9 +369,18 @@ export const changeOrder = (order) => {
   };
 };
 
+// Change posts time filter
 export const changeFilter = (filter) => {
   return {
     type: actionTypes.CHANGE_FILTER,
     filter,
+  };
+};
+
+// Sort posts in state
+export const sortPosts = (order) => {
+  return {
+    type: actionTypes.SORT_POSTS,
+    order,
   };
 };

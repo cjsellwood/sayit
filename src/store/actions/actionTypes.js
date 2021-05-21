@@ -11,6 +11,7 @@ export const SET_POST_VOTE = "SET_POST_VOTE";
 export const SET_SINGLE_POST_VOTE = "SET_SINGLE_POST_VOTE";
 export const CHANGE_ORDER = "CHANGE_ORDER";
 export const CHANGE_FILTER = "CHANGE_FILTER";
+export const SORT_POSTS = "SORT_POSTS";
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export const TOGGLE_REPLY_FORM = "TOGGLE_REPLY_FORM";

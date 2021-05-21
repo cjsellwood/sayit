@@ -8,15 +8,25 @@ import PostsOptions from "./helpers/PostsOptions";
 
 const Home = (props) => {
   const [loaded, setLoaded] = useState(false);
+  // Load posts again with the different order or filter
   useEffect(() => {
-    // Load posts again with the different order or filter
-    console.log(loaded);
-    if (loaded) {
-      console.log("fetch on order/filter change");
+    // Return posts from server if not loaded all posts
+    if (loaded && props.posts.length % 25 === 0) {
       props.onGetPosts(props.order, props.filter);
+      // Otherwise sort posts in state
+    } else if (loaded && props.posts.length % 25 !== 0) {
+      props.onSortPosts(props.order);
     }
     // eslint-disable-next-line
-  }, [props.order, props.filter]);
+  }, [props.order]);
+
+  useEffect(() => {
+    // Fetch if filter changes
+    if (loaded) {
+      props.onGetPosts(props.order, props.filter);
+    } 
+    // eslint-disable-next-line
+  }, [props.filter]);
 
   useEffect(() => {
     // Fetch posts on first load or if from a different set of posts
@@ -96,6 +106,9 @@ const mapDispatchToProps = (dispatch) => {
     onSetSidebar: (isHome, name, description) => {
       dispatch(actions.setSidebar(isHome, name, description));
     },
+    onSortPosts: (order) => {
+      dispatch(actions.sortPosts(order));
+    }
   };
 };
 

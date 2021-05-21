@@ -21,6 +21,7 @@ export {
   postVote,
   changeOrder,
   changeFilter,
+  sortPosts,
 } from "./posts";
 
 export {

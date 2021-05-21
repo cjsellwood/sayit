@@ -5,7 +5,7 @@ const initialState = {
   post: {},
   history: [],
   order: "most",
-  filter: "day",   // test, reset to all
+  filter: "all",
 };
 
 const loadPosts = (state, action) => {
@@ -123,6 +123,41 @@ const changeFilter = (state, action) => {
   };
 };
 
+const sortPosts = (state, action) => {
+  let posts = [...state.posts];
+
+  // Order posts based upon chosen value
+  switch (action.order) {
+    case "most":
+      posts = posts.sort((a, b) => {
+        return b.votes - a.votes;
+      });
+      break;
+    case "least":
+      posts = posts.sort((a, b) => {
+        return a.votes - b.votes;
+      });
+      break;
+    case "newest":
+      posts = posts.sort((a, b) => {
+        return new Date(b.time) < new Date(a.time) ? -1 : 1;
+      });
+      break;
+    case "oldest":
+      posts = posts.sort((a, b) => {
+        return new Date(b.time) > new Date(a.time) ? -1 : 1;
+      });
+      break;
+    default:
+      break;
+  }
+
+  return {
+    ...state,
+    posts: posts,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
@@ -141,6 +176,8 @@ const reducer = (state = initialState, action) => {
       return changeOrder(state, action);
     case actionTypes.CHANGE_FILTER:
       return changeFilter(state, action);
+    case actionTypes.SORT_POSTS:
+      return sortPosts(state, action);
     default:
       return state;
   }
