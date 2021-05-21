@@ -30,17 +30,19 @@
 
   .post-text iframe {
     height: 480px;
+    max-width: 960px;
+    margin: 0 auto;
+    display: block;
   }
 }
 
 .post-text a {
-  color: var(--dull-blue)
+  color: var(--dull-blue);
 }
 
 .post-text a:hover {
   color: var(--hover-text);
 }
-
 
 .post-text img {
   width: auto;
@@ -127,7 +129,6 @@
 .comment-buttons > button:hover {
   color: var(--dull-blue);
 }
-
 
 .edit-post-form {
   display: flex;

@@ -19,6 +19,8 @@ export {
   getSearchPosts,
   getUserPosts,
   postVote,
+  changeOrder,
+  changeFilter,
 } from "./posts";
 
 export {

@@ -4,13 +4,15 @@ const initialState = {
   posts: [],
   post: {},
   history: [],
+  order: "most",
+  filter: "day",   // test, reset to all
 };
 
 const loadPosts = (state, action) => {
   return {
     ...state,
     posts: action.posts,
-    history: [...state.history, action.page]
+    history: [...state.history, action.page],
   };
 };
 
@@ -107,6 +109,20 @@ const setSinglePostVote = (state, action) => {
   };
 };
 
+const changeOrder = (state, action) => {
+  return {
+    ...state,
+    order: action.order,
+  };
+};
+
+const changeFilter = (state, action) => {
+  return {
+    ...state,
+    filter: action.filter,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
@@ -121,6 +137,10 @@ const reducer = (state = initialState, action) => {
       return setPostVote(state, action);
     case actionTypes.SET_SINGLE_POST_VOTE:
       return setSinglePostVote(state, action);
+    case actionTypes.CHANGE_ORDER:
+      return changeOrder(state, action);
+    case actionTypes.CHANGE_FILTER:
+      return changeFilter(state, action);
     default:
       return state;
   }

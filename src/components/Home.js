@@ -1,19 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 import dateSince from "./functions/dateSince";
 import Votes from "./helpers/Votes";
+import PostsOptions from "./helpers/PostsOptions";
 
 const Home = (props) => {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    // Load posts again with the different order or filter
+    console.log(loaded);
+    if (loaded) {
+      console.log("fetch on order/filter change");
+      props.onGetPosts(props.order, props.filter);
+    }
+    // eslint-disable-next-line
+  }, [props.order, props.filter]);
+
   useEffect(() => {
     // Fetch posts on first load or if from a different set of posts
     if (
       !props.history.length ||
       props.history[props.history.length - 1] !== "home"
     ) {
-      props.onGetPosts();
+      console.log("fetch on page change");
+      props.onGetPosts(props.order, props.filter);
     }
+    setLoaded(true);
 
     // Set sidebar to home content
     props.onSetSidebar(true, "", "");
@@ -56,7 +70,10 @@ const Home = (props) => {
   return (
     <section className="Home">
       {props.history[props.history.length - 1] === "home" ? (
-        <ul className="posts-list">{postsDisplay}</ul>
+        <React.Fragment>
+          <PostsOptions />
+          <ul className="posts-list">{postsDisplay}</ul>
+        </React.Fragment>
       ) : null}
     </section>
   );
@@ -67,12 +84,14 @@ const mapStateToProps = (state) => ({
   user_id: state.auth.user_id,
   loading: state.flash.loading,
   history: state.posts.history,
+  order: state.posts.order,
+  filter: state.posts.filter,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetPosts: () => {
-      dispatch(actions.getPosts());
+    onGetPosts: (order, filter) => {
+      dispatch(actions.getPosts(order, filter));
     },
     onSetSidebar: (isHome, name, description) => {
       dispatch(actions.setSidebar(isHome, name, description));

@@ -51,17 +51,17 @@ export const loadPosts = (posts, page) => {
 };
 
 // Get posts
-export const getPosts = () => {
+export const getPosts = (order, filter) => {
   return (dispatch) => {
     dispatch(setLoading(true));
     dispatch(loadPosts([]));
 
     // Get user id if logged in
     const token = localStorage.getItem("token");
-    let query = "";
+    let query = `?order=${order}&filter=${filter}`;
     if (token) {
       const user_id = jwt_decode(token).sub;
-      query = `?user_id=${user_id}`;
+      query += `&user_id=${user_id}`;
     }
 
     fetch(`${base}/posts${query}`)
@@ -358,5 +358,19 @@ export const postVote = (vote, post_id, single_post) => {
       .catch((error) => {
         dispatch(setError(error.message));
       });
+  };
+};
+
+export const changeOrder = (order) => {
+  return {
+    type: actionTypes.CHANGE_ORDER,
+    order,
+  };
+};
+
+export const changeFilter = (filter) => {
+  return {
+    type: actionTypes.CHANGE_FILTER,
+    filter,
   };
 };
