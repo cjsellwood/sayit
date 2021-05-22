@@ -14,6 +14,7 @@ const loadPosts = (state, action) => {
     ...state,
     posts: action.posts,
     history: [...state.history, action.pageName],
+    page: 1,
   };
 };
 

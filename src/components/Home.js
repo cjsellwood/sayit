@@ -10,12 +10,12 @@ const Home = (props) => {
   const [loaded, setLoaded] = useState(false);
   // Load posts again with the different order or filter
   useEffect(() => {
-    // Return posts from server if not loaded all posts
-    if (loaded && props.posts.length % 25 === 0 && props.page !== "allLoaded") {
-      props.onGetPosts(props.order, props.filter);
-      // Otherwise sort posts in state
-    } else if (loaded) {
+    if (loaded && (props.posts.length < 25 || props.page === "allLoaded")) {
+      // Sort posts in state if all posts loaded
       props.onSortPosts(props.order);
+    } else if (loaded) {
+      // Return posts from server if not loaded all posts
+      props.onGetPosts(props.order, props.filter);
     }
     // eslint-disable-next-line
   }, [props.order]);
