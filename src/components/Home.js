@@ -11,10 +11,10 @@ const Home = (props) => {
   // Load posts again with the different order or filter
   useEffect(() => {
     // Return posts from server if not loaded all posts
-    if (loaded && props.posts.length % 25 === 0) {
+    if (loaded && props.posts.length % 25 === 0 && props.page !== "allLoaded") {
       props.onGetPosts(props.order, props.filter);
       // Otherwise sort posts in state
-    } else if (loaded && props.posts.length % 25 !== 0) {
+    } else if (loaded) {
       props.onSortPosts(props.order);
     }
     // eslint-disable-next-line
@@ -24,7 +24,8 @@ const Home = (props) => {
     // Fetch if filter changes
     if (loaded) {
       props.onGetPosts(props.order, props.filter);
-    } 
+      // window.scrollTo(0,0);
+    }
     // eslint-disable-next-line
   }, [props.filter]);
 
@@ -77,13 +78,29 @@ const Home = (props) => {
     );
   });
 
+  const testLoad = (e) => {
+    console.log(e);
+  };
+
   return (
     <section className="Home">
       {props.history[props.history.length - 1] === "home" ? (
         <React.Fragment>
           <PostsOptions />
-          <ul className="posts-list">{postsDisplay}</ul>
+          <ul className="posts-list" onScroll={testLoad}>
+            {postsDisplay}
+          </ul>
         </React.Fragment>
+      ) : null}
+      {props.page !== "allLoaded" ? (
+        <div
+          className="load-more"
+          onClick={() =>
+            props.onGetPosts(props.order, props.filter, props.page)
+          }
+        >
+          <button className="basic-button">More Posts</button>
+        </div>
       ) : null}
     </section>
   );
@@ -96,19 +113,20 @@ const mapStateToProps = (state) => ({
   history: state.posts.history,
   order: state.posts.order,
   filter: state.posts.filter,
+  page: state.posts.page,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetPosts: (order, filter) => {
-      dispatch(actions.getPosts(order, filter));
+    onGetPosts: (order, filter, page) => {
+      dispatch(actions.getPosts(order, filter, page));
     },
     onSetSidebar: (isHome, name, description) => {
       dispatch(actions.setSidebar(isHome, name, description));
     },
     onSortPosts: (order) => {
       dispatch(actions.sortPosts(order));
-    }
+    },
   };
 };
 

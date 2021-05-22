@@ -220,6 +220,19 @@ section {
   text-align: center;
 }
 
+.load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 36px;
+}
+
+.load-more button {
+  color: white;
+  font-size: 1.4rem;
+  padding: 8px 40px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 15px;

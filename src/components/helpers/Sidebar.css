@@ -31,7 +31,7 @@
 
 @media screen and (min-width: 800px) {
   .sidebar {
-    position: relative;
+    position: static;
     margin-top: 20px;
     width: 100%;
     visibility: visible;

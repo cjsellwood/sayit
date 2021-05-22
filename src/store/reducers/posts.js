@@ -6,15 +6,34 @@ const initialState = {
   history: [],
   order: "most",
   filter: "all",
+  page: 1,
 };
 
 const loadPosts = (state, action) => {
   return {
     ...state,
     posts: action.posts,
-    history: [...state.history, action.page],
+    history: [...state.history, action.pageName],
   };
 };
+
+const loadMorePosts = (state, action) => {
+  let page = state.page;
+
+  // Reset page if no more posts after current fetch
+  if (action.posts.length !== 25) {
+    page = "allLoaded";
+  } else {
+    page += 1;
+  }
+
+  return {
+    ...state,
+    posts: [...state.posts, ...action.posts],
+    history: [...state.history, action.pageName],
+    page,
+  }
+}
 
 const setSinglePost = (state, action) => {
   return {
@@ -162,6 +181,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_POSTS:
       return loadPosts(state, action);
+    case actionTypes.LOAD_MORE_POSTS:
+      return loadMorePosts(state, action);
     case actionTypes.SET_SINGLE_POST:
       return setSinglePost(state, action);
     case actionTypes.TOGGLE_EDIT_POST:

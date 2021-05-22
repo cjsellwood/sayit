@@ -42,23 +42,40 @@ export const newPost = (postForm, history) => {
 };
 
 // Load posts
-export const loadPosts = (posts, page) => {
+export const loadPosts = (posts, pageName) => {
   return {
     type: actionTypes.LOAD_POSTS,
     posts,
-    page,
+    pageName,
+  };
+};
+
+export const loadMorePosts = (posts, pageName) => {
+  return {
+    type: actionTypes.LOAD_MORE_POSTS,
+    posts,
+    pageName,
   };
 };
 
 // Get posts
-export const getPosts = (order, filter) => {
+export const getPosts = (order, filter, page) => {
   return (dispatch) => {
+    if (page === "allLoaded") {
+      return;
+    }
+
     dispatch(setLoading(true));
-    dispatch(loadPosts([]));
+
+    if (typeof page === undefined) {
+      dispatch(loadPosts([]));
+    }
 
     // Get user id if logged in
     const token = localStorage.getItem("token");
-    let query = `?order=${order}&filter=${filter}`;
+    let query = `?order=${order}&filter=${filter}&offset=${
+      !page ? 0 : page * 25
+    }`;
     if (token) {
       const user_id = jwt_decode(token).sub;
       query += `&user_id=${user_id}`;
@@ -73,7 +90,11 @@ export const getPosts = (order, filter) => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts, "home"));
+        if (!page) {
+          dispatch(loadPosts(data.posts, "home"));
+        } else {
+          dispatch(loadMorePosts(data.posts, "home"));
+        }
 
         dispatch(setLoading(false));
       })
