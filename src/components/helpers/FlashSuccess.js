@@ -27,7 +27,7 @@ const FlashSuccess = (props) => {
 
   if (props.success !== "") {
     successDisplay = (
-      <div className="Flash success" onClick={() => props.onSetSuccess("")}>
+      <div className="Flash success">
         <h1>{props.success}</h1>
       </div>
     );

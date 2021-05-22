@@ -14,7 +14,7 @@ export const resetHistory = () => {
 export const newPost = (postForm, history) => {
   return (dispatch) => {
     dispatch(setLoading(true));
-    
+
     const token = localStorage.getItem("token");
     postForm.topic = postForm.topic.split(" ").join("").toLowerCase();
 
@@ -28,7 +28,6 @@ export const newPost = (postForm, history) => {
     })
       .then((response) => response.json())
       .then((data) => {
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -110,7 +109,10 @@ export const getPosts = (order, filter, page) => {
       .catch((error) => {
         if (error.message === "No posts found") {
           dispatch(loadPosts([], "home"));
+        } else if (error.message === "No more posts found") {
+          dispatch(loadMorePosts([], "home"));
         }
+
         dispatch(setError(error.message));
         dispatch(setLoading(false));
       });
@@ -160,6 +162,8 @@ export const getTopicPosts = (topic, order, filter, page) => {
       .catch((error) => {
         if (error.message === "No posts found") {
           dispatch(loadPosts([], "TOPIC: " + topic));
+        } else if (error.message === "No more posts found") {
+          dispatch(loadMorePosts([], "TOPIC: " + topic));
         }
         dispatch(setError(error.message));
         dispatch(setLoading(false));
@@ -335,6 +339,8 @@ export const getSearchPosts = (query, order, filter, page) => {
       .catch((error) => {
         if (error.message === "No posts found") {
           dispatch(loadPosts([], "SEARCH: " + q));
+        } else if (error.message === "No more posts found") {
+          dispatch(loadMorePosts([], "SEARCH: " + q));
         }
         dispatch(setError(error.message));
         dispatch(setLoading(false));
@@ -385,6 +391,8 @@ export const getUserPosts = (username, order, filter, page) => {
       .catch((error) => {
         if (error.message === "No posts found") {
           dispatch(loadPosts([], "USERNAME: " + username));
+        } else if (error.message === "No more posts found") {
+          dispatch(loadMorePosts([]), "USERNAME: " + username);
         }
         dispatch(setError(error.message));
         dispatch(setLoading(false));

@@ -28,7 +28,7 @@ const FlashError = (props) => {
 
   if (props.error !== "") {
     errorDisplay = (
-      <div className="Flash error" onClick={() => props.onSetError("")}>
+      <div className="Flash error">
         <h1>{props.error}</h1>
       </div>
     );
