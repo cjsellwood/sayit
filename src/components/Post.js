@@ -18,6 +18,7 @@ const Post = (props) => {
     // Fetch only if post undefined or wrong post
     if (!props.post.post_id || props.post.post_id !== Number(post_id)) {
       props.onGetSinglePost(post_id, topic, history);
+      window.scrollTo(0, 0)
     }
 
     // If topic in url wrong redirect to correct page
@@ -51,10 +52,6 @@ const Post = (props) => {
     // eslint-disable-next-line
   }, [post_id, props.post.topic, props.topics]);
 
-  useEffect(() => {
-    // eslint-disable-next-line
-  }, [post_id]);
-
   // Submit post after editing
   const submitPostEdit = (e) => {
     e.preventDefault();
@@ -67,12 +64,10 @@ const Post = (props) => {
   if (props.post.post_id && Number(props.post.post_id) === Number(post_id)) {
     let postContentDisplay = null;
     const imgPattern = /.(jpg|jpeg|png|gif|gifv|webp)$/;
-    console.log();
 
     // Change displayed post content if has a link in it
     if (props.post.text.includes("<<<Link>>>")) {
       const link = props.post.text.replace("<<<Link>>>", "");
-      console.log(imgPattern.test(link));
 
       // Parse for embedded iframe if youtube link
       if (link.includes("youtube.com") || link.includes("youtu.be")) {

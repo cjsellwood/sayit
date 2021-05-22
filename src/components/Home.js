@@ -25,7 +25,6 @@ const Home = (props) => {
     // Fetch if filter changes
     if (loaded) {
       props.onGetPosts(props.order, props.filter);
-      // window.scrollTo(0,0);
     }
     // eslint-disable-next-line
   }, [props.filter]);
@@ -34,6 +33,8 @@ const Home = (props) => {
     // Fetch posts on first load or if from a different set of posts
     if (props.history !== "home") {
       props.onGetPosts(props.order, props.filter);
+      console.log("fetching")
+      // window.scrollTo(0,0);
     }
     setLoaded(true);
 

@@ -21,9 +21,10 @@
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
-  width: 8.8rem;
+  width: 9rem;
   text-align: center;
   text-align-last: center;
+  cursor: pointer;
 }
 
 .posts-options-form select:focus {

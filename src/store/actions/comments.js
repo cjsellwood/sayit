@@ -26,8 +26,6 @@ export const newComment = (commentForm, post_id) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -85,8 +83,6 @@ export const commentReply = (text, post_id, parent) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -143,8 +139,6 @@ export const deleteComment = (comment_id) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);

@@ -14,9 +14,10 @@ export const resetHistory = () => {
 export const newPost = (postForm, history) => {
   return (dispatch) => {
     dispatch(setLoading(true));
+    
     const token = localStorage.getItem("token");
     postForm.topic = postForm.topic.split(" ").join("").toLowerCase();
-    console.log(postForm);
+
     fetch(`${base}/posts/new`, {
       method: "POST",
       body: JSON.stringify(postForm),
@@ -27,7 +28,6 @@ export const newPost = (postForm, history) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
 
         // If error on backend throw to catch block
         if (data.error) {

@@ -12,6 +12,8 @@ const Topics = (props) => {
     // Set sidebar to home content
     props.onSetSidebar(true, "", "");
 
+    window.scrollTo(0, 0);
+
     // eslint-disable-next-line
   }, []);
 

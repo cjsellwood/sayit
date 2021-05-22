@@ -22,8 +22,6 @@ export const newTopic = (topicForm, history) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
@@ -62,8 +60,6 @@ export const getTopics = () => {
     fetch(`${base}/posts/topics`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         // If error on backend throw to catch block
         if (data.error) {
           throw new Error(data.error);
