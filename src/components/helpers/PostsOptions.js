@@ -8,7 +8,7 @@ const PostsOptions = (props) => {
     <div>
       <form className="posts-options-form">
         <div>
-          <label htmlFor="order-select">Order</label>
+          <label htmlFor="order-select"></label>
           <select
             id="order-select"
             value={props.order}
@@ -21,7 +21,7 @@ const PostsOptions = (props) => {
           </select>
         </div>
         <div>
-          <label htmlFor="filter-select">From</label>
+          <label htmlFor="filter-select"></label>
           <select
             id="filter-select"
             value={props.filter}

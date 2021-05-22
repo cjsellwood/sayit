@@ -61,7 +61,10 @@ const Sidebar = (props) => {
             New Post
           </Link>
           <Link
-            to={{ pathname: "/newlinkpost", state: { topic: props.sidebar.name } }}
+            to={{
+              pathname: "/newlinkpost",
+              state: { topic: props.sidebar.name },
+            }}
           >
             New Link Post
           </Link>
@@ -107,7 +110,9 @@ const Sidebar = (props) => {
         </AuthShow>
       </ul>
       <div className="sidebar-topic">
-        <Link to={`/topics/${props.sidebar.name}`}>{props.sidebar.name}</Link>
+        {props.sidebar.name !== "" ? (
+          <Link to={`/topics/${props.sidebar.name}`}>{props.sidebar.name}</Link>
+        ) : null}
         <p>{props.sidebar.description}</p>
       </div>
     </aside>

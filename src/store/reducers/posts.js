@@ -3,17 +3,25 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   posts: [],
   post: {},
-  history: [],
+  history: null,
   order: "most",
   filter: "all",
   page: 1,
+};
+
+const resetHistory = (state, action) => {
+  return {
+    ...state,
+    history: null,
+  };
 };
 
 const loadPosts = (state, action) => {
   return {
     ...state,
     posts: action.posts,
-    history: [...state.history, action.pageName],
+    // history: [...state.history, action.pageName],
+    history: action.pageName,
     page: 1,
   };
 };
@@ -31,10 +39,11 @@ const loadMorePosts = (state, action) => {
   return {
     ...state,
     posts: [...state.posts, ...action.posts],
-    history: [...state.history, action.pageName],
+    // history: [...state.history, action.pageName],
+    history: action.pageName,
     page,
-  }
-}
+  };
+};
 
 const setSinglePost = (state, action) => {
   return {
@@ -180,6 +189,8 @@ const sortPosts = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.RESET_HISTORY:
+      return resetHistory(state, action);
     case actionTypes.LOAD_POSTS:
       return loadPosts(state, action);
     case actionTypes.LOAD_MORE_POSTS:

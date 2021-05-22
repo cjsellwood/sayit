@@ -3,14 +3,40 @@
   font-size: 1rem;
   justify-content: center;
   color: var(--main-text);
+  padding: 12px;
 }
 
 .posts-options-form label {
   padding: 8px;
 }
 
+.posts-options-form div {
+  margin: 0 12px;
+}
 
-.posts-options-form option, .posts-options-form select {
+.posts-options-form select {
   font-size: 1rem;
-  padding: 8px;
+  padding: 8px 20px;
+  background-color: rgb(61, 61, 61);
+  color: var(--main-text);
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.posts-options-form select:focus {
+  outline: none;
+}
+
+.posts-options-form option {
+  line-height: 2rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }

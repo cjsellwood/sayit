@@ -11,10 +11,7 @@ const TopicPosts = (props) => {
 
   // Get posts on first run or if topic changes
   useEffect(() => {
-    if (
-      !props.history.length ||
-      props.history[props.history.length - 1] !== "TOPIC: " + topic
-    ) {
+    if (props.history !== "TOPIC: " + topic) {
       props.onGetTopicPosts(topic);
     }
     // eslint-disable-next-line
@@ -78,7 +75,7 @@ const TopicPosts = (props) => {
 
   return (
     <section>
-      {props.history[props.history.length - 1] === "TOPIC: " + topic ? (
+      {props.history === "TOPIC: " + topic ? (
         <h1 className="page-title">{topic}</h1>
       ) : null}
       <ul className="posts-list">{postsDisplay}</ul>

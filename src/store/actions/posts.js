@@ -4,6 +4,12 @@ import { setSinglePostComments } from "./comments";
 import { setError, setSuccess, setLoading } from "./flash";
 import jwt_decode from "jwt-decode";
 
+export const resetHistory = () => {
+  return {
+    type: actionTypes.RESET_HISTORY
+  }
+}
+
 // Submit new post
 export const newPost = (postForm, history) => {
   return (dispatch) => {
@@ -27,6 +33,9 @@ export const newPost = (postForm, history) => {
         if (data.error) {
           throw new Error(data.error);
         }
+
+        // Ensure that post will be included on posts reload
+        dispatch(resetHistory());
 
         // Redirect
         history.push(`/topics/${postForm.topic}/${data.post_id}`);

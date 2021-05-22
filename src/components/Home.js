@@ -31,10 +31,11 @@ const Home = (props) => {
 
   useEffect(() => {
     // Fetch posts on first load or if from a different set of posts
-    if (
-      !props.history.length ||
-      props.history[props.history.length - 1] !== "home"
-    ) {
+    // if (
+    //   !props.history.length ||
+    //   props.history[props.history.length - 1] !== "home"
+    // ) {
+      if (props.history !== "home") {
       console.log("fetch on page change");
       props.onGetPosts(props.order, props.filter);
     }
@@ -84,7 +85,7 @@ const Home = (props) => {
 
   return (
     <section className="Home">
-      {props.history[props.history.length - 1] === "home" ? (
+      {props.history === "home" ? (
         <React.Fragment>
           <PostsOptions />
           <ul className="posts-list" onScroll={testLoad}>
@@ -99,7 +100,9 @@ const Home = (props) => {
             props.onGetPosts(props.order, props.filter, props.page)
           }
         >
-          <button className="basic-button">More Posts</button>
+          <button className="basic-button" aria-label="load more posts">
+            More Posts
+          </button>
         </div>
       ) : null}
     </section>
