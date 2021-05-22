@@ -1,19 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
 import dateSince from "./functions/dateSince";
 import Votes from "./helpers/Votes";
+import PostsOptions from "./helpers/PostsOptions";
 
 const TopicPosts = (props) => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (loaded && (props.posts.length < 25 || props.page === "allLoaded")) {
+      // Sort posts in state if all posts loaded
+      props.onSortPosts(props.order);
+    } else if (loaded) {
+      // Return posts from server if not loaded all posts
+      props.onGetTopicPosts(topic, props.order, props.filter);
+    }
+    // eslint-disable-next-line
+  }, [props.order]);
+
+  useEffect(() => {
+    // Fetch if filter changes
+    if (loaded) {
+      props.onGetTopicPosts(topic, props.order, props.filter);
+      // window.scrollTo(0,0);
+    }
+    // eslint-disable-next-line
+  }, [props.filter]);
+
   let { topic } = useParams();
   topic = topic.toLowerCase();
 
   // Get posts on first run or if topic changes
   useEffect(() => {
     if (props.history !== "TOPIC: " + topic) {
-      props.onGetTopicPosts(topic);
+      props.onGetTopicPosts(topic, props.order, props.filter);
     }
+    setLoaded(true);
+
     // eslint-disable-next-line
   }, [topic]);
 
@@ -76,9 +101,24 @@ const TopicPosts = (props) => {
   return (
     <section>
       {props.history === "TOPIC: " + topic ? (
-        <h1 className="page-title">{topic}</h1>
+        <React.Fragment>
+          <h1 className="page-title">{topic}</h1>
+          <PostsOptions/>
+          <ul className="posts-list">{postsDisplay}</ul>
+        </React.Fragment>
       ) : null}
-      <ul className="posts-list">{postsDisplay}</ul>
+      {props.page !== "allLoaded" && props.posts.length >= 25 ? (
+        <div
+          className="load-more"
+          onClick={() =>
+            props.onGetTopicPosts(topic, props.order, props.filter, props.page)
+          }
+        >
+          <button className="basic-button" aria-label="load more posts">
+            More Posts
+          </button>
+        </div>
+      ) : null}
     </section>
   );
 };
@@ -90,19 +130,25 @@ const mapStateToProps = (state) => {
     error: state.flash.error,
     loading: state.flash.loading,
     history: state.posts.history,
+    order: state.posts.order,
+    filter: state.posts.filter,
+    page: state.posts.page,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetTopicPosts: (topic) => {
-      dispatch(actions.getTopicPosts(topic));
+    onGetTopicPosts: (topic, order, filter, page) => {
+      dispatch(actions.getTopicPosts(topic, order, filter, page));
     },
     onAddTopic: (topic) => {
       dispatch(actions.addTopic(topic));
     },
     onSetSidebar: (isHome, name, description) => {
       dispatch(actions.setSidebar(isHome, name, description));
+    },
+    onSortPosts: (order) => {
+      dispatch(actions.sortPosts(order));
     },
   };
 };

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 import dateSince from "./functions/dateSince";
 import Votes from "./helpers/Votes";
+import PostsOptions from "./helpers/PostsOptions";
 
 const SearchPosts = (props) => {
   const location = useLocation();
@@ -11,14 +12,35 @@ const SearchPosts = (props) => {
   const params = new URLSearchParams(location.search);
   const query = params.get("q");
 
+  const [loaded, setLoaded] = useState(false);
+
+  // Load posts again with the different order or filter
+  useEffect(() => {
+    if (loaded && (props.posts.length < 25 || props.page === "allLoaded")) {
+      // Sort posts in state if all posts loaded
+      props.onSortPosts(props.order);
+    } else if (loaded) {
+      // Return posts from server if not loaded all posts
+      props.onGetSearchPosts(query, props.order, props.filter);
+    }
+    // eslint-disable-next-line
+  }, [props.order]);
+
+  useEffect(() => {
+    // Fetch if filter changes
+    if (loaded) {
+      props.onGetSearchPosts(query, props.order, props.filter);
+      // window.scrollTo(0,0);
+    }
+    // eslint-disable-next-line
+  }, [props.filter]);
+
   useEffect(() => {
     // Fetch posts on first load or if search changes
-    if (
-      !props.history.length ||
-      props.history[props.history.length - 1] !== "SEARCH: " + query
-    ) {
-      props.onGetSearchPosts(query);
+    if (props.history !== "SEARCH: " + query) {
+      props.onGetSearchPosts(query, props.order, props.filter);
     }
+    setLoaded(true);
 
     // Set sidebar to home content
     props.onSetSidebar(true, "", "");
@@ -58,11 +80,26 @@ const SearchPosts = (props) => {
   });
 
   return (
-    <section className="Home">
-      {props.history[props.history.length - 1] === "SEARCH: " + query ? (
-        <h1 className="page-title">Search: {query}</h1>
+    <section>
+      {props.history === "SEARCH: " + query ? (
+        <React.Fragment>
+          <h1 className="page-title">Search: {query}</h1>
+          <PostsOptions />
+          <ul className="posts-list">{postsDisplay}</ul>
+        </React.Fragment>
       ) : null}
-      <ul className="posts-list">{postsDisplay}</ul>
+      {props.page !== "allLoaded" && props.posts.length >= 25 ? (
+        <div
+          className="load-more"
+          onClick={() =>
+            props.onGetSearchPosts(query, props.order, props.filter, props.page)
+          }
+        >
+          <button className="basic-button" aria-label="load more posts">
+            More Posts
+          </button>
+        </div>
+      ) : null}
     </section>
   );
 };
@@ -70,15 +107,21 @@ const SearchPosts = (props) => {
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
   history: state.posts.history,
+  order: state.posts.order,
+  filter: state.posts.filter,
+  page: state.posts.page,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetSearchPosts: (query) => {
-      dispatch(actions.getSearchPosts(query));
+    onGetSearchPosts: (query, order, filter, page) => {
+      dispatch(actions.getSearchPosts(query, order, filter, page));
     },
     onSetSidebar: (isHome, name, description) => {
       dispatch(actions.setSidebar(isHome, name, description));
+    },
+    onSortPosts: (order) => {
+      dispatch(actions.sortPosts(order));
     },
   };
 };

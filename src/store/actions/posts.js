@@ -6,9 +6,9 @@ import jwt_decode from "jwt-decode";
 
 export const resetHistory = () => {
   return {
-    type: actionTypes.RESET_HISTORY
-  }
-}
+    type: actionTypes.RESET_HISTORY,
+  };
+};
 
 // Submit new post
 export const newPost = (postForm, history) => {
@@ -76,7 +76,7 @@ export const getPosts = (order, filter, page) => {
 
     dispatch(setLoading(true));
 
-    if (typeof page === undefined) {
+    if (!page) {
       dispatch(loadPosts([]));
     }
 
@@ -108,6 +108,9 @@ export const getPosts = (order, filter, page) => {
         dispatch(setLoading(false));
       })
       .catch((error) => {
+        if (error.message === "No posts found") {
+          dispatch(loadPosts([], "home"));
+        }
         dispatch(setError(error.message));
         dispatch(setLoading(false));
       });
@@ -115,17 +118,26 @@ export const getPosts = (order, filter, page) => {
 };
 
 // Get posts for a single topic
-export const getTopicPosts = (topic) => {
+export const getTopicPosts = (topic, order, filter, page) => {
   return (dispatch) => {
+    if (page === "allLoaded") {
+      return;
+    }
+
     dispatch(setLoading(true));
-    dispatch(loadPosts([]));
+
+    if (!page) {
+      dispatch(loadPosts([]));
+    }
 
     // Get user id if logged in
     const token = localStorage.getItem("token");
-    let query = "";
+    let query = `?order=${order}&filter=${filter}&offset=${
+      !page ? 0 : page * 25
+    }`;
     if (token) {
       const user_id = jwt_decode(token).sub;
-      query += `?user_id=${user_id}`;
+      query += `&user_id=${user_id}`;
     }
 
     fetch(`${base}/posts/topics/${topic}${query}`)
@@ -137,11 +149,18 @@ export const getTopicPosts = (topic) => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts, topic));
+        if (!page) {
+          dispatch(loadPosts(data.posts, "TOPIC: " + topic));
+        } else {
+          dispatch(loadMorePosts(data.posts, "TOPIC: " + topic));
+        }
 
         dispatch(setLoading(false));
       })
       .catch((error) => {
+        if (error.message === "No posts found") {
+          dispatch(loadPosts([], "TOPIC: " + topic));
+        }
         dispatch(setError(error.message));
         dispatch(setLoading(false));
       });
@@ -275,14 +294,23 @@ export const editPost = (text, post_id) => {
 };
 
 // Get posts from submitted search
-export const getSearchPosts = (query) => {
+export const getSearchPosts = (query, order, filter, page) => {
   return (dispatch) => {
+    if (page === "allLoaded") {
+      return;
+    }
+
     dispatch(setLoading(true));
-    dispatch(loadPosts([]));
+
+    if (!page) {
+      dispatch(loadPosts([]));
+    }
+
     const q = query;
 
     // Get user id if logged in
     const token = localStorage.getItem("token");
+    query += `&order=${order}&filter=${filter}&offset=${!page ? 0 : page * 25}`;
     if (token) {
       const user_id = jwt_decode(token).sub;
       query += `&user_id=${user_id}`;
@@ -297,11 +325,17 @@ export const getSearchPosts = (query) => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts, "SEARCH: " + q));
-
+        if (!page) {
+          dispatch(loadPosts(data.posts, "SEARCH: " + q));
+        } else {
+          dispatch(loadMorePosts(data.posts, "SEARCH: " + q));
+        }
         dispatch(setLoading(false));
       })
       .catch((error) => {
+        if (error.message === "No posts found") {
+          dispatch(loadPosts([], "SEARCH: " + q));
+        }
         dispatch(setError(error.message));
         dispatch(setLoading(false));
       });
@@ -309,17 +343,26 @@ export const getSearchPosts = (query) => {
 };
 
 // Get posts from submitted search
-export const getUserPosts = (username) => {
+export const getUserPosts = (username, order, filter, page) => {
   return (dispatch) => {
+    if (page === "allLoaded") {
+      return;
+    }
+
     dispatch(setLoading(true));
-    dispatch(loadPosts([]));
+
+    if (!page) {
+      dispatch(loadPosts([]));
+    }
 
     // Get user id if logged in
     const token = localStorage.getItem("token");
-    let query = "";
+    let query = `?order=${order}&filter=${filter}&offset=${
+      !page ? 0 : page * 25
+    }`;
     if (token) {
       const user_id = jwt_decode(token).sub;
-      query = `?user_id=${user_id}`;
+      query += `&user_id=${user_id}`;
     }
 
     fetch(`${base}/posts/user/${username}${query}`)
@@ -331,11 +374,18 @@ export const getUserPosts = (username) => {
         }
 
         // Add to state
-        dispatch(loadPosts(data.posts, "USERNAME: " + username));
+        if (!page) {
+          dispatch(loadPosts(data.posts, "USERNAME: " + username));
+        } else {
+          dispatch(loadMorePosts(data.posts, "USERNAME: " + username));
+        }
 
         dispatch(setLoading(false));
       })
       .catch((error) => {
+        if (error.message === "No posts found") {
+          dispatch(loadPosts([], "USERNAME: " + username));
+        }
         dispatch(setError(error.message));
         dispatch(setLoading(false));
       });

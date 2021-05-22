@@ -8,6 +8,7 @@ import PostsOptions from "./helpers/PostsOptions";
 
 const Home = (props) => {
   const [loaded, setLoaded] = useState(false);
+
   // Load posts again with the different order or filter
   useEffect(() => {
     if (loaded && (props.posts.length < 25 || props.page === "allLoaded")) {
@@ -31,12 +32,7 @@ const Home = (props) => {
 
   useEffect(() => {
     // Fetch posts on first load or if from a different set of posts
-    // if (
-    //   !props.history.length ||
-    //   props.history[props.history.length - 1] !== "home"
-    // ) {
-      if (props.history !== "home") {
-      console.log("fetch on page change");
+    if (props.history !== "home") {
       props.onGetPosts(props.order, props.filter);
     }
     setLoaded(true);
@@ -79,18 +75,12 @@ const Home = (props) => {
     );
   });
 
-  const testLoad = (e) => {
-    console.log(e);
-  };
-
   return (
     <section className="Home">
       {props.history === "home" ? (
         <React.Fragment>
           <PostsOptions />
-          <ul className="posts-list" onScroll={testLoad}>
-            {postsDisplay}
-          </ul>
+          <ul className="posts-list">{postsDisplay}</ul>
         </React.Fragment>
       ) : null}
       {props.page !== "allLoaded" && props.posts.length >= 25 ? (
@@ -111,7 +101,6 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
-  user_id: state.auth.user_id,
   loading: state.flash.loading,
   history: state.posts.history,
   order: state.posts.order,

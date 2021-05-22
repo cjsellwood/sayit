@@ -20,7 +20,6 @@ const loadPosts = (state, action) => {
   return {
     ...state,
     posts: action.posts,
-    // history: [...state.history, action.pageName],
     history: action.pageName,
     page: 1,
   };
@@ -39,7 +38,6 @@ const loadMorePosts = (state, action) => {
   return {
     ...state,
     posts: [...state.posts, ...action.posts],
-    // history: [...state.history, action.pageName],
     history: action.pageName,
     page,
   };
