@@ -5,11 +5,6 @@
   color: var(--main-text);
   padding: 12px;
 }
-
-.posts-options-form label {
-  padding: 8px;
-}
-
 .posts-options-form div {
   margin: 0 12px;
 }
@@ -26,17 +21,11 @@
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
+  width: 8.8rem;
+  text-align: center;
+  text-align-last: center;
 }
 
 .posts-options-form select:focus {
   outline: none;
-}
-
-.posts-options-form option {
-  line-height: 2rem;
-  border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
 }

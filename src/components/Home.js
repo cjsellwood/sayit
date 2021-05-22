@@ -93,7 +93,7 @@ const Home = (props) => {
           </ul>
         </React.Fragment>
       ) : null}
-      {props.page !== "allLoaded" ? (
+      {props.page !== "allLoaded" && props.posts.length >= 25 ? (
         <div
           className="load-more"
           onClick={() =>
