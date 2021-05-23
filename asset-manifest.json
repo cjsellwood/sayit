@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/sayit/static/css/main.0edbb08a.chunk.css",
+    "main.css": "/sayit/static/css/main.58ea80c6.chunk.css",
     "main.js": "/sayit/static/js/main.2c8dd64d.chunk.js",
     "main.js.map": "/sayit/static/js/main.2c8dd64d.chunk.js.map",
     "runtime-main.js": "/sayit/static/js/runtime-main.5cba5b77.js",
@@ -8,13 +8,13 @@
     "static/js/2.e50460eb.chunk.js": "/sayit/static/js/2.e50460eb.chunk.js",
     "static/js/2.e50460eb.chunk.js.map": "/sayit/static/js/2.e50460eb.chunk.js.map",
     "index.html": "/sayit/index.html",
-    "static/css/main.0edbb08a.chunk.css.map": "/sayit/static/css/main.0edbb08a.chunk.css.map",
+    "static/css/main.58ea80c6.chunk.css.map": "/sayit/static/css/main.58ea80c6.chunk.css.map",
     "static/js/2.e50460eb.chunk.js.LICENSE.txt": "/sayit/static/js/2.e50460eb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5cba5b77.js",
     "static/js/2.e50460eb.chunk.js",
-    "static/css/main.0edbb08a.chunk.css",
+    "static/css/main.58ea80c6.chunk.css",
     "static/js/main.2c8dd64d.chunk.js"
   ]
 }
