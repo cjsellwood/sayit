@@ -103,7 +103,13 @@ section {
 .post-number {
   color: var(--dull-text);
   padding: 4px;
-  margin-right: 10px;
+  margin-right: 8px;
+  text-align: center;
+}
+
+.post-number > p {
+  width: 1.5rem;
+  display: block;
 }
 
 .post-votes {
